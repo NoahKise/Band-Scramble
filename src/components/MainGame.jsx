@@ -1,8 +1,8 @@
-import { Data } from './Data';
+import { Data } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
-import './App.css';
+import '../App.css';
 
-function App() {
+const MainGame = () => {
     const [artist, setArtist] = useState("");
     const [revealed, setRevealed] = useState(false);
     const [mixedString, setMixedString] = useState("");
@@ -17,7 +17,7 @@ function App() {
         setRevealed(false);
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
-        setTimeLeft(30);
+        setTimeLeft(newArtist.length * 3);
         document.getElementById("guess").value = "";
     }, []);
 
@@ -100,6 +100,8 @@ function App() {
 
     return (
         <div className="App">
+            <img src='https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg' alt='nirvana' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
+            <br></br>
             <input
                 type='text'
                 id='guess'
@@ -127,4 +129,4 @@ function App() {
     );
 }
 
-export default App;
+export default MainGame;
