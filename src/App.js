@@ -17,7 +17,7 @@ function App() {
         setRevealed(false);
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
-        setTimeLeft(20);
+        setTimeLeft(30);
         document.getElementById("guess").value = "";
     }, []);
 
@@ -27,19 +27,16 @@ function App() {
 
     useEffect(() => {
         const timerInterval = setInterval(() => {
-            setTimeLeft(prevTime => prevTime - 1); // Decrease time by 1 second every second
+            setTimeLeft(prevTime => prevTime - 1);
         }, 1000);
 
-        // Check if time runs out or artist is revealed
         if (timeLeft === 0) {
             revealArtist();
             setResetClicked(true);
-            clearInterval(timerInterval); // Clear the interval
+            clearInterval(timerInterval);
         } else if (revealed) {
-            clearInterval(timerInterval); // Clear the interval when the artist is revealed
+            clearInterval(timerInterval);
         }
-
-        // Cleanup function to clear the interval when the component unmounts or when time runs out
         return () => clearInterval(timerInterval);
     }, [revealed, timeLeft]);
 
@@ -91,7 +88,9 @@ function App() {
         let trimmedGuess = formattedGuess.trim();
         if (trimmedGuess === artist) {
             console.log("correct");
-            setScore(score + mixedString.length);
+            if (revealed === false) {
+                setScore(score + (mixedString.length + timeLeft) * 10);
+            }
             setRevealed(true);
             setResetClicked(true);
         } else {
@@ -101,7 +100,20 @@ function App() {
 
     return (
         <div className="App">
-            <input type='text' id='guess' onKeyDown={(e) => { if (e.key === 'Enter') makeGuess(); }}></input>
+            <input
+                type='text'
+                id='guess'
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' && revealed === true) {
+                        revealOrReset();
+                    } else if (e.key === 'Enter' && e.shiftKey) {
+                        scramble();
+                    } else if (e.key === 'Enter') {
+                        makeGuess();
+                    }
+                }}
+            >
+            </input>
             <button id='guessButton' onClick={makeGuess}>Check Answer</button>
             <p>Seconds Remaining: {timeLeft}</p>
             <h1>{GameBoard(artist)}</h1>
