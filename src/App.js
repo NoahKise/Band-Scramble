@@ -103,6 +103,7 @@ function App() {
             <input
                 type='text'
                 id='guess'
+                autoComplete='off'
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' && revealed === true) {
                         revealOrReset();
