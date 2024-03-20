@@ -6,20 +6,42 @@ function App() {
     const [artist, setArtist] = useState("");
     const [revealed, setRevealed] = useState(false);
     const [mixedString, setMixedString] = useState("");
-    const [resetClicked, setResetClicked] = useState(false); // State to track if reset button is clicked
+    const [resetClicked, setResetClicked] = useState(false);
+    const [score, setScore] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(20);
 
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
         const newArtist = Data[index];
         setArtist(newArtist);
         setRevealed(false);
-        setMixedString(ScrambledString(newArtist)); // Update mixedString with the scrambled string of the new artist
+        setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
+        setTimeLeft(20);
+        document.getElementById("guess").value = "";
     }, []);
 
     useEffect(() => {
         RandomArtist();
     }, [RandomArtist]);
+
+    useEffect(() => {
+        const timerInterval = setInterval(() => {
+            setTimeLeft(prevTime => prevTime - 1); // Decrease time by 1 second every second
+        }, 1000);
+
+        // Check if time runs out or artist is revealed
+        if (timeLeft === 0) {
+            revealArtist();
+            setResetClicked(true);
+            clearInterval(timerInterval); // Clear the interval
+        } else if (revealed) {
+            clearInterval(timerInterval); // Clear the interval when the artist is revealed
+        }
+
+        // Cleanup function to clear the interval when the component unmounts or when time runs out
+        return () => clearInterval(timerInterval);
+    }, [revealed, timeLeft]);
 
     const GameBoard = (string) => {
         let outputArray = [];
@@ -58,17 +80,36 @@ function App() {
         } else {
             revealArtist();
         }
-        setResetClicked(!resetClicked); // Toggle the resetClicked state
+        setResetClicked(!resetClicked);
     }
 
-    const buttonLabel = revealed ? "Reset" : "Reveal";
+    const buttonLabel = revealed ? "Next Level" : "Reveal";
+
+    const makeGuess = () => {
+        let guess = document.getElementById("guess").value;
+        let formattedGuess = guess.toUpperCase();
+        let trimmedGuess = formattedGuess.trim();
+        if (trimmedGuess === artist) {
+            console.log("correct");
+            setScore(score + mixedString.length);
+            setRevealed(true);
+            setResetClicked(true);
+        } else {
+            console.log("try again");
+        };
+    };
 
     return (
         <div className="App">
+            <input type='text' id='guess' onKeyDown={(e) => { if (e.key === 'Enter') makeGuess(); }}></input>
+            <button id='guessButton' onClick={makeGuess}>Check Answer</button>
+            <p>Seconds Remaining: {timeLeft}</p>
             <h1>{GameBoard(artist)}</h1>
             <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1>
             <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
             <button id='rescramble' onClick={scramble}>Scramble</button>
+            <h3>Score: {score}</h3>
+
         </div>
     );
 }
