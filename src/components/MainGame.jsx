@@ -1,5 +1,7 @@
 import { Data } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
+import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { auth, db } from '../firebase';
 import '../App.css';
 
 const MainGame = () => {
@@ -9,6 +11,49 @@ const MainGame = () => {
     const [resetClicked, setResetClicked] = useState(false);
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(20);
+    const [userId, setUserId] = useState('');
+
+    useEffect(() => {
+        const checkCurrentUser = async () => {
+            try {
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        setUserId(user.uid || '');
+                        console.log(user.uid);
+                    }
+                });
+            } catch (error) {
+                console.log("error fetching current user")
+            }
+        };
+
+        checkCurrentUser();
+    }, []);
+
+    useEffect(() => {
+        const fetchScore = async () => {
+            if (userId) {
+                const scoreDoc = await getDoc(doc(db, "score", userId));
+                if (scoreDoc.exists()) {
+                    const userData = scoreDoc.data();
+                    setScore(userData.score);
+                    console.log("score found")
+                } else {
+                    console.log("score not found")
+                }
+            }
+        };
+        fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const updateScore = async () => {
+            if (userId) {
+                await setDoc(doc(db, "score", userId), { score });
+            }
+        };
+        updateScore();
+    }, [score]);
 
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);

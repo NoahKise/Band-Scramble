@@ -4,6 +4,7 @@ import Account from "./Account";
 import Shop from "./Shop";
 import Home from "./Home";
 import { Navbar } from "./Navbar";
+import { Header } from "./Header";
 import "../App.css"
 
 
@@ -11,6 +12,7 @@ function App() {
     return (
         <>
             <Router>
+                <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/mainGame" element={<MainGame />} />
