@@ -1,6 +1,6 @@
 import { Data } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
-import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
 import '../App.css';
 
@@ -12,6 +12,7 @@ const MainGame = () => {
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(20);
     const [userId, setUserId] = useState('');
+    const [gameStarted, setGameStarted] = useState(false);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -19,7 +20,6 @@ const MainGame = () => {
                 auth.onAuthStateChanged((user) => {
                     if (user) {
                         setUserId(user.uid || '');
-                        console.log(user.uid);
                     }
                 });
             } catch (error) {
@@ -37,7 +37,6 @@ const MainGame = () => {
                 if (scoreDoc.exists()) {
                     const userData = scoreDoc.data();
                     setScore(userData.score);
-                    console.log("score found")
                 } else {
                     console.log("score not found")
                 }
@@ -63,7 +62,7 @@ const MainGame = () => {
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
         setTimeLeft(newArtist.length * 3);
-        document.getElementById("guess").value = "";
+        // document.getElementById("guess").value = "";
     }, []);
 
     useEffect(() => {
@@ -118,6 +117,7 @@ const MainGame = () => {
 
     const revealOrReset = () => {
         if (resetClicked) {
+            document.getElementById("guess").value = "";
             RandomArtist();
         } else {
             revealArtist();
@@ -132,44 +132,51 @@ const MainGame = () => {
         let formattedGuess = guess.toUpperCase();
         let trimmedGuess = formattedGuess.trim();
         if (trimmedGuess === artist) {
-            console.log("correct");
             if (revealed === false) {
                 setScore(score + (mixedString.length + timeLeft) * 10);
             }
             setRevealed(true);
             setResetClicked(true);
-        } else {
-            console.log("try again");
-        };
+        }
+    };
+
+    const startGame = () => {
+        setGameStarted(true);
     };
 
     return (
         <div className="App">
-            <img src='https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg' alt='nirvana' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
-            <br></br>
-            <input
-                type='text'
-                id='guess'
-                autoComplete='off'
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter' && revealed === true) {
-                        revealOrReset();
-                    } else if (e.key === 'Enter' && e.shiftKey) {
-                        scramble();
-                    } else if (e.key === 'Enter') {
-                        makeGuess();
-                    }
-                }}
-            >
-            </input>
-            <button id='guessButton' onClick={makeGuess}>Check Answer</button>
-            <p>Seconds Remaining: {timeLeft}</p>
-            <h1>{GameBoard(artist)}</h1>
-            <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1>
-            <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
-            <button id='rescramble' onClick={scramble}>Scramble</button>
-            <h3>Score: {score}</h3>
-
+            {!gameStarted && (
+                <button onClick={startGame}>Start Game</button>
+            )}
+            {gameStarted && (
+                <>
+                    <img src='https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg' alt='nirvana' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
+                    <br></br>
+                    <input
+                        type='text'
+                        id='guess'
+                        autoComplete='off'
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && revealed === true) {
+                                revealOrReset();
+                            } else if (e.key === 'Enter' && e.shiftKey) {
+                                scramble();
+                            } else if (e.key === 'Enter') {
+                                makeGuess();
+                            }
+                        }}
+                    >
+                    </input>
+                    <button id='guessButton' onClick={makeGuess}>Check Answer</button>
+                    <p>Seconds Remaining: {timeLeft}</p>
+                    <h1>{GameBoard(artist)}</h1>
+                    <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1>
+                    <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
+                    <button id='rescramble' onClick={scramble}>Scramble</button>
+                    <h3>Score: {score}</h3>
+                </>
+            )}
         </div>
     );
 }

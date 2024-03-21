@@ -58,7 +58,7 @@ export default function Home() {
             }
             navigate('/MainGame');
         } catch (error) {
-            // setSignUpSuccess(`There was an error signing up: ${error.message}!`);
+            console.log("error signing up")
         }
     };
 
@@ -71,7 +71,7 @@ export default function Home() {
             signInWithEmailAndPassword(auth, email, password);
             navigate('/MainGame');
         } catch (error) {
-            // setSignInSuccess(`There was an error signing in: ${error.message}!`);
+            console.log("error signing in")
         }
     };
 
