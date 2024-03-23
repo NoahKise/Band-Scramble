@@ -161,6 +161,8 @@ const MainGame = () => {
         }
     };
 
+    const blurAmount = timeLeft > 10 ? 10 : timeLeft;
+
     return (
         <div className="App">
             {!gameStarted && (
@@ -168,7 +170,9 @@ const MainGame = () => {
             )}
             {gameStarted && (
                 <>
-                    <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
+                    <div id='gameImageDiv'>
+                        <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
+                    </div>
                     <br></br>
                     <input
                         type='text'
