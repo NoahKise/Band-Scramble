@@ -156,7 +156,6 @@ export const Data = [
     "PANTERA",
     "BROKEN SOCIAL SCENE",
     "SUEDE",
-    "BURZUM",
     "EELS",
     "QUEENSRYCHE",
     "THE MAGNETIC FIELDS",

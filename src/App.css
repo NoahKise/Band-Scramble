@@ -45,7 +45,9 @@ body {
 #gameImage {
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 260px;
+  max-width: 260px;
+  max-height: 260px;
+  overflow: hidden;
 }
 
 #navbar {

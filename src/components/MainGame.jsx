@@ -13,6 +13,7 @@ const MainGame = () => {
     const [timeLeft, setTimeLeft] = useState(20);
     const [userId, setUserId] = useState('');
     const [gameStarted, setGameStarted] = useState(false);
+    const [imageURL, setImageUrl] = useState('');
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -57,6 +58,7 @@ const MainGame = () => {
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
         const newArtist = Data[index];
+        Discogs(newArtist);
         setArtist(newArtist);
         setRevealed(false);
         setMixedString(ScrambledString(newArtist));
@@ -144,6 +146,21 @@ const MainGame = () => {
         setGameStarted(true);
     };
 
+    const Discogs = async (bandName) => {
+        try {
+            const response = await fetch(`https://api.discogs.com/database/search?q=${bandName}&type=artist&key=bftHJbsZWhaQDOurHzfZ&secret=bHndDwKStHlMhuQcLSHqrWbaePvoZQPm`);
+            if (!response.ok) {
+                throw new Error(`${response.status}: ${response.statusText}`);
+            }
+            const jsonifiedresponse = await response.json();
+            console.log(jsonifiedresponse);
+            let url = jsonifiedresponse.results[0].cover_image;
+            setImageUrl(url);
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    };
+
     return (
         <div className="App">
             {!gameStarted && (
@@ -151,7 +168,7 @@ const MainGame = () => {
             )}
             {gameStarted && (
                 <>
-                    <img src='https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg' alt='nirvana' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
+                    <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : "blur(15px)" }} id='gameImage' />
                     <br></br>
                     <input
                         type='text'
