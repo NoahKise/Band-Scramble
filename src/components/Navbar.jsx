@@ -24,7 +24,7 @@ export const Navbar = () => {
                 navigate('/mainGame');
                 break;
             case 2:
-                navigate('/shop');
+                navigate('/statistics');
                 break;
             case 3:
                 navigate('/account');
