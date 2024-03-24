@@ -163,9 +163,7 @@ const MainGame = () => {
 
     const Discogs = async (bandName) => {
         const key = process.env.REACT_APP_KEY;
-        console.log(key)
         const secret = process.env.REACT_APP_SECRET;
-        console.log(secret)
         try {
             const response = await fetch(`https://api.discogs.com/database/search?q=${bandName}&type=artist&key=${key}&secret=${secret}`);
             if (!response.ok) {
