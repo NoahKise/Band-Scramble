@@ -1,6 +1,6 @@
 import { Data } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
 import '../App.css';
 
@@ -14,6 +14,7 @@ const MainGame = () => {
     const [userId, setUserId] = useState('');
     const [gameStarted, setGameStarted] = useState(false);
     const [imageURL, setImageUrl] = useState('');
+    const [guessedArtists, setGuessedArtists] = useState([]);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -44,6 +45,21 @@ const MainGame = () => {
             }
         };
         fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchHistory = async () => {
+            if (userId) {
+                const historyDoc = await getDoc(doc(db, "guessedArtists", userId));
+                if (historyDoc.exists()) {
+                    const userData = historyDoc.data();
+                    setGuessedArtists(userData.artists);
+                } else {
+                    console.log("score not found")
+                }
+            }
+        };
+        fetchHistory();
     }, [userId]);
 
     useEffect(() => {
@@ -110,6 +126,8 @@ const MainGame = () => {
     }
 
     const revealArtist = () => {
+        setScore(score - mixedString.length * 10);
+        updateGuessedArtists(false);
         setRevealed(true);
     }
 
@@ -139,6 +157,7 @@ const MainGame = () => {
             }
             setRevealed(true);
             setResetClicked(true);
+            updateGuessedArtists(true);
         }
     };
 
@@ -158,6 +177,22 @@ const MainGame = () => {
             setImageUrl(url);
         } catch (error) {
             throw new Error(error.message);
+        }
+    };
+
+    const updateGuessedArtists = async (boolean) => {
+        if (userId) {
+            const userDocRef = doc(db, "guessedArtists", userId);
+            const userDoc = await getDoc(userDocRef);
+            let updatedArtists = [...guessedArtists, { artist, correct: boolean }]; // Add the current artist and correctness to the list of guessed artists
+            if (userDoc.exists()) {
+                // If the document already exists, update the guessed artists list
+                await updateDoc(userDocRef, { artists: updatedArtists });
+            } else {
+                // If the document doesn't exist, create a new one
+                await setDoc(userDocRef, { artists: updatedArtists });
+            }
+            setGuessedArtists(updatedArtists); // Update the local state with the new list of guessed artists
         }
     };
 
