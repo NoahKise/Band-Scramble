@@ -184,7 +184,16 @@ const MainGame = () => {
         if (userId) {
             const userDocRef = doc(db, "guessedArtists", userId);
             const userDoc = await getDoc(userDocRef);
-            let updatedArtists = [...guessedArtists, { artist, correct: boolean }]; // Add the current artist and correctness to the list of guessed artists
+            let flux = 0;
+            if (boolean === true) {
+                console.log("mixed string length", mixedString.length);
+                console.log("timeLeft:", timeLeft);
+                flux += (mixedString.length + timeLeft) * 10;
+                console.log(flux);
+            } else {
+                flux -= mixedString.length * 10;
+            }
+            let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux }]; // Add the current artist and correctness to the list of guessed artists
             if (userDoc.exists()) {
                 // If the document already exists, update the guessed artists list
                 await updateDoc(userDocRef, { artists: updatedArtists });
