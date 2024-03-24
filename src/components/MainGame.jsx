@@ -80,7 +80,6 @@ const MainGame = () => {
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
         setTimeLeft(newArtist.length * 3);
-        // document.getElementById("guess").value = "";
     }, []);
 
     useEffect(() => {
@@ -172,7 +171,6 @@ const MainGame = () => {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
-            console.log(jsonifiedresponse);
             let url = jsonifiedresponse.results[0].cover_image;
             setImageUrl(url);
         } catch (error) {
@@ -186,10 +184,7 @@ const MainGame = () => {
             const userDoc = await getDoc(userDocRef);
             let flux = 0;
             if (boolean === true) {
-                console.log("mixed string length", mixedString.length);
-                console.log("timeLeft:", timeLeft);
                 flux += (mixedString.length + timeLeft) * 10;
-                console.log(flux);
             } else {
                 flux -= mixedString.length * 10;
             }
