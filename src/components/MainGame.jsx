@@ -176,7 +176,7 @@ const MainGame = () => {
     };
 
     const updateGuessedArtists = async (boolean) => {
-        if (userId) {
+        if (userId && artist !== "") {
             const userDocRef = doc(db, "guessedArtists", userId);
             const userDoc = await getDoc(userDocRef);
             let flux = 0;
