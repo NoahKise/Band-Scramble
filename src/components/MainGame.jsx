@@ -193,15 +193,13 @@ const MainGame = () => {
             } else {
                 flux -= mixedString.length * 10;
             }
-            let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux }]; // Add the current artist and correctness to the list of guessed artists
+            let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux, totalScore: score + flux }];
             if (userDoc.exists()) {
-                // If the document already exists, update the guessed artists list
                 await updateDoc(userDocRef, { artists: updatedArtists });
             } else {
-                // If the document doesn't exist, create a new one
                 await setDoc(userDocRef, { artists: updatedArtists });
             }
-            setGuessedArtists(updatedArtists); // Update the local state with the new list of guessed artists
+            setGuessedArtists(updatedArtists);
         }
     };
 
