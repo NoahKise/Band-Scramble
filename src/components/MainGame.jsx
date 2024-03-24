@@ -83,10 +83,6 @@ const MainGame = () => {
     }, []);
 
     useEffect(() => {
-        RandomArtist();
-    }, [RandomArtist]);
-
-    useEffect(() => {
         const timerInterval = setInterval(() => {
             setTimeLeft(prevTime => prevTime - 1);
         }, 1000);
@@ -161,6 +157,7 @@ const MainGame = () => {
     };
 
     const startGame = () => {
+        RandomArtist();
         setGameStarted(true);
     };
 
@@ -198,7 +195,7 @@ const MainGame = () => {
         }
     };
 
-    const blurAmount = timeLeft > 10 ? 10 : timeLeft;
+    const blurAmount = timeLeft > 20 ? 10 : timeLeft / 2;
 
     return (
         <div className="App">
