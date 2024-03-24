@@ -188,7 +188,7 @@ const MainGame = () => {
             } else {
                 flux -= mixedString.length * 10;
             }
-            let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux, totalScore: score + flux }];
+            let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux, totalScore: score + flux, timestamp: Date.now() }];
             if (userDoc.exists()) {
                 await updateDoc(userDocRef, { artists: updatedArtists });
             } else {
