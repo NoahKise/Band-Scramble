@@ -44,7 +44,9 @@ const MainGame = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [imageURL, setImageUrl] = useState('');
     const [guessedArtists, setGuessedArtists] = useState([]);
-    const [letterArray, setLetterArray] = useState([]);
+
+    const [originalLetters, setOriginalLetters] = useState([]);
+    const [newLetters, setNewLetters] = useState([]);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -115,15 +117,15 @@ const MainGame = () => {
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
         const newArtist = Data[index];
-        const artistArray = newArtist.split('')
-        console.log(artistArray);
-        setLetterArray(artistArray);
+        const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
         setArtist(newArtist);
         setRevealed(false);
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
         setTimeLeft(newArtist.length * 3);
+        setOriginalLetters(artistArray.filter(char => char !== ' '));
+        setNewLetters([]);
     }, []);
 
     useEffect(() => {
@@ -171,7 +173,8 @@ const MainGame = () => {
     }
 
     const scramble = () => {
-        setMixedString(ScrambledString(artist));
+        setMixedString(ScrambledString(originalLetters.join('')));
+        setOriginalLetters(ScrambledString(originalLetters.join('')).split(''))
     }
 
     const revealOrReset = () => {
@@ -187,7 +190,8 @@ const MainGame = () => {
     const buttonLabel = revealed ? "Next Level" : "Reveal";
 
     const makeGuess = () => {
-        let guess = document.getElementById("guess").value;
+        const field = document.getElementById("guess");
+        let guess = field.value;
         let formattedGuess = guess.toUpperCase();
         let trimmedGuess = formattedGuess.trim();
         if (trimmedGuess === artist) {
@@ -197,6 +201,10 @@ const MainGame = () => {
             setRevealed(true);
             setResetClicked(true);
             updateGuessedArtists(true);
+        } else {
+            setOriginalLetters(artist.split('').filter(char => char !== ' '));
+            setNewLetters([]);
+            field.value = '';
         }
     };
 
@@ -273,6 +281,33 @@ const MainGame = () => {
         ' ': SPACE
     };
 
+    const handleKeyPress = (event) => {
+        const key = event.key.toUpperCase();
+        const index = originalLetters.findIndex(letter => letter === key);
+        if (index !== -1) {
+            // If the key is found in the original area, move it to the new area
+            const newOriginalLetters = [...originalLetters];
+            newOriginalLetters.splice(index, 1); // Remove the letter from originalLetters
+            setOriginalLetters(newOriginalLetters);
+            setNewLetters([...newLetters, key]);
+        }
+    };
+
+    useEffect(() => {
+        // Add event listener for key press
+        document.addEventListener('keypress', handleKeyPress);
+        // Clean up event listener on component unmount
+        return () => {
+            document.removeEventListener('keypress', handleKeyPress);
+        };
+    }, [originalLetters, newLetters]);
+
+    const renderTiles = (areaLetters) => {
+        return areaLetters.map((letter, index) => (
+            <img className='tile' key={index} src={letterImages[letter]} alt={letter} />
+        ));
+    };
+
     return (
         <div className="App">
             {!gameStarted && (
@@ -303,15 +338,20 @@ const MainGame = () => {
                     </input>
                     <button id='guessButton' onClick={makeGuess}>Check Answer</button>
                     <p>Seconds Remaining: {timeLeft}</p>
+                    <div className="new-area">
+                        <div className="letter-tiles">
+                            {renderTiles(newLetters)}
+                        </div>
+                    </div>
                     <h1>{GameBoard(artist)}</h1>
                     <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1>
                     <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
                     <button id='rescramble' onClick={scramble}>Scramble</button>
                     <h3>Score: {score}</h3>
-                    <div className="letter-images">
-                        {mixedString.split('').map((char, index) => (
-                            <img className='tile' key={index} src={letterImages[char]} alt={char} />
-                        ))}
+                    <div className="original-area">
+                        <div className="letter-tiles">
+                            {renderTiles(originalLetters)}
+                        </div>
                     </div>
                 </>
             )}
