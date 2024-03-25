@@ -202,7 +202,7 @@ const MainGame = () => {
             setResetClicked(true);
             updateGuessedArtists(true);
         } else {
-            setOriginalLetters(artist.split('').filter(char => char !== ' '));
+            setOriginalLetters(ScrambledString(artist).split('').filter(char => char !== ' '));
             setNewLetters([]);
             field.value = '';
         }
@@ -293,6 +293,11 @@ const MainGame = () => {
         }
     };
 
+    const handleClickTile = (letter) => {
+        const event = new KeyboardEvent('keypress', { key: letter });
+        document.dispatchEvent(event);
+    };
+
     useEffect(() => {
         // Add event listener for key press
         document.addEventListener('keypress', handleKeyPress);
@@ -304,7 +309,7 @@ const MainGame = () => {
 
     const renderTiles = (areaLetters) => {
         return areaLetters.map((letter, index) => (
-            <img className='tile' key={index} src={letterImages[letter]} alt={letter} />
+            <img className='tile' key={index} src={letterImages[letter]} alt={letter} onClick={() => handleClickTile(letter)} />
         ));
     };
 
@@ -338,21 +343,25 @@ const MainGame = () => {
                     </input>
                     <button id='guessButton' onClick={makeGuess}>Check Answer</button>
                     <p>Seconds Remaining: {timeLeft}</p>
-                    <div className="new-area">
-                        <div className="letter-tiles">
-                            {renderTiles(newLetters)}
+                    <div id='gameArea'>
+                        <div id='topTwoRows'>
+                            <div className="new-area">
+                                <div className="letter-tiles">
+                                    {renderTiles(newLetters)}
+                                </div>
+                            </div>
+                            <h1 id='gameBoard'>{GameBoard(artist)}</h1>
+                        </div>
+                        {/* <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1> */}
+                        <div className="original-area">
+                            <div className="letter-tiles">
+                                {renderTiles(originalLetters)}
+                            </div>
                         </div>
                     </div>
-                    <h1>{GameBoard(artist)}</h1>
-                    <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1>
                     <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
                     <button id='rescramble' onClick={scramble}>Scramble</button>
                     <h3>Score: {score}</h3>
-                    <div className="original-area">
-                        <div className="letter-tiles">
-                            {renderTiles(originalLetters)}
-                        </div>
-                    </div>
                 </>
             )}
         </div>

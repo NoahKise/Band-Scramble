@@ -79,3 +79,47 @@ body {
 .tile {
   width: 35px;
 }
+
+#gameBoard {
+  height: 40px;
+  font-size: 58.5px;
+  margin-top: -30px;
+  margin-bottom: 0;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#gameArea {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  height: 140px;
+
+}
+
+.new-area {
+  height: 40px;
+  width: fit-content;
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+  margin-left: 0;
+}
+
+.new-area img {
+  float: left;
+}
+
+.original-area {
+  height: 80px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#topTwoRows {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
