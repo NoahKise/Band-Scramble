@@ -2,7 +2,36 @@ import { Data } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
+import A from '../assets/images/A.png'
+import B from '../assets/images/B.png'
+import C from '../assets/images/C.png'
+import D from '../assets/images/D.png'
+import E from '../assets/images/E.png'
+import F from '../assets/images/F.png'
+import G from '../assets/images/G.png'
+import H from '../assets/images/H.png'
+import I from '../assets/images/I.png'
+import J from '../assets/images/J.png'
+import K from '../assets/images/K.png'
+import L from '../assets/images/L.png'
+import M from '../assets/images/M.png'
+import N from '../assets/images/N.png'
+import O from '../assets/images/O.png'
+import P from '../assets/images/P.png'
+import Q from '../assets/images/Q.png'
+import R from '../assets/images/R.png'
+import S from '../assets/images/S.png'
+import T from '../assets/images/T.png'
+import U from '../assets/images/U.png'
+import V from '../assets/images/V.png'
+import W from '../assets/images/W.png'
+import X from '../assets/images/X.png'
+import Y from '../assets/images/Y.png'
+import Z from '../assets/images/Z.png'
+import SPACE from '../assets/images/SPACE.png'
 import '../App.css';
+
+// import Draggable from 'react-draggable';
 
 const MainGame = () => {
     const [artist, setArtist] = useState("");
@@ -15,6 +44,7 @@ const MainGame = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [imageURL, setImageUrl] = useState('');
     const [guessedArtists, setGuessedArtists] = useState([]);
+    const [letterArray, setLetterArray] = useState([]);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -71,9 +101,23 @@ const MainGame = () => {
         updateScore();
     }, [score]);
 
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            const inputElement = document.getElementById('guess');
+            inputElement.focus();
+        };
+        document.addEventListener('keypress', handleKeyPress);
+        return () => {
+            document.removeEventListener('keypress', handleKeyPress);
+        };
+    }, []);
+
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
         const newArtist = Data[index];
+        const artistArray = newArtist.split('')
+        console.log(artistArray);
+        setLetterArray(artistArray);
         Discogs(newArtist);
         setArtist(newArtist);
         setRevealed(false);
@@ -199,6 +243,36 @@ const MainGame = () => {
 
     const blurAmount = timeLeft > 20 ? 10 : timeLeft / 2;
 
+    const letterImages = {
+        'A': A,
+        'B': B,
+        'C': C,
+        'D': D,
+        'E': E,
+        'F': F,
+        'G': G,
+        'H': H,
+        'I': I,
+        'J': J,
+        'K': K,
+        'L': L,
+        'M': M,
+        'N': N,
+        'O': O,
+        'P': P,
+        'Q': Q,
+        'R': R,
+        'S': S,
+        'T': T,
+        'U': U,
+        'V': V,
+        'W': W,
+        'X': X,
+        'Y': Y,
+        'Z': Z,
+        ' ': SPACE
+    };
+
     return (
         <div className="App">
             {!gameStarted && (
@@ -206,9 +280,11 @@ const MainGame = () => {
             )}
             {gameStarted && (
                 <>
+                    {/* <Draggable> */}
                     <div id='gameImageDiv'>
                         <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                     </div>
+                    {/* </Draggable> */}
                     <br></br>
                     <input
                         type='text'
@@ -232,6 +308,11 @@ const MainGame = () => {
                     <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
                     <button id='rescramble' onClick={scramble}>Scramble</button>
                     <h3>Score: {score}</h3>
+                    <div className="letter-images">
+                        {mixedString.split('').map((char, index) => (
+                            <img className='tile' key={index} src={letterImages[char]} alt={char} />
+                        ))}
+                    </div>
                 </>
             )}
         </div>

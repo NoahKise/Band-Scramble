@@ -75,3 +75,7 @@ body {
   top: 0;
   right: 0;
 }
+
+.tile {
+  width: 35px;
+}
