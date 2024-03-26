@@ -102,14 +102,13 @@ body {
   height: 40px;
   width: fit-content;
   max-width: 361px;
-  text-align: start;
   display: flex;
   flex-direction: row;
   margin-left: 0;
 }
 
 .new-area img {
-  float: left;
+  /* float: left; */
   margin-bottom: 25px;
 }
 
