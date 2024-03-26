@@ -292,13 +292,20 @@ const MainGame = () => {
 
     const handleKeyPress = (event) => {
         const key = event.key.toUpperCase();
+        if (key === ' ' && newLetters[newLetters.length - 1] === ' ') {
+            return;
+        }
         if (key === 'DELETE' || key === 'BACKSPACE') {
-            // If backspace or delete is pressed, move the last letter from newLetters to originalLetters
             if (newLetters.length > 0) {
-                const lastLetter = newLetters[newLetters.length - 1];
-                const newNewLetters = [...newLetters.slice(0, -1)]; // Remove the last letter from newLetters
-                setNewLetters(newNewLetters);
-                setOriginalLetters([...originalLetters, lastLetter]); // Add the last letter to originalLetters
+                setNewLetters(prevNewLetters => {
+                    const lastLetter = prevNewLetters[prevNewLetters.length - 1];
+                    if (lastLetter === ' ') {
+                        return prevNewLetters.slice(0, -1);
+                    } else {
+                        setOriginalLetters([...originalLetters, lastLetter]); // Add the last letter to originalLetters
+                        return prevNewLetters.slice(0, -1);
+                    }
+                });
             }
         } else {
             const index = originalLetters.findIndex(letter => letter === key);
@@ -308,13 +315,15 @@ const MainGame = () => {
                 newOriginalLetters.splice(index, 1); // Remove the letter from originalLetters
                 setOriginalLetters(newOriginalLetters);
                 setNewLetters([...newLetters, key]);
-                // if (findSpaceIndices(artist).includes(newLetters.length)) {
-                //     setNewLetters([...newLetters, ' ']);
-                //     console.log("got there", newLetters);
-                // }
             }
         }
     };
+
+    useEffect(() => {
+        if (findSpaceIndices(artist).includes(newLetters.length)) {
+            handleKeyPress({ key: ' ' }); // Simulate a space bar press
+        }
+    }, [newLetters]); // useEffect dependencies
 
 
     const handleClickTile = (letter) => {
@@ -331,10 +340,22 @@ const MainGame = () => {
         };
     }, [originalLetters, newLetters]);
 
-    const renderTiles = (areaLetters) => {
-        return areaLetters.map((letter, index) => (
-            <img className='tile' key={index} src={letterImages[letter]} alt={letter} onClick={() => handleClickTile(letter)} />
-        ));
+    const renderTiles = (areaLetters, areaType) => {
+        return areaLetters.map((letter, index) => {
+            const style = letter === ' ' ?
+                { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
+                : {};
+            return (
+                <img
+                    className='tile'
+                    key={index}
+                    src={letterImages[letter]}
+                    alt={letter}
+                    onClick={() => handleClickTile(letter)}
+                    style={style}
+                />
+            );
+        });
     };
 
     const findSpaceIndices = (artist) => {
@@ -381,7 +402,7 @@ const MainGame = () => {
                         <div id='topTwoRows'>
                             <div className="new-area">
                                 <div className="letter-tiles">
-                                    {renderTiles(newLetters)}
+                                    {renderTiles(newLetters, 'new')}
                                 </div>
                             </div>
                             <h1 id='gameBoard' dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
@@ -389,7 +410,7 @@ const MainGame = () => {
                         {/* <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1> */}
                         <div className="original-area">
                             <div className="letter-tiles">
-                                {renderTiles(originalLetters)}
+                                {renderTiles(originalLetters, 'original')}
                             </div>
                         </div>
                     </div>
