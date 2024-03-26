@@ -117,6 +117,7 @@ const MainGame = () => {
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
         const newArtist = Data[index];
+        console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
         setArtist(newArtist);
@@ -146,15 +147,18 @@ const MainGame = () => {
     const GameBoard = (string) => {
         let outputArray = [];
         const splitString = string.split('');
+        outputArray.push('<nobr>');
         for (let i = 0; i < splitString.length; i++) {
             if (splitString[i] === " ") {
-                outputArray.push(" ");
+                outputArray.push("</nobr> <nobr>");
             } else {
                 outputArray.push("-");
             }
         }
-        return outputArray.join('');
-    }
+        outputArray.push("</nobr>");
+        let outcome = outputArray.join('');
+        return outcome;
+    };
 
     function ScrambledString(string) {
         let stringWithoutSpaces = string.replace(/\s/g, '');
@@ -350,7 +354,7 @@ const MainGame = () => {
                                     {renderTiles(newLetters)}
                                 </div>
                             </div>
-                            <h1 id='gameBoard'>{GameBoard(artist)}</h1>
+                            <h1 id='gameBoard' dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
                         </div>
                         {/* <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1> */}
                         <div className="original-area">
