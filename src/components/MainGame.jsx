@@ -175,6 +175,8 @@ const MainGame = () => {
     const revealArtist = () => {
         setScore(score - mixedString.length * 10);
         updateGuessedArtists(false);
+        setNewLetters(artist.split(''));
+        setOriginalLetters([]);
         setRevealed(true);
     }
 
@@ -324,11 +326,9 @@ const MainGame = () => {
 
     useEffect(() => {
         if (!backspacePressed && findSpaceIndices(artist).includes(newLetters.length)) {
-            handleKeyPress({ key: ' ' }); // Simulate a space bar press
-            console.log('Simulating a space bar press');
+            handleKeyPress({ key: ' ' });
         }
-        console.log("Triggering");
-    }, [newLetters, backspacePressed]); // useEffect dependencies
+    }, [newLetters]);
 
 
     const handleClickTile = (letter) => {
@@ -337,9 +337,7 @@ const MainGame = () => {
     };
 
     useEffect(() => {
-        // Add event listener for key press
         document.addEventListener('keydown', handleKeyPress);
-        // Clean up event listener on component unmount
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
