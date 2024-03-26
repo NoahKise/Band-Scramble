@@ -44,9 +44,9 @@ const MainGame = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [imageURL, setImageUrl] = useState('');
     const [guessedArtists, setGuessedArtists] = useState([]);
-
     const [originalLetters, setOriginalLetters] = useState([]);
     const [newLetters, setNewLetters] = useState([]);
+    const [backspacePressed, setBackspacePressed] = useState(false);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -296,10 +296,12 @@ const MainGame = () => {
             return;
         }
         if (key === 'DELETE' || key === 'BACKSPACE') {
+            setBackspacePressed(true);
             if (newLetters.length > 0) {
                 setNewLetters(prevNewLetters => {
                     const lastLetter = prevNewLetters[prevNewLetters.length - 1];
                     if (lastLetter === ' ') {
+                        setOriginalLetters([...originalLetters, lastLetter]);
                         return prevNewLetters.slice(0, -1);
                     } else {
                         setOriginalLetters([...originalLetters, lastLetter]); // Add the last letter to originalLetters
@@ -316,14 +318,17 @@ const MainGame = () => {
                 setOriginalLetters(newOriginalLetters);
                 setNewLetters([...newLetters, key]);
             }
+            setBackspacePressed(false);
         }
     };
 
     useEffect(() => {
-        if (findSpaceIndices(artist).includes(newLetters.length)) {
+        if (!backspacePressed && findSpaceIndices(artist).includes(newLetters.length)) {
             handleKeyPress({ key: ' ' }); // Simulate a space bar press
+            console.log('Simulating a space bar press');
         }
-    }, [newLetters]); // useEffect dependencies
+        console.log("Triggering");
+    }, [newLetters, backspacePressed]); // useEffect dependencies
 
 
     const handleClickTile = (letter) => {
