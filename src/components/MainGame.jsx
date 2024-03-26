@@ -125,7 +125,8 @@ const MainGame = () => {
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
         setTimeLeft(newArtist.length * 3);
-        setOriginalLetters(artistArray.filter(char => char !== ' '));
+        // setOriginalLetters(artistArray.filter(char => char !== ' '));
+        setOriginalLetters(artistArray);
         setNewLetters([]);
     }, []);
 
@@ -161,8 +162,9 @@ const MainGame = () => {
     };
 
     function ScrambledString(string) {
-        let stringWithoutSpaces = string.replace(/\s/g, '');
-        let characters = stringWithoutSpaces.split('');
+        // let stringWithoutSpaces = string.replace(/\s/g, '');
+        // let characters = stringWithoutSpaces.split('');
+        let characters = string.split('');
         for (let i = characters.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [characters[i], characters[j]] = [characters[j], characters[i]];
@@ -206,7 +208,8 @@ const MainGame = () => {
             setResetClicked(true);
             updateGuessedArtists(true);
         } else {
-            setOriginalLetters(ScrambledString(artist).split('').filter(char => char !== ' '));
+            // setOriginalLetters(ScrambledString(artist).split('').filter(char => char !== ' '));
+            setOriginalLetters(ScrambledString(artist).split(''));
             setNewLetters([]);
             field.value = '';
         }
