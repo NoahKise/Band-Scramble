@@ -361,6 +361,43 @@ const MainGame = () => {
         });
     };
 
+    // const renderTiles = (areaLetters, areaType) => {
+    //     let tiles = [];
+    //     let previousWasSpace = false;
+    //     let counter = 0;
+
+    //     for (let i = 0; i < areaLetters.length; i++) {
+    //         const letter = areaLetters[i];
+    //         const nextSpaceIndex = areaLetters.indexOf(' ', i);
+
+    //         // Check if the area type is 'new' and the current letter is a space 
+    //         // and the previous letter was also a space
+    //         if ((areaType === 'new' && counter === 0) && (previousWasSpace && nextSpaceIndex >= 12 || previousWasSpace && areaLetters.length > 12)) {
+    //             counter++;
+    //             console.log(nextSpaceIndex)
+    //             tiles.splice(nextSpaceIndex, 0, <br key={`br-${nextSpaceIndex}`} />);
+    //             console.log(tiles);
+    //         }
+    //         // Render the tile
+    //         const style = letter === ' ' ?
+    //             { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
+    //             : {};
+    //         tiles.push(
+    //             <img
+    //                 className='tile'
+    //                 key={i}
+    //                 src={letterImages[letter]}
+    //                 alt={letter}
+    //                 onClick={() => handleClickTile(letter)}
+    //                 style={style}
+    //             />
+    //         );
+    //         // Update the previousWasSpace flag
+    //         previousWasSpace = letter === ' ';
+    //     }
+    //     return tiles;
+    // };
+
     const findSpaceIndices = (artist) => {
         const spaceIndices = [];
         for (let i = 0; i < artist.length; i++) {

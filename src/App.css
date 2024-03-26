@@ -89,6 +89,7 @@ body {
   max-width: 361px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 
 #gameArea {
@@ -105,6 +106,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-left: 0;
+  text-align: left;
 }
 
 .new-area img {
