@@ -194,12 +194,14 @@ const MainGame = () => {
     }
 
     const buttonLabel = revealed ? "Next Level" : "Reveal";
+    const guessButtonLabel = newLetters.length === artist.length ? "Check Answer" : "Recall Tiles";
 
     const makeGuess = () => {
         const field = document.getElementById("guess");
-        let guess = field.value;
-        let formattedGuess = guess.toUpperCase();
-        let trimmedGuess = formattedGuess.trim();
+        // let guess = field.value;
+        // let formattedGuess = guess.toUpperCase();
+        // let trimmedGuess = formattedGuess.trim();
+        let trimmedGuess = newLetters.join('').toUpperCase().trim();
         if (trimmedGuess === artist) {
             if (revealed === false) {
                 setScore(score + (mixedString.length + timeLeft) * 10);
@@ -290,27 +292,42 @@ const MainGame = () => {
 
     const handleKeyPress = (event) => {
         const key = event.key.toUpperCase();
-        const index = originalLetters.findIndex(letter => letter === key);
-        if (index !== -1) {
-            // If the key is found in the original area, move it to the new area
-            const newOriginalLetters = [...originalLetters];
-            newOriginalLetters.splice(index, 1); // Remove the letter from originalLetters
-            setOriginalLetters(newOriginalLetters);
-            setNewLetters([...newLetters, key]);
+        if (key === 'DELETE' || key === 'BACKSPACE') {
+            // If backspace or delete is pressed, move the last letter from newLetters to originalLetters
+            if (newLetters.length > 0) {
+                const lastLetter = newLetters[newLetters.length - 1];
+                const newNewLetters = [...newLetters.slice(0, -1)]; // Remove the last letter from newLetters
+                setNewLetters(newNewLetters);
+                setOriginalLetters([...originalLetters, lastLetter]); // Add the last letter to originalLetters
+            }
+        } else {
+            const index = originalLetters.findIndex(letter => letter === key);
+            if (index !== -1) {
+                // If the key is found in the original area, move it to the new area
+                const newOriginalLetters = [...originalLetters];
+                newOriginalLetters.splice(index, 1); // Remove the letter from originalLetters
+                setOriginalLetters(newOriginalLetters);
+                setNewLetters([...newLetters, key]);
+                // if (findSpaceIndices(artist).includes(newLetters.length)) {
+                //     setNewLetters([...newLetters, ' ']);
+                //     console.log("got there", newLetters);
+                // }
+            }
         }
     };
 
+
     const handleClickTile = (letter) => {
-        const event = new KeyboardEvent('keypress', { key: letter });
+        const event = new KeyboardEvent('keydown', { key: letter });
         document.dispatchEvent(event);
     };
 
     useEffect(() => {
         // Add event listener for key press
-        document.addEventListener('keypress', handleKeyPress);
+        document.addEventListener('keydown', handleKeyPress);
         // Clean up event listener on component unmount
         return () => {
-            document.removeEventListener('keypress', handleKeyPress);
+            document.removeEventListener('keydown', handleKeyPress);
         };
     }, [originalLetters, newLetters]);
 
@@ -318,6 +335,16 @@ const MainGame = () => {
         return areaLetters.map((letter, index) => (
             <img className='tile' key={index} src={letterImages[letter]} alt={letter} onClick={() => handleClickTile(letter)} />
         ));
+    };
+
+    const findSpaceIndices = (artist) => {
+        const spaceIndices = [];
+        for (let i = 0; i < artist.length; i++) {
+            if (artist[i] === " ") {
+                spaceIndices.push(i);
+            }
+        }
+        return spaceIndices;
     };
 
     return (
@@ -348,7 +375,7 @@ const MainGame = () => {
                         }}
                     >
                     </input>
-                    <button id='guessButton' onClick={makeGuess}>Check Answer</button>
+                    <button id='guessButton' onClick={makeGuess}>{guessButtonLabel}</button>
                     <p>Seconds Remaining: {timeLeft}</p>
                     <div id='gameArea'>
                         <div id='topTwoRows'>
