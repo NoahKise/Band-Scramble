@@ -13,6 +13,7 @@ function App() {
         <>
             <Router>
                 {/* <Header /> */}
+                <div id="bg"></div>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/mainGame" element={<MainGame />} />

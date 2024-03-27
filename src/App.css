@@ -40,10 +40,18 @@
 
 body {
   font-family: 'Courier New', Courier, monospace;
+}
+
+#bg {
   background: rgb(255, 255, 255);
   background: linear-gradient(0deg, rgba(255, 255, 255, 1) 12%, rgba(8, 142, 218, 1) 100%);
-  background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 #gameImage {
@@ -169,6 +177,7 @@ body {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0;
 }
 
 .button-53 {

@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
@@ -46,7 +46,7 @@ export const Navbar = () => {
                 >
                     <BottomNavigationAction icon={<HomeIcon />} />
                     <BottomNavigationAction icon={<SportsEsportsIcon />} />
-                    <BottomNavigationAction icon={<ShoppingCartIcon />} />
+                    <BottomNavigationAction icon={<QueryStatsIcon />} />
                     <BottomNavigationAction icon={<ManageAccountsIcon />} />
                 </BottomNavigation>
             </Box>
