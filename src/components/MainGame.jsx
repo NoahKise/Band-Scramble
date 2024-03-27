@@ -116,7 +116,7 @@ const MainGame = () => {
 
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * Data.length);
-        const newArtist = Data[index];
+        const newArtist = Data[index]; // to test with specific string set newArtist to test value
         console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
@@ -125,7 +125,6 @@ const MainGame = () => {
         setMixedString(ScrambledString(newArtist));
         setResetClicked(false);
         setTimeLeft(newArtist.length * 3);
-        // setOriginalLetters(artistArray.filter(char => char !== ' '));
         setOriginalLetters(artistArray);
         setNewLetters([]);
     }, []);
@@ -162,8 +161,6 @@ const MainGame = () => {
     };
 
     function ScrambledString(string) {
-        // let stringWithoutSpaces = string.replace(/\s/g, '');
-        // let characters = stringWithoutSpaces.split('');
         let characters = string.split('');
         for (let i = characters.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -200,9 +197,6 @@ const MainGame = () => {
 
     const makeGuess = () => {
         const field = document.getElementById("guess");
-        // let guess = field.value;
-        // let formattedGuess = guess.toUpperCase();
-        // let trimmedGuess = formattedGuess.trim();
         let trimmedGuess = newLetters.join('').toUpperCase().trim();
         if (trimmedGuess === artist) {
             if (revealed === false) {
@@ -212,7 +206,6 @@ const MainGame = () => {
             setResetClicked(true);
             updateGuessedArtists(true);
         } else {
-            // setOriginalLetters(ScrambledString(artist).split('').filter(char => char !== ' '));
             setOriginalLetters(ScrambledString(artist).split(''));
             setNewLetters([]);
             field.value = '';
@@ -306,7 +299,7 @@ const MainGame = () => {
                         setOriginalLetters([...originalLetters, lastLetter]);
                         return prevNewLetters.slice(0, -1);
                     } else {
-                        setOriginalLetters([...originalLetters, lastLetter]); // Add the last letter to originalLetters
+                        setOriginalLetters([...originalLetters, lastLetter]);
                         return prevNewLetters.slice(0, -1);
                     }
                 });
@@ -314,9 +307,8 @@ const MainGame = () => {
         } else {
             const index = originalLetters.findIndex(letter => letter === key);
             if (index !== -1) {
-                // If the key is found in the original area, move it to the new area
                 const newOriginalLetters = [...originalLetters];
-                newOriginalLetters.splice(index, 1); // Remove the letter from originalLetters
+                newOriginalLetters.splice(index, 1);
                 setOriginalLetters(newOriginalLetters);
                 setNewLetters([...newLetters, key]);
             }
@@ -343,24 +335,6 @@ const MainGame = () => {
         };
     }, [originalLetters, newLetters]);
 
-    // const renderTiles = (areaLetters, areaType) => {
-    //     return areaLetters.map((letter, index) => {
-    //         const style = letter === ' ' ?
-    //             { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
-    //             : {};
-    //         return (
-    //             <img
-    //                 className='tile'
-    //                 key={index}
-    //                 src={letterImages[letter]}
-    //                 alt={letter}
-    //                 onClick={() => handleClickTile(letter)}
-    //                 style={style}
-    //             />
-    //         );
-    //     });
-    // };
-
     const renderTiles = (areaLetters, areaType) => {
         let tiles = [];
         let previousWasSpace = false;
@@ -370,20 +344,16 @@ const MainGame = () => {
             const answerArray = artist.split('');
             const letter = areaLetters[i];
             const nextSpaceIndex = answerArray.indexOf(' ', i);
-
-            // Check if the area type is 'new' and the current letter is a space 
-            // and the previous letter was also a space
             if (areaType === 'new' && broken === false) {
                 if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
                     broken = true;
-                    if ((answerArray[12] === ' ') || i > 7) {
+                    if ((answerArray[12] === ' ') || (i > 8 && i < 11) || i === 12) {
                         tiles.pop();
                         tiles.pop();
                     }
                 }
             }
-            // Render the tile
             const style = letter === ' ' ?
                 { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
                 : {};
@@ -397,7 +367,6 @@ const MainGame = () => {
                     style={style}
                 />
             );
-            // Update the previousWasSpace flag
             previousWasSpace = letter === ' ';
         }
         return tiles;
@@ -465,7 +434,6 @@ const MainGame = () => {
                             </div>
                             <h1 id='gameBoard' dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
                         </div>
-                        {/* <h1>{revealed ? artist : mixedString || ScrambledString(artist)}</h1> */}
                         <div className="original-area">
                             <div className="letter-tiles">
                                 {renderTiles(originalLetters, 'original')}
