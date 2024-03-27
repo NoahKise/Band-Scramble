@@ -31,7 +31,6 @@ export const Data = [
     "THE FLAMING LIPS",
     "THE CLASH",
     "TOOL",
-    "ACDC",
     "ELLIOTT SMITH",
     "THE KINKS",
     "PAVEMENT",

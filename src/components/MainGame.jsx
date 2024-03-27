@@ -398,33 +398,33 @@ const MainGame = () => {
     return (
         <div className="App">
             {!gameStarted && (
-                <button onClick={startGame}>Start Game</button>
+                <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
             )}
             {gameStarted && (
                 <>
                     {/* <Draggable> */}
                     <div id='gameImageDiv'>
                         <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
+                        <input
+                            type='text'
+                            id='guess'
+                            autoComplete='off'
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && revealed === true) {
+                                    revealOrReset();
+                                } else if (e.key === 'Enter' && e.shiftKey) {
+                                    scramble();
+                                } else if (e.key === 'Enter') {
+                                    makeGuess();
+                                }
+                            }}
+                        >
+                        </input>
                     </div>
                     {/* </Draggable> */}
                     <br></br>
-                    <input
-                        type='text'
-                        id='guess'
-                        autoComplete='off'
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' && revealed === true) {
-                                revealOrReset();
-                            } else if (e.key === 'Enter' && e.shiftKey) {
-                                scramble();
-                            } else if (e.key === 'Enter') {
-                                makeGuess();
-                            }
-                        }}
-                    >
-                    </input>
-                    <button id='guessButton' onClick={makeGuess}>{guessButtonLabel}</button>
-                    <p>Seconds Remaining: {timeLeft}</p>
+
+
                     <div id='gameArea'>
                         <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 30.25}px` }}>
                             <div className="new-area">
@@ -442,7 +442,11 @@ const MainGame = () => {
                     </div>
                     <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
                     <button id='rescramble' onClick={scramble}>Scramble</button>
-                    <h3>Score: {score}</h3>
+                    <button id='guessButton' onClick={makeGuess}>{guessButtonLabel}</button>
+                    <div id='timerAndScore'>
+                        <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
+                        <h3>Score: {score}</h3>
+                    </div>
                 </>
             )}
         </div>
