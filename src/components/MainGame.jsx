@@ -377,7 +377,7 @@ const MainGame = () => {
                 if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
                     broken = true;
-                    if (answerArray[12] === ' ') {
+                    if ((answerArray[12] === ' ') || i > 7) {
                         tiles.pop();
                         tiles.pop();
                     }
@@ -413,6 +413,19 @@ const MainGame = () => {
         return spaceIndices;
     };
 
+    function longestLineLength(artistName) {
+        if (artistName.length <= 12) {
+            return artistName.length;
+        }
+        const lastSpaceIndex = artistName.lastIndexOf(' ', 12);
+        if (lastSpaceIndex === -1) {
+            return 12;
+        }
+        const firstLine = artistName.substring(0, lastSpaceIndex);
+        const secondLine = artistName.substring(lastSpaceIndex + 1);
+        return Math.max(firstLine.length, secondLine.length);
+    }
+
     return (
         <div className="App">
             {!gameStarted && (
@@ -444,7 +457,7 @@ const MainGame = () => {
                     <button id='guessButton' onClick={makeGuess}>{guessButtonLabel}</button>
                     <p>Seconds Remaining: {timeLeft}</p>
                     <div id='gameArea'>
-                        <div id='topTwoRows'>
+                        <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 30.25}px` }}>
                             <div className="new-area">
                                 <div className="letter-tiles">
                                     {renderTiles(newLetters, 'new')}
