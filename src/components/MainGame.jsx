@@ -343,60 +343,65 @@ const MainGame = () => {
         };
     }, [originalLetters, newLetters]);
 
-    const renderTiles = (areaLetters, areaType) => {
-        return areaLetters.map((letter, index) => {
-            const style = letter === ' ' ?
-                { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
-                : {};
-            return (
-                <img
-                    className='tile'
-                    key={index}
-                    src={letterImages[letter]}
-                    alt={letter}
-                    onClick={() => handleClickTile(letter)}
-                    style={style}
-                />
-            );
-        });
-    };
-
     // const renderTiles = (areaLetters, areaType) => {
-    //     let tiles = [];
-    //     let previousWasSpace = false;
-    //     let counter = 0;
-
-    //     for (let i = 0; i < areaLetters.length; i++) {
-    //         const letter = areaLetters[i];
-    //         const nextSpaceIndex = areaLetters.indexOf(' ', i);
-
-    //         // Check if the area type is 'new' and the current letter is a space 
-    //         // and the previous letter was also a space
-    //         if ((areaType === 'new' && counter === 0) && (previousWasSpace && nextSpaceIndex >= 12 || previousWasSpace && areaLetters.length > 12)) {
-    //             counter++;
-    //             console.log(nextSpaceIndex)
-    //             tiles.splice(nextSpaceIndex, 0, <br key={`br-${nextSpaceIndex}`} />);
-    //             console.log(tiles);
-    //         }
-    //         // Render the tile
+    //     return areaLetters.map((letter, index) => {
     //         const style = letter === ' ' ?
     //             { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
     //             : {};
-    //         tiles.push(
+    //         return (
     //             <img
     //                 className='tile'
-    //                 key={i}
+    //                 key={index}
     //                 src={letterImages[letter]}
     //                 alt={letter}
     //                 onClick={() => handleClickTile(letter)}
     //                 style={style}
     //             />
     //         );
-    //         // Update the previousWasSpace flag
-    //         previousWasSpace = letter === ' ';
-    //     }
-    //     return tiles;
+    //     });
     // };
+
+    const renderTiles = (areaLetters, areaType) => {
+        let tiles = [];
+        let previousWasSpace = false;
+        let broken = false;
+
+        for (let i = 0; i < areaLetters.length; i++) {
+            const answerArray = artist.split('');
+            const letter = areaLetters[i];
+            const nextSpaceIndex = answerArray.indexOf(' ', i);
+
+            // Check if the area type is 'new' and the current letter is a space 
+            // and the previous letter was also a space
+            if (areaType === 'new' && broken === false) {
+                if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
+                    tiles.push(<br key={`br-${nextSpaceIndex}`} />);
+                    broken = true;
+                    if (answerArray[12] === ' ') {
+                        tiles.pop();
+                        tiles.pop();
+                    }
+                }
+            }
+            // Render the tile
+            const style = letter === ' ' ?
+                { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
+                : {};
+            tiles.push(
+                <img
+                    className='tile'
+                    key={i}
+                    src={letterImages[letter]}
+                    alt={letter}
+                    onClick={() => handleClickTile(letter)}
+                    style={style}
+                />
+            );
+            // Update the previousWasSpace flag
+            previousWasSpace = letter === ' ';
+        }
+        return tiles;
+    };
 
     const findSpaceIndices = (artist) => {
         const spaceIndices = [];
