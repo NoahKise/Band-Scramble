@@ -1,4 +1,4 @@
-import { Data } from '../Data';
+import { rockData, hiphopData, allData } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
@@ -116,8 +116,8 @@ const MainGame = () => {
     }, []);
 
     const RandomArtist = useCallback(() => {
-        const index = Math.floor(Math.random() * Data.length);
-        const newArtist = Data[index]; // to test with specific string set newArtist to test value
+        const index = Math.floor(Math.random() * hiphopData.length);
+        const newArtist = hiphopData[index]; // to test with specific string set newArtist to test value
         console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
@@ -361,9 +361,11 @@ const MainGame = () => {
                 if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
                     broken = true;
-                    if ((answerArray[12] === ' ') || (i > 8 && i < 11) || i === 12) {
-                        tiles.pop();
-                        tiles.pop();
+                    if ((answerArray[12] === ' ') || (i > 7 && i < 11) || i === 12) {
+                        if (artist !== "CAPTAIN BEEFHEART") {
+                            tiles.pop();
+                            tiles.pop();
+                        }
                     }
                 }
             }
