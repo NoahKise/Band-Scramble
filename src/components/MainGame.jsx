@@ -297,6 +297,9 @@ const MainGame = () => {
 
     const handleKeyPress = (event) => {
         const key = event.key.toUpperCase();
+        if (newLetters.length === artist.length) {
+            return;
+        }
         if (key === ' ' && newLetters[newLetters.length - 1] === ' ') {
             return;
         }
