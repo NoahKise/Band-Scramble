@@ -47,6 +47,7 @@ const MainGame = () => {
     const [originalLetters, setOriginalLetters] = useState([]);
     const [newLetters, setNewLetters] = useState([]);
     const [backspacePressed, setBackspacePressed] = useState(false);
+    const [scoreFluctuation, setScoreFluctuation] = useState(0);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -87,7 +88,7 @@ const MainGame = () => {
                     const userData = historyDoc.data();
                     setGuessedArtists(userData.artists);
                 } else {
-                    console.log("score not found")
+                    console.log("history not found")
                 }
             }
         };
@@ -127,6 +128,7 @@ const MainGame = () => {
         setTimeLeft(newArtist.length * 3);
         setOriginalLetters(artistArray);
         setNewLetters([]);
+        setScoreFluctuation(0);
     }, []);
 
     useEffect(() => {
@@ -191,11 +193,18 @@ const MainGame = () => {
         }
         setResetClicked(!resetClicked);
     }
-
     const advanceButtonClass = revealed ? "advance" : "reveal";
     const recallTilesButtonClass = newLetters.length === artist.length ? "guess" : "recallTiles";
+    const recallTilesText = scoreFluctuation > 0 ? `+${scoreFluctuation}` : (scoreFluctuation < 0 ? scoreFluctuation : "GUESS");
+    const scoreColor = { color: scoreFluctuation < 0 ? 'red' : (scoreFluctuation > 0 ? 'green' : ((newLetters.length === artist.length && revealed !== true) ? 'black' : 'transparent')) }
+    const scrambleButtonClass = revealed ? "message" : "shuffle";
+    const scrambleButtonText = scoreFluctuation > 0 ? "NICE!" : (scoreFluctuation === 0 ? '...' : "SORRY");
+
 
     const makeGuess = () => {
+        if (revealed === true) {
+            return;
+        }
         const field = document.getElementById("guess");
         let trimmedGuess = newLetters.join('').toUpperCase().trim();
         if (trimmedGuess === artist) {
@@ -243,6 +252,7 @@ const MainGame = () => {
             } else {
                 flux -= mixedString.length * 10;
             }
+            setScoreFluctuation(flux);
             let updatedArtists = [...guessedArtists, { artist, correct: boolean, scoreChange: flux, totalScore: score + flux, timestamp: Date.now() }];
             if (userDoc.exists()) {
                 await updateDoc(userDocRef, { artists: updatedArtists });
@@ -440,8 +450,8 @@ const MainGame = () => {
                             </div>
                         </div>
                     </div>
-                    <button className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>GUESS</button>
-                    <button className='gameButton' id='rescramble' onClick={scramble}>SCRAMBLE</button>
+                    <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
+                    <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
                     <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
                     <div id='timerAndScore'>
                         <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>

@@ -247,12 +247,20 @@ body {
   font-size: 18px;
 }
 
-#rescramble {
+.shuffle {
   background-image: url(/src/assets/images/shuffleIcon.png), url(/src/assets/images/wood.jpg);
   background-size: contain, cover;
   background-repeat: no-repeat;
   background-position: center;
   color: transparent;
+}
+
+.message {
+  background-image: url(/src/assets/images/wood.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: black;
 }
 
 .recallTiles {
