@@ -29,10 +29,6 @@ import X from '../assets/images/X.png'
 import Y from '../assets/images/Y.png'
 import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
-import advanceIcon from '../assets/images/advanceIcon.png'
-import resetIcon from '../assets/images/resetIcon.png'
-import shuffleIcon from '../assets/images/shuffleIcon.png'
-import wood from '../assets/images/wood.jpg'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
