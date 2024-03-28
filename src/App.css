@@ -231,3 +231,56 @@ body {
     font-size: 1.25rem;
   }
 }
+
+.gameButton {
+  background-image: url(/src/assets/images/wood.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid black;
+  filter: hue-rotate(40deg);
+  filter: brightness(90%);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#rescramble {
+  background-image: url(/src/assets/images/shuffleIcon.png), url(/src/assets/images/wood.jpg);
+  background-size: contain, cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+}
+
+.recallTiles {
+  background-image: url(/src/assets/images/resetIcon.png), url(/src/assets/images/wood.jpg);
+  background-size: contain, cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+}
+
+.guess {
+  background-image: url(/src/assets/images/wood.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.reveal {
+  background-image: url(/src/assets/images/wood.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.advance {
+  background-image: url(/src/assets/images/advanceIcon.png), url(/src/assets/images/wood.jpg);
+  background-size: contain, cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+}

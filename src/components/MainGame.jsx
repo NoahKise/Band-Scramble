@@ -29,6 +29,10 @@ import X from '../assets/images/X.png'
 import Y from '../assets/images/Y.png'
 import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
+import advanceIcon from '../assets/images/advanceIcon.png'
+import resetIcon from '../assets/images/resetIcon.png'
+import shuffleIcon from '../assets/images/shuffleIcon.png'
+import wood from '../assets/images/wood.jpg'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -192,8 +196,8 @@ const MainGame = () => {
         setResetClicked(!resetClicked);
     }
 
-    const buttonLabel = revealed ? "Next Level" : "Reveal";
-    const guessButtonLabel = newLetters.length === artist.length ? "Check Answer" : "Recall Tiles";
+    const advanceButtonClass = revealed ? "advance" : "reveal";
+    const recallTilesButtonClass = newLetters.length === artist.length ? "guess" : "recallTiles";
 
     const makeGuess = () => {
         const field = document.getElementById("guess");
@@ -440,9 +444,9 @@ const MainGame = () => {
                             </div>
                         </div>
                     </div>
-                    <button id='reveal' onClick={revealOrReset}>{buttonLabel}</button>
-                    <button id='rescramble' onClick={scramble}>Scramble</button>
-                    <button id='guessButton' onClick={makeGuess}>{guessButtonLabel}</button>
+                    <button className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>GUESS</button>
+                    <button className='gameButton' id='rescramble' onClick={scramble}>SCRAMBLE</button>
+                    <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
                     <div id='timerAndScore'>
                         <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
                         <h3>Score: {score}</h3>
