@@ -1,4 +1,4 @@
-import { rockData, hiphopData, allData } from '../Data';
+import { rockData, hiphopData, allData, noahData, topChartData, countryData } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
@@ -116,8 +116,8 @@ const MainGame = () => {
     }, []);
 
     const RandomArtist = useCallback(() => {
-        const index = Math.floor(Math.random() * hiphopData.length);
-        const newArtist = hiphopData[index]; // to test with specific string set newArtist to test value
+        const index = Math.floor(Math.random() * allData.length); // change data variables for different data sets
+        const newArtist = allData[index]; // to test with specific string set newArtist to test value
         console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
@@ -361,8 +361,21 @@ const MainGame = () => {
                 if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
                     broken = true;
-                    if ((answerArray[12] === ' ') || (i > 7 && i < 11) || i === 12) {
-                        if (artist !== "CAPTAIN BEEFHEART") {
+                    if ((answerArray[12] === ' ') || (i > 6 && i < 12) || i === 12) {
+                        if (artist !== "CAPTAIN BEEFHEART"
+                            && artist !== "THE VELVET UNDERGROUND"
+                            && artist !== "SUFJAN STEVENS"
+                            && artist !== "ALANIS MORISSETTE"
+                            && artist !== "SUNNY DAY REAL ESTATE"
+                            && artist !== "JAPANESE BREAKFAST"
+                            && artist !== "LUTHER VANDROSS"
+                            && artist !== "PHOEBE BRIDGERS"
+                            && artist !== "BROKEN SOCIAL SCENE"
+                            && artist !== "HOOTIE AND THE BLOWFISH"
+                            && artist !== "AFRIKA BAMBAATAA"
+                            && artist !== "REGINA SPEKTOR"
+                            && artist !== "THE TALLEST MAN ON EARTH"
+                            && artist !== "CARRIE UNDERWOOD") {
                             tiles.pop();
                             tiles.pop();
                         }
