@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainGame from "./MainGame";
-import Account from "./Account";
+import { Account } from "./Account";
 import Statistics from "./Statistics";
 import Home from "./Home";
 import { Navbar } from "./Navbar";
