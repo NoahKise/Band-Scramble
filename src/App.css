@@ -237,7 +237,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: 30px;
-  width: 100px;
+  width: 96px;
   border-radius: 5px;
   border: 1px solid black;
   filter: hue-rotate(40deg);
@@ -245,6 +245,11 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   font-size: 18px;
+}
+
+#rescramble {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .shuffle {

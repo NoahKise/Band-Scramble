@@ -1,6 +1,6 @@
 const Statistics = () => {
     return (
-        <h1>              GUESS            GIVE UP</h1>
+        <h1>Statistics</h1>
     );
 };
 
