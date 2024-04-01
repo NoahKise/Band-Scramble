@@ -244,6 +244,13 @@ export const topChartData = [
     "A BOOGIE WIT DA HOODIE",
     "HARRY STYLES",
     "PITBULL",
+    "CIARA",
+    "SELENA GOMEZ",
+    "OLIVIA RODRIGO",
+    "JUSTIN TIMBERLAKE",
+    "CHRISTINA AGUILERA",
+    "DESTINYS CHILD",
+    "SPICE GIRLS"
 ]
 
 export const countryData = [
@@ -481,6 +488,23 @@ export const hiphopData = [
     "AFRIKA BAMBAATAA",
     "G EAZY",
     "BROCKHAMPTON",
+    "FABOLOUS",
+    "FLATBUSH ZOMBIES",
+    "MAC MILLER",
+    "JID",
+    "BLACK HIPPY",
+    "AB SOUL",
+    "DENZEL CURRY",
+    "MEECHY DARKO",
+    "NIPSY HUSTLE",
+    "MADLIB",
+    "ANDERSON PAAK",
+    "DOJA CAT",
+    "LIZZO",
+    "ASHANTI",
+    "JA RULE",
+    "BLAQUE",
+    "GINUWINE",
 ]
 
 export const allData = [
@@ -951,5 +975,29 @@ export const allData = [
     "A BOOGIE WIT DA HOODIE",
     "HARRY STYLES",
     "PITBULL",
-    "QUASIMOTO"
+    "QUASIMOTO",
+    "FABOLOUS",
+    "FLATBUSH ZOMBIES",
+    "MAC MILLER",
+    "JID",
+    "BLACK HIPPY",
+    "AB SOUL",
+    "DENZEL CURRY",
+    "MEECHY DARKO",
+    "NIPSY HUSTLE",
+    "MADLIB",
+    "ANDERSON PAAK",
+    "DOJA CAT",
+    "LIZZO",
+    "ASHANTI",
+    "JA RULE",
+    "BLAQUE",
+    "GINUWINE",
+    "CIARA",
+    "SELENA GOMEZ",
+    "OLIVIA RODRIGO",
+    "JUSTIN TIMBERLAKE",
+    "CHRISTINA AGUILERA",
+    "DESTINYS CHILD",
+    "SPICE GIRLS"
 ]
