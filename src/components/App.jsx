@@ -12,6 +12,7 @@ function App() {
     return (
         <>
             <Router>
+                <Navbar />
                 {/* <Header /> */}
                 <div id="bg"></div>
                 <Routes>
@@ -20,7 +21,6 @@ function App() {
                     <Route path="/account" element={<Account />} />
                     <Route path="/statistics" element={<Statistics />} />
                 </Routes>
-                <Navbar />
             </Router>
         </>
     );

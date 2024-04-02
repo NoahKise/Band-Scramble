@@ -36,7 +36,7 @@ export const Navbar = () => {
 
     return (
         <div id='navbar'>
-            <Box sx={{ width: 300 }}>
+            <Box sx={{ width: 400 }} >
                 <BottomNavigation
                     showLabels
                     value={value}

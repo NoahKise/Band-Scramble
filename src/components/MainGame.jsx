@@ -118,6 +118,7 @@ const MainGame = () => {
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * allData.length); // change data variables for different data sets
         const newArtist = allData[index]; // to test with specific string set newArtist to test value
+        // const newArtist = "GODSPEED YOU BLACK EMPEROR"
         console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
@@ -357,11 +358,11 @@ const MainGame = () => {
             const answerArray = artist.split('');
             const letter = areaLetters[i];
             const nextSpaceIndex = answerArray.indexOf(' ', i);
-            if (areaType === 'new' && broken === false) {
-                if ((previousWasSpace && nextSpaceIndex > 12) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 12)) {
+            if (areaType === 'new') {
+                if (((previousWasSpace && nextSpaceIndex > 10 && artist !== "NAUGHTY BY NATURE") && nextSpaceIndex < 14) || ((previousWasSpace && nextSpaceIndex > 9 && artist === "HOOTIE AND THE BLOWFISH") && nextSpaceIndex < 14) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 10)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
-                    broken = true;
-                    if ((answerArray[12] === ' ') || (i > 6 && i < 12) || i === 12) {
+                    // broken = true;
+                    if ((answerArray[10] === ' ') || i > 5) {
                         if (artist !== "CAPTAIN BEEFHEART"
                             && artist !== "THE VELVET UNDERGROUND"
                             && artist !== "SUFJAN STEVENS"
@@ -370,12 +371,20 @@ const MainGame = () => {
                             && artist !== "JAPANESE BREAKFAST"
                             && artist !== "LUTHER VANDROSS"
                             && artist !== "PHOEBE BRIDGERS"
-                            && artist !== "BROKEN SOCIAL SCENE"
+                            // && artist !== "BROKEN SOCIAL SCENE"
                             && artist !== "HOOTIE AND THE BLOWFISH"
                             && artist !== "AFRIKA BAMBAATAA"
                             && artist !== "REGINA SPEKTOR"
                             && artist !== "THE TALLEST MAN ON EARTH"
-                            && artist !== "CARRIE UNDERWOOD") {
+                            && artist !== "JUSTIN TIMBERLAKE"
+                            && artist !== "OLIVIA RODRIGO"
+                            && artist !== "HARRY STYLES"
+                            && artist !== "KENNY ROGERS"
+                            // && artist !== "NAUGHTY BY NATURE"
+                            && artist !== "CARRIE UNDERWOOD"
+                            && artist !== "JANET JACKSON"
+                            && artist !== "GARTH BROOKS"
+                            && artist !== "ALICE COOPER") {
                             tiles.pop();
                             tiles.pop();
                         }
@@ -411,15 +420,24 @@ const MainGame = () => {
     };
 
     function longestLineLength(artistName) {
-        if (artistName.length <= 12) {
+        if (artistName.length <= 10) {
             return artistName.length;
         }
-        const lastSpaceIndex = artistName.lastIndexOf(' ', 12);
+        const lastSpaceIndex = artistName.lastIndexOf(' ', 10);
         if (lastSpaceIndex === -1) {
-            return 12;
+            return 10;
         }
         const firstLine = artistName.substring(0, lastSpaceIndex);
         const secondLine = artistName.substring(lastSpaceIndex + 1);
+        if (secondLine.length > 10) {
+            const anotherSpaceIndex = secondLine.lastIndexOf(' ');
+            const thirdLine = secondLine.substring(0, anotherSpaceIndex);
+            const fourthLine = secondLine.substring(anotherSpaceIndex + 1);
+            if (firstLine.length > 9) {
+                return Math.max(thirdLine.length, fourthLine.length);
+            }
+            return Math.max(thirdLine.length, fourthLine.length, firstLine.length);
+        }
         return Math.max(firstLine.length, secondLine.length);
     }
 
@@ -454,7 +472,7 @@ const MainGame = () => {
 
 
                     <div id='gameArea'>
-                        <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 30.28}px` }}>
+                        <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.6}px` }}>
                             <div className="new-area">
                                 <div className="letter-tiles">
                                     {renderTiles(newLetters, 'new')}
@@ -468,12 +486,14 @@ const MainGame = () => {
                             </div>
                         </div>
                     </div>
-                    <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
-                    <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
-                    <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
-                    <div id='timerAndScore'>
-                        <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
-                        <h3>Score: {score}</h3>
+                    <div id='bottomStuff'>
+                        <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
+                        <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
+                        <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
+                        <div id='timerAndScore'>
+                            <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
+                            <h3>Score: {score}</h3>
+                        </div>
                     </div>
                 </>
             )}
