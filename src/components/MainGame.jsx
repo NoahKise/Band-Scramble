@@ -385,6 +385,7 @@ const MainGame = () => {
                             && artist !== "CARRIE UNDERWOOD"
                             && artist !== "JANET JACKSON"
                             && artist !== "GARTH BROOKS"
+                            && artist !== "TUPAC SHAKUR"
                             // && artist !== "CHRIS STAPLETON"
                             && artist !== "AT THE DRIVE IN"
                             // && artist !== "ALICE COOPER"

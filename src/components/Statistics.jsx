@@ -124,7 +124,7 @@ const Statistics = () => {
             <div>
                 <h2>History</h2>
                 <ul>
-                    {userHistory.map((artist, index) => (
+                    {userHistory.slice().reverse().map((artist, index) => ( // Use slice() to create a copy of the array before reversing
                         <li key={index}>
                             <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
                                 {artist}
