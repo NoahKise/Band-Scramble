@@ -8,6 +8,16 @@ import 'chartjs-adapter-date-fns';
 const Statistics = () => {
     const [userId, setUserId] = useState('');
     const [userData, setUserData] = useState([]);
+    const [userHistory, setUserHistory] = useState([]);
+    const [propData, setPropData] = useState({
+        labels: [],
+        datasets: [
+            {
+                label: "Total Score",
+                data: [],
+            },
+        ],
+    });
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -39,41 +49,6 @@ const Statistics = () => {
         fetchData();
     }, [userId]);
 
-    const [propData, setPropData] = useState({
-        labels: [],
-        datasets: [
-            {
-                label: "Score Over Time",
-                data: [],
-            },
-        ],
-    });
-
-    // useEffect(() => {
-    //     console.log("userData:", userData); // Add this line for debugging
-    //     if (userData.length > 0) {
-    //         const labels = userData.map((data) => {
-    //             const timestamp = data.mapValue.fields.timestamp.integerValue;
-    //             // const date = new Date(parseInt(timestamp, 10)); // Convert integer timestamp to Date object
-    //             // return date.toLocaleString();
-    //             return timestamp;
-    //         });
-    //         const scores = userData.map((data) => data.mapValue.fields.totalScore.integerValue);
-    //         console.log(labels);
-    //         console.log(scores);
-
-    //         setPropData({
-    //             labels: labels,
-    //             datasets: [
-    //                 {
-    //                     label: "Score Over Time",
-    //                     data: scores,
-    //                 },
-    //             ],
-    //         });
-    //     }
-    // }, [userData]);
-
     useEffect(() => {
         console.log("userData:", userData);
         if (userData.length > 0) {
@@ -91,13 +66,22 @@ const Statistics = () => {
             setPropData({
                 datasets: [
                     {
-                        label: "Score Over Time",
+                        label: "Total Score",
                         data: dataPoints,
                         backgroundColor: 'red',
+                        borderColor: 'red',
+                        borderWidth: .9,
                         pointRadius: 0,
                     },
                 ],
             });
+
+            const historyList = userData.map((data) => {
+                const listArtist = data.mapValue.fields.artist.stringValue;
+                return listArtist;
+            });
+            console.log(historyList);
+            setUserHistory(historyList);
         }
     }, [userData]);
 
@@ -137,6 +121,18 @@ const Statistics = () => {
                     }
                 }
             }} />
+            <div>
+                <h2>History</h2>
+                <ul>
+                    {userHistory.map((artist, index) => (
+                        <li key={index}>
+                            <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
+                                {artist}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </>
     );
 };
