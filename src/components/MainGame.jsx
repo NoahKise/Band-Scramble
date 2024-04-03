@@ -118,7 +118,7 @@ const MainGame = () => {
     const RandomArtist = useCallback(() => {
         const index = Math.floor(Math.random() * allData.length); // change data variables for different data sets
         const newArtist = allData[index]; // to test with specific string set newArtist to test value
-        // const newArtist = "GODSPEED YOU BLACK EMPEROR"
+        // const newArtist = "KENNY ROGERS"
         console.log(newArtist);
         const artistArray = ScrambledString(newArtist).split('')
         Discogs(newArtist);
@@ -362,29 +362,33 @@ const MainGame = () => {
                 if (((previousWasSpace && nextSpaceIndex > 10 && artist !== "NAUGHTY BY NATURE") && nextSpaceIndex < 14) || ((previousWasSpace && nextSpaceIndex > 9 && artist === "HOOTIE AND THE BLOWFISH") && nextSpaceIndex < 14) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 10)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
                     // broken = true;
-                    if ((answerArray[10] === ' ') || i > 5) {
-                        if (artist !== "CAPTAIN BEEFHEART"
+                    if ((answerArray[9] === ' ') || (answerArray[10] === ' ') || (answerArray[8] === ' ') || (answerArray[7] === ' ') || (i > 5 && ((answerArray.length - i) <= 6))) {
+                        if (
+                            artist !== "CAPTAIN BEEFHEART"
                             && artist !== "THE VELVET UNDERGROUND"
-                            && artist !== "SUFJAN STEVENS"
-                            && artist !== "ALANIS MORISSETTE"
+                            // && artist !== "SUFJAN STEVENS"
+                            // && artist !== "ALANIS MORISSETTE"
                             && artist !== "SUNNY DAY REAL ESTATE"
                             && artist !== "JAPANESE BREAKFAST"
-                            && artist !== "LUTHER VANDROSS"
-                            && artist !== "PHOEBE BRIDGERS"
+                            // && artist !== "LUTHER VANDROSS"
+                            // && artist !== "PHOEBE BRIDGERS"
                             // && artist !== "BROKEN SOCIAL SCENE"
                             && artist !== "HOOTIE AND THE BLOWFISH"
-                            && artist !== "AFRIKA BAMBAATAA"
-                            && artist !== "REGINA SPEKTOR"
+                            // && artist !== "AFRIKA BAMBAATAA"
+                            // && artist !== "REGINA SPEKTOR"
                             && artist !== "THE TALLEST MAN ON EARTH"
-                            && artist !== "JUSTIN TIMBERLAKE"
-                            && artist !== "OLIVIA RODRIGO"
+                            // && artist !== "JUSTIN TIMBERLAKE"
+                            // && artist !== "OLIVIA RODRIGO"
                             && artist !== "HARRY STYLES"
                             && artist !== "KENNY ROGERS"
                             // && artist !== "NAUGHTY BY NATURE"
                             && artist !== "CARRIE UNDERWOOD"
                             && artist !== "JANET JACKSON"
                             && artist !== "GARTH BROOKS"
-                            && artist !== "ALICE COOPER") {
+                            // && artist !== "CHRIS STAPLETON"
+                            && artist !== "AT THE DRIVE IN"
+                            // && artist !== "ALICE COOPER"
+                        ) {
                             tiles.pop();
                             tiles.pop();
                         }
