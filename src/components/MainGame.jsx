@@ -478,7 +478,10 @@ const MainGame = () => {
 
     return (
         <div className="App">
-            {!gameStarted && (
+            {answerPool.length === 0 && (
+                <h1>Loading...</h1>
+            )}
+            {answerPool.length > 0 && !gameStarted && (
                 <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
             )}
             {gameStarted && (
