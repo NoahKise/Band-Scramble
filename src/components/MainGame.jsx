@@ -29,6 +29,7 @@ import X from '../assets/images/X.png'
 import Y from '../assets/images/Y.png'
 import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
+import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -205,8 +206,9 @@ const MainGame = () => {
     }
 
     const scramble = () => {
-        setMixedString(ScrambledString(originalLetters.join('')));
-        setOriginalLetters(ScrambledString(originalLetters.join('')).split(''))
+        const placeholdersRemoved = originalLetters.filter((element) => element !== '!')
+        setMixedString(ScrambledString(placeholdersRemoved.join('')));
+        setOriginalLetters(ScrambledString(placeholdersRemoved.join('')).split(''))
     }
 
     const revealOrReset = () => {
@@ -323,12 +325,16 @@ const MainGame = () => {
         'X': X,
         'Y': Y,
         'Z': Z,
-        ' ': SPACE
+        ' ': SPACE,
+        '!': PLACEHOLDER
     };
 
     const handleKeyPress = (event) => {
         const key = event.key.toUpperCase();
         if (newLetters.length === artist.length) {
+            return;
+        }
+        if (key === '!') {
             return;
         }
         if (key === ' ' && newLetters[newLetters.length - 1] === ' ') {
@@ -337,13 +343,21 @@ const MainGame = () => {
         if (key === 'DELETE' || key === 'BACKSPACE') {
             setBackspacePressed(true);
             if (newLetters.length > 0) {
+                // remove first '!' from original letters if it exists
                 setNewLetters(prevNewLetters => {
                     const lastLetter = prevNewLetters[prevNewLetters.length - 1];
                     if (lastLetter === ' ') {
                         setOriginalLetters([...originalLetters, lastLetter]);
                         return prevNewLetters.slice(0, -1);
                     } else {
-                        setOriginalLetters([...originalLetters, lastLetter]);
+                        const index = originalLetters.indexOf('!');
+                        if (index !== -1) {
+                            const newOriginalLetters = [...originalLetters];
+                            newOriginalLetters.splice(index, 1, lastLetter);
+                            setOriginalLetters(newOriginalLetters);
+                        } else {
+                            setOriginalLetters([...originalLetters, lastLetter]);
+                        }
                         return prevNewLetters.slice(0, -1);
                     }
                 });
@@ -352,7 +366,11 @@ const MainGame = () => {
             const index = originalLetters.findIndex(letter => letter === key);
             if (index !== -1) {
                 const newOriginalLetters = [...originalLetters];
-                newOriginalLetters.splice(index, 1);
+                if (key !== ' ') {
+                    newOriginalLetters.splice(index, 1, '!');
+                } else {
+                    newOriginalLetters.splice(index, 1);
+                }
                 setOriginalLetters(newOriginalLetters);
                 setNewLetters([...newLetters, key]);
             }
@@ -428,6 +446,7 @@ const MainGame = () => {
                             // && artist !== "CHRIS STAPLETON"
                             && artist !== "AT THE DRIVE IN"
                             && artist !== "JUDAS PRIEST"
+                            && artist !== "JAMES TAYLOR"
                             // && artist !== "ALICE COOPER"
                         ) {
                             tiles.pop();
@@ -438,7 +457,7 @@ const MainGame = () => {
             }
             const style = letter === ' ' ?
                 { opacity: areaType === 'new' ? '0' : '1', display: areaType === 'original' ? 'none' : 'inline-block' }
-                : {};
+                : letter === '!' ? { opacity: '0', display: areaType === 'original' ? 'inline-block' : 'none' } : {};
             tiles.push(
                 <img
                     className='tile'
