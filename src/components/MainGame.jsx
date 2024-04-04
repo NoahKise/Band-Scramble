@@ -151,7 +151,11 @@ const MainGame = () => {
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
             setResetClicked(false);
-            setTimeLeft(newArtist.length * 3);
+            if (newArtist.length > 6) {
+                setTimeLeft(newArtist.length * 3);
+            } else {
+                setTimeLeft(20);
+            }
             setOriginalLetters(artistArray);
             setNewLetters([]);
             setScoreFluctuation(0);
