@@ -1,4 +1,4 @@
-import { rockData, hiphopData, allData, noahData, topChartData, countryData } from '../Data';
+import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData } from '../Data';
 import { useState, useEffect, useCallback } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
@@ -142,7 +142,7 @@ const MainGame = () => {
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
             const newArtist = remainder[index]; // to test with specific string set newArtist to test value
             // const newArtist = "KENNY ROGERS"
-            console.log(newArtist);
+            // console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             Discogs(newArtist);
             setArtist(newArtist);
@@ -372,6 +372,11 @@ const MainGame = () => {
         document.dispatchEvent(event);
     };
 
+    const handleNewAreaTileClick = () => {
+        const event = new KeyboardEvent('keydown', { key: 'backspace' });
+        document.dispatchEvent(event);
+    }
+
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress);
         return () => {
@@ -383,6 +388,8 @@ const MainGame = () => {
         let tiles = [];
         let previousWasSpace = false;
         let broken = false;
+
+        const clickHandler = areaType === 'new' ? handleNewAreaTileClick : handleClickTile;
 
         for (let i = 0; i < areaLetters.length; i++) {
             const answerArray = artist.split('');
@@ -416,8 +423,11 @@ const MainGame = () => {
                             && artist !== "JANET JACKSON"
                             && artist !== "GARTH BROOKS"
                             && artist !== "TUPAC SHAKUR"
+                            && artist !== "NIPSY HUSTLE"
+                            && artist !== "ALICE COOPER"
                             // && artist !== "CHRIS STAPLETON"
                             && artist !== "AT THE DRIVE IN"
+                            && artist !== "JUDAS PRIEST"
                             // && artist !== "ALICE COOPER"
                         ) {
                             tiles.pop();
@@ -435,7 +445,7 @@ const MainGame = () => {
                     key={i}
                     src={letterImages[letter]}
                     alt={letter}
-                    onClick={() => handleClickTile(letter)}
+                    onClick={() => clickHandler(letter)}
                     style={style}
                 />
             );
@@ -516,7 +526,7 @@ const MainGame = () => {
                                     {renderTiles(newLetters, 'new')}
                                 </div>
                             </div>
-                            <h1 id='gameBoard' dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
+                            <h1 id='gameBoard' onClick={handleNewAreaTileClick} dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
                         </div>
                         <div className="original-area">
                             <div className="letter-tiles">
