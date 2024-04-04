@@ -326,3 +326,34 @@ body {
 .header {
   margin-top: 90px;
 }
+
+.listedArtist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.listedArtist p {
+  font-weight: bold;
+}
+
+.listedArtist img {
+  width: 40px;
+  margin-left: 5px;
+
+}
+
+#history {
+  width: 90%;
+  height: 308px;
+  overflow: scroll;
+  padding-left: none;
+}
+
+.historyIcons {
+  display: flex;
+  flex-direction: row;
+  margin-right: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+}

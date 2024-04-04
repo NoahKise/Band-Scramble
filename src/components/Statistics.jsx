@@ -1,14 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
-import { Line } from "react-chartjs-2";
+import { Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-date-fns';
+import appleMusicIcon from '../assets/images/appleMusicIcon.png'
+import spotifyIcon from '../assets/images/spotifyIcon.png'
 
 const Statistics = () => {
     const [userId, setUserId] = useState('');
     const [userData, setUserData] = useState([]);
     const [userHistory, setUserHistory] = useState([]);
+    const [amountCorrect, setAmountCorrect] = useState(0);
+    const [amountIncorrect, setAmountIncorrect] = useState(0);
     const [propData, setPropData] = useState({
         labels: [],
         datasets: [
@@ -41,7 +45,6 @@ const Statistics = () => {
                 const userDocRef = doc(db, "guessedArtists", userId);
                 const userDoc = await getDoc(userDocRef);
                 const data = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
-                console.log(data);
                 setUserData(data);
             }
         };
@@ -50,19 +53,14 @@ const Statistics = () => {
     }, [userId]);
 
     useEffect(() => {
-        console.log("userData:", userData);
         if (userData.length > 0) {
             const dataPoints = userData.map((data) => {
                 const timestamp = parseInt(data.mapValue.fields.timestamp.integerValue);
                 const score = parseInt(data.mapValue.fields.totalScore.integerValue);
                 return { x: new Date(timestamp), y: score }; // Using lowercase 'x' and 'y'
             });
-
             // Sort dataPoints by timestamp
             dataPoints.sort((a, b) => a.x - b.x);
-
-            console.log(dataPoints);
-
             setPropData({
                 datasets: [
                     {
@@ -80,8 +78,28 @@ const Statistics = () => {
                 const listArtist = data.mapValue.fields.artist.stringValue;
                 return listArtist;
             });
-            console.log(historyList);
             setUserHistory(historyList);
+
+            const rightAnswers = userData.map((data) => {
+                let counter = 0; // Initialize counter outside of map
+                if (data.mapValue.fields.correct.booleanValue === true) {
+                    counter++; // Increment counter for each correct answer
+                }
+                return counter;
+            });
+            const totalCorrect = rightAnswers.reduce((acc, val) => acc + val, 0);
+            setAmountCorrect(totalCorrect);
+
+            const wrongAnswers = userData.map((data) => {
+                let counter = 0; // Initialize counter outside of map
+                if (data.mapValue.fields.correct.booleanValue === false) {
+                    counter++; // Increment counter for each correct answer
+                }
+                return counter;
+            });
+            const totalIncorrect = wrongAnswers.reduce((acc, val) => acc + val, 0);
+            setAmountIncorrect(totalIncorrect);
+
         }
     }, [userData]);
 
@@ -121,14 +139,37 @@ const Statistics = () => {
                     }
                 }
             }} />
-            <div>
+            <Pie
+                data={{
+                    labels: ['Success', 'Fail'], // Labels for the two categories
+                    datasets: [
+                        {
+                            data: [amountCorrect, amountIncorrect], // Pass the actual values here
+                            backgroundColor: [
+                                'green', // Color for success
+                                'red' // Color for fail
+                            ]
+                        }
+                    ]
+                }}
+            />
+            <div id='history'>
                 <h2>History</h2>
-                <ul>
-                    {userHistory.slice().reverse().map((artist, index) => ( // Use slice() to create a copy of the array before reversing
+                <ul style={{ listStyleType: 'none', padding: 0 }}>
+                    {userHistory.slice().reverse().map((artist, index) => (
                         <li key={index}>
-                            <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
-                                {artist}
-                            </a>
+                            <div className='listedArtist'>
+                                <p>{artist}</p>
+                                <div className='historyIcons'>
+                                    <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
+                                        <img src={appleMusicIcon} alt='apple music logo' />
+                                    </a>
+                                    <br />
+                                    <a href={`https://open.spotify.com/search/${encodeURIComponent(artist)}/artists`} target="_blank" rel="noopener noreferrer">
+                                        <img src={spotifyIcon} alt='spotify logo' />
+                                    </a>
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>

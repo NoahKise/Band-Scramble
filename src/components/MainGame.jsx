@@ -48,6 +48,8 @@ const MainGame = () => {
     const [newLetters, setNewLetters] = useState([]);
     const [backspacePressed, setBackspacePressed] = useState(false);
     const [scoreFluctuation, setScoreFluctuation] = useState(0);
+    const [userHistory, setUserHistory] = useState([]);
+    const [answerPool, setAnswerPool] = useState([]);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -78,6 +80,25 @@ const MainGame = () => {
             }
         };
         fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (userId) {
+                const userDocRef = doc(db, "guessedArtists", userId);
+                const userDoc = await getDoc(userDocRef);
+                const userData = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
+                const historyList = userData.map((data) => {
+                    const listArtist = data.mapValue.fields.artist.stringValue;
+                    return listArtist;
+                });
+                setUserHistory(historyList);
+                const difference = allData.filter((element) => !historyList.includes(element));
+                setAnswerPool(difference);
+            }
+        };
+        fetchData();
+
     }, [userId]);
 
     useEffect(() => {
@@ -115,22 +136,25 @@ const MainGame = () => {
         };
     }, []);
 
-    const RandomArtist = useCallback(() => {
-        const index = Math.floor(Math.random() * allData.length); // change data variables for different data sets
-        const newArtist = allData[index]; // to test with specific string set newArtist to test value
-        // const newArtist = "KENNY ROGERS"
-        console.log(newArtist);
-        const artistArray = ScrambledString(newArtist).split('')
-        Discogs(newArtist);
-        setArtist(newArtist);
-        setRevealed(false);
-        setMixedString(ScrambledString(newArtist));
-        setResetClicked(false);
-        setTimeLeft(newArtist.length * 3);
-        setOriginalLetters(artistArray);
-        setNewLetters([]);
-        setScoreFluctuation(0);
-    }, []);
+    const RandomArtist = useCallback(async () => {
+        if (answerPool.length > 0) {
+            const remainder = allData.filter((element) => answerPool.includes(element));
+            const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
+            const newArtist = remainder[index]; // to test with specific string set newArtist to test value
+            // const newArtist = "KENNY ROGERS"
+            console.log(newArtist);
+            const artistArray = ScrambledString(newArtist).split('');
+            Discogs(newArtist);
+            setArtist(newArtist);
+            setRevealed(false);
+            setMixedString(ScrambledString(newArtist));
+            setResetClicked(false);
+            setTimeLeft(newArtist.length * 3);
+            setOriginalLetters(artistArray);
+            setNewLetters([]);
+            setScoreFluctuation(0);
+        }
+    }, [answerPool]);
 
     useEffect(() => {
         const timerInterval = setInterval(() => {
@@ -261,6 +285,12 @@ const MainGame = () => {
                 await setDoc(userDocRef, { artists: updatedArtists });
             }
             setGuessedArtists(updatedArtists);
+            const newAnswerPool = [...answerPool]; // or answerPool.slice()
+            const index = newAnswerPool.indexOf(artist);
+            if (index > -1) {
+                newAnswerPool.splice(index, 1);
+            }
+            setAnswerPool(newAnswerPool);
         }
     };
 
