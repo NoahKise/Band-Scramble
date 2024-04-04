@@ -103,14 +103,17 @@ body {
 
 #gameBoard {
   height: 90px;
-  font-size: 61.5px;
-  margin-top: -31px;
+  font-size: 66.8px;
+  margin-top: -44px;
   margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
   z-index: -1;
   user-select: none;
+  font-family: 'dash';
+  font-weight: 300;
+  transform: scale(1, 0.75);
 }
 
 #gameArea {
@@ -360,4 +363,9 @@ body {
   margin-right: 15px;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+@font-face {
+  font-family: 'dash';
+  src: url(../src/assets/fonts/RedditMono-VariableFont_wght.ttf);
 }

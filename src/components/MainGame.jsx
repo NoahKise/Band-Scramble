@@ -142,7 +142,7 @@ const MainGame = () => {
             const remainder = allData.filter((element) => answerPool.includes(element));
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
             const newArtist = remainder[index]; // to test with specific string set newArtist to test value
-            // const newArtist = "KENNY ROGERS"
+            // const newArtist = "DARKTHRONE"
             // console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             Discogs(newArtist);
