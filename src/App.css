@@ -60,6 +60,8 @@ body {
   max-height: 100%;
   object-fit: contain;
   z-index: 1;
+  box-shadow: 7px 7px 5px black;
+  border-radius: 5px;
 }
 
 #gameImageDiv {
@@ -72,7 +74,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #navbar {
@@ -95,6 +97,8 @@ body {
 .tile {
   width: 37.6px;
   z-index: 1;
+  box-shadow: 3px 3px 5px black;
+  border-radius: 6px;
 }
 
 .tile:hover {
@@ -183,11 +187,27 @@ body {
 #timerAndScore {
   display: flex;
   flex-direction: row;
-  width: 240px;
+  width: 270px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: -10px;
   justify-content: space-between;
+}
+
+#hintIcon {
+  margin-top: 7px;
+  margin-bottom: 5px;
+  height: 40px;
+  border: 3px solid black;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  box-shadow: .75px .75px 4.5px 4.5px rgb(212, 243, 14);
+}
+
+#topContainer {
+  position: relative;
 }
 
 #startButton {
@@ -263,6 +283,7 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   font-size: 18px;
+  box-shadow: 3px 3px 5px black;
 }
 
 .gameButton:hover {

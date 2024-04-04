@@ -30,6 +30,7 @@ import Y from '../assets/images/Y.png'
 import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
+import hintIcon from '../assets/images/hintIcon.png'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -515,26 +516,29 @@ const MainGame = () => {
             )}
             {gameStarted && (
                 <>
-                    {/* <Draggable> */}
-                    <div id='gameImageDiv'>
-                        <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
-                        <input
-                            type='text'
-                            id='guess'
-                            autoComplete='off'
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && revealed === true) {
-                                    revealOrReset();
-                                } else if (e.key === 'Enter' && e.shiftKey) {
-                                    scramble();
-                                } else if (e.key === 'Enter') {
-                                    makeGuess();
-                                }
-                            }}
-                        >
-                        </input>
+                    <div id='topContainer'>
+                        <img id='hintIcon' src={hintIcon} alt='hint icon' />
+                        {/* <Draggable> */}
+                        <div id='gameImageDiv'>
+                            <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
+                            <input
+                                type='text'
+                                id='guess'
+                                autoComplete='off'
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && revealed === true) {
+                                        revealOrReset();
+                                    } else if (e.key === 'Enter' && e.shiftKey) {
+                                        scramble();
+                                    } else if (e.key === 'Enter') {
+                                        makeGuess();
+                                    }
+                                }}
+                            >
+                            </input>
+                        </div>
+                        {/* </Draggable> */}
                     </div>
-                    {/* </Draggable> */}
                     <br></br>
 
 
