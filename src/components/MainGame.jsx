@@ -292,7 +292,7 @@ const MainGame = () => {
                 await setDoc(userDocRef, { artists: updatedArtists });
             }
             setGuessedArtists(updatedArtists);
-            const newAnswerPool = [...answerPool]; // or answerPool.slice()
+            const newAnswerPool = [...answerPool];
             const index = newAnswerPool.indexOf(artist);
             if (index > -1) {
                 newAnswerPool.splice(index, 1);
