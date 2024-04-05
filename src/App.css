@@ -204,6 +204,7 @@ body {
   right: 0;
   bottom: 0;
   box-shadow: .75px .75px 4.5px 4.5px rgb(212, 243, 14);
+  z-index: 2;
 }
 
 #topContainer {
