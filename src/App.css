@@ -57,14 +57,14 @@ body {
 }
 
 /* #bubbles {
-  background-image: url(https://i.pinimg.com/originals/78/0e/fa/780efa1db0e732df6f4d2ebff9be3c90.gif);
+  background-image: url(https://img1.picmix.com/output/stamp/normal/6/7/1/2/1812176_0f81d.gif);
   height: 100vh;
   width: 100vw;
   position: fixed;
-  top: 0;
+  top: 150px;
   left: 0;
   z-index: -1;
-  background-repeat: no-repeat;
+  background-size: cover;
 } */
 
 #gameImage {
