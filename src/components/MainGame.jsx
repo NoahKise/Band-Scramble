@@ -88,19 +88,28 @@ const MainGame = () => {
         const fetchData = async () => {
             if (userId) {
                 const userDocRef = doc(db, "guessedArtists", userId);
-                const userDoc = await getDoc(userDocRef);
-                const userData = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
-                const historyList = userData.map((data) => {
-                    const listArtist = data.mapValue.fields.artist.stringValue;
-                    return listArtist;
-                });
-                setUserHistory(historyList);
-                const difference = allData.filter((element) => !historyList.includes(element));
-                setAnswerPool(difference);
+                try {
+                    const userDoc = await getDoc(userDocRef);
+                    if (userDoc.exists()) {
+                        const userData = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
+                        const historyList = userData.map((data) => {
+                            const listArtist = data.mapValue.fields.artist.stringValue;
+                            return listArtist;
+                        });
+                        setUserHistory(historyList);
+                        const difference = allData.filter(element => !historyList.includes(element));
+                        setAnswerPool(difference);
+                    } else {
+                        console.log("User document is empty or does not exist.");
+                        setUserHistory([]);
+                        setAnswerPool(allData);
+                    }
+                } catch (error) {
+                    console.error("Error fetching user document:", error);
+                }
             }
         };
         fetchData();
-
     }, [userId]);
 
     useEffect(() => {

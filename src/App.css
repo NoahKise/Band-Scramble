@@ -393,4 +393,20 @@ body {
 
 #leaderboard {
   margin-top: 70px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#leaderboard tbody {
+  font-weight: bold;
+}
+
+#leaderboard th {
+  font-size: 26px;
+  padding-right: 40px;
+}
+
+#leaderboard h1 {
+  text-align: center;
 }
