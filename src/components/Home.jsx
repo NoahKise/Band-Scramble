@@ -29,6 +29,7 @@ export default function Home() {
     const [forgotPassword, setForgotPassword] = useState(false);
     const [leaderboard, setLeaderboard] = useState([]);
     const [userId, setUserId] = useState('');
+    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
     const handleImageChange = (e) => {
@@ -51,7 +52,7 @@ export default function Home() {
 
             if (!querySnapshot.empty) {
                 // Username already exists
-                console.log("Username already exists. Please choose a different username.");
+                setErrorMessage("Username already exists. Please choose a different username.");
                 return; // Exit function
             }
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -69,7 +70,7 @@ export default function Home() {
             }
             navigate('/MainGame');
         } catch (error) {
-            console.log("error signing up")
+            setErrorMessage("Error signing up. Perhaps you already have an account?");
         }
     };
 
@@ -201,6 +202,7 @@ export default function Home() {
                                     </>
                                 )}
                                 <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                                {errorMessage && <Typography variant="subtitle2" color="error">{errorMessage}</Typography>}
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                     {showSignUp ? "Sign Up" : "Sign In"}
                                 </Button>

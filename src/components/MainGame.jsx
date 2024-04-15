@@ -100,7 +100,6 @@ const MainGame = () => {
                         const difference = allData.filter(element => !historyList.includes(element));
                         setAnswerPool(difference);
                     } else {
-                        console.log("User document is empty or does not exist.");
                         setUserHistory([]);
                         setAnswerPool(allData);
                     }
