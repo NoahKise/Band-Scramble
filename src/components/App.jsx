@@ -15,6 +15,7 @@ function App() {
                 <Navbar />
                 {/* <Header /> */}
                 <div id="bg"></div>
+                <div id="bubbles"></div>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/mainGame" element={<MainGame />} />

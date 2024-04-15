@@ -45,15 +45,27 @@ body {
 
 #bg {
   background: rgb(255, 255, 255);
-  background: linear-gradient(0deg, rgba(255, 255, 255, 1) 12%, rgba(8, 142, 218, 1) 100%);
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 1) 12%, rgba(8, 142, 218, 1) 100%); */
+  background: linear-gradient(0deg, rgba(8, 142, 218, 1) 12%, rgba(255, 255, 255, 1) 100%);
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: -2;
 }
+
+/* #bubbles {
+  background-image: url(https://i.pinimg.com/originals/78/0e/fa/780efa1db0e732df6f4d2ebff9be3c90.gif);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+} */
 
 #gameImage {
   max-width: 100%;
