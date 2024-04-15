@@ -390,3 +390,7 @@ body {
   font-family: 'dash';
   src: url(../src/assets/fonts/RedditMono-VariableFont_wght.ttf);
 }
+
+#leaderboard {
+  margin-top: 70px;
+}
