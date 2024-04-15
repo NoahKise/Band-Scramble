@@ -5,7 +5,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, doc, setDoc, getDocs, updateDoc, collection } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDocs, updateDoc, collection, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
 const defaultTheme = createTheme();
@@ -44,9 +44,18 @@ export default function Home() {
         const username = e.target.username.value;
 
         try {
+            // Check if username already exists
+            const db = getFirestore();
+            const usersCollection = collection(db, 'users');
+            const querySnapshot = await getDocs(query(usersCollection, where("username", "==", username)));
+
+            if (!querySnapshot.empty) {
+                // Username already exists
+                console.log("Username already exists. Please choose a different username.");
+                return; // Exit function
+            }
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            const db = getFirestore();
             const userDocRef = doc(db, 'users', user.uid);
 
             if (profileImage) {
