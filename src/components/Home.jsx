@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Link, Grid, Box, Avatar, Typography, Container, FormControlLabel, Checkbox, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { auth } from "../firebase";
+import { getFirestore, doc, setDoc, getDocs, updateDoc, collection } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 const defaultTheme = createTheme();
 
@@ -27,6 +27,7 @@ export default function Home() {
     const [resetEmail, setResetEmail] = useState("");
     const [resetSuccess, setResetSuccess] = useState(null);
     const [forgotPassword, setForgotPassword] = useState(false);
+    const [leaderboard, setLeaderboard] = useState([]);
     const navigate = useNavigate();
 
     const handleImageChange = (e) => {
@@ -87,6 +88,22 @@ export default function Home() {
     const handleForgotPassword = () => {
         setForgotPassword(!forgotPassword);
     };
+
+    useEffect(() => {
+        const fetchLeaderboard = async () => {
+            const scoresCollection = collection(db, "score");
+            const snapshot = await getDocs(scoresCollection);
+            const leaderboardData = [];
+            snapshot.forEach(doc => {
+                const userId = doc.id; // Assuming userId is the document ID
+                const scoreData = doc.data();
+                leaderboardData.push({ userId, ...scoreData });
+            });
+            console.log(leaderboardData);
+            setLeaderboard(leaderboardData);
+        };
+        fetchLeaderboard();
+    }, []);
 
     return (
         <ThemeProvider theme={defaultTheme}>
