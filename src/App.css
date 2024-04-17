@@ -365,6 +365,7 @@ body {
 
 .header {
   margin-top: 90px;
+  text-align: center;
 }
 
 .listedArtist {
@@ -384,10 +385,18 @@ body {
 }
 
 #history {
+  margin-left: auto;
+  margin-right: auto;
   width: 90%;
   height: 308px;
   overflow: scroll;
   padding-left: none;
+  max-width: 700px;
+}
+
+#history h2 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 .historyIcons {
@@ -422,4 +431,17 @@ body {
 #leaderboard h1 {
   text-align: center;
   text-decoration: underline;
+}
+
+.graph {
+  max-height: 500px;
+  max-width: 700px;
+  /* border: 3px solid black; */
+  margin-bottom: 20px;
+}
+
+#statsFullPage {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
-import { Line, Pie } from "react-chartjs-2";
+import { Line, Pie, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-date-fns';
 import appleMusicIcon from '../assets/images/appleMusicIcon.png'
@@ -103,76 +103,82 @@ const Statistics = () => {
         }
     }, [userData]);
 
+    const successPercentage = (amountCorrect / (amountCorrect + amountIncorrect)) * 100;
+    const roundedSuccessPercentage = Math.round((successPercentage + Number.EPSILON) * 100) / 100;
+    console.log(roundedSuccessPercentage);
+
     return (
         <>
             <h1 className='header'>Statistics</h1>
-            <Line data={propData} options={{
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'black'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'hour',
-                            stepSize: 3,
-                            tooltipFormat: 'HH:mm',
-                        },
-                        ticks: {
-                            color: 'black',
-                            major: {
-                                enabled: true,
-                                fontStyle: 'bold',
-                                fontColor: 'red'
+            <div id='statsFullPage'>
+                <Line className='graph' data={propData} options={{
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'black'
                             }
                         }
                     },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'black',
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'hour',
+                                stepSize: 3,
+                                tooltipFormat: 'HH:mm',
+                            },
+                            ticks: {
+                                color: 'black',
+                                major: {
+                                    enabled: true,
+                                    fontStyle: 'bold',
+                                    fontColor: 'red'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'black',
+                            }
                         }
                     }
-                }
-            }} />
-            <Pie
-                data={{
-                    labels: ['Success', 'Fail'], // Labels for the two categories
-                    datasets: [
-                        {
-                            data: [amountCorrect, amountIncorrect], // Pass the actual values here
-                            backgroundColor: [
-                                'green', // Color for success
-                                'red' // Color for fail
-                            ]
-                        }
-                    ]
-                }}
-            />
-            <div id='history'>
-                <h2>History</h2>
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {userHistory.slice().reverse().map((artist, index) => (
-                        <li key={index}>
-                            <div className='listedArtist'>
-                                <p>{artist}</p>
-                                <div className='historyIcons'>
-                                    <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
-                                        <img src={appleMusicIcon} alt='apple music logo' />
-                                    </a>
-                                    <br />
-                                    <a href={`https://open.spotify.com/search/${encodeURIComponent(artist)}/artists`} target="_blank" rel="noopener noreferrer">
-                                        <img src={spotifyIcon} alt='spotify logo' />
-                                    </a>
+                }} />
+                <Doughnut className='graph'
+                    data={{
+                        labels: ['Correct', 'Incorrect'], // Labels for the two categories
+                        datasets: [
+                            {
+                                data: [amountCorrect, amountIncorrect], // Pass the actual values here
+                                backgroundColor: [
+                                    '#23d866', // Color for success
+                                    '#f9435d' // Color for fail
+                                ]
+                            }
+                        ]
+                    }}
+                />
+                <div id='history'>
+                    <h2>History</h2>
+                    <ul style={{ listStyleType: 'none', padding: 0 }}>
+                        {userHistory.slice().reverse().map((artist, index) => (
+                            <li key={index}>
+                                <div className='listedArtist'>
+                                    <p>{artist}</p>
+                                    <div className='historyIcons'>
+                                        <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
+                                            <img src={appleMusicIcon} alt='apple music logo' />
+                                        </a>
+                                        <br />
+                                        <a href={`https://open.spotify.com/search/${encodeURIComponent(artist)}/artists`} target="_blank" rel="noopener noreferrer">
+                                            <img src={spotifyIcon} alt='spotify logo' />
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </>
     );
