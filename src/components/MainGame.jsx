@@ -545,8 +545,26 @@ const MainGame = () => {
 
     const playMusic = () => {
         let audio = new Audio(audioPreviewUrl);
+        audio.volume = 0;
         audio.play();
-    }
+        setTimeLeft(31);
+        setTimeout(() => {
+            const fadeOutInterval = setInterval(() => {
+                if (audio.volume > 0.05) {
+                    audio.volume -= 0.05;
+                } else {
+                    clearInterval(fadeOutInterval);
+                }
+            }, 300);
+        }, 24500);
+        const fadeInInterval = setInterval(() => {
+            if (audio.volume < 0.95) {
+                audio.volume += 0.05;
+            } else {
+                clearInterval(fadeInInterval);
+            }
+        }, 400);
+    };
 
     return (
         <div className="App">
