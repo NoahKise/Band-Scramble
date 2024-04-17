@@ -144,20 +144,23 @@ const Statistics = () => {
                         }
                     }
                 }} />
-                <Doughnut className='graph'
-                    data={{
-                        labels: ['Correct', 'Incorrect'], // Labels for the two categories
-                        datasets: [
-                            {
-                                data: [amountCorrect, amountIncorrect], // Pass the actual values here
-                                backgroundColor: [
-                                    '#23d866', // Color for success
-                                    '#f9435d' // Color for fail
-                                ]
-                            }
-                        ]
-                    }}
-                />
+                <div id='doughnut'>
+                    <h1 id='percentage'>{!isNaN(roundedSuccessPercentage) ? `${roundedSuccessPercentage}%` : ''}</h1>
+                    <Doughnut className='graph'
+                        data={{
+                            labels: ['Correct', 'Incorrect'], // Labels for the two categories
+                            datasets: [
+                                {
+                                    data: [amountCorrect, amountIncorrect], // Pass the actual values here
+                                    backgroundColor: [
+                                        '#23d866', // Color for success
+                                        '#f9435d' // Color for fail
+                                    ]
+                                }
+                            ]
+                        }}
+                    />
+                </div>
                 <div id='history'>
                     <h2>History</h2>
                     <ul style={{ listStyleType: 'none', padding: 0 }}>

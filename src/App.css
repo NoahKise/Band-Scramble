@@ -445,3 +445,15 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+#doughnut {
+  width: 100%;
+  position: relative;
+}
+
+#percentage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
