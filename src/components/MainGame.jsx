@@ -275,6 +275,7 @@ const MainGame = () => {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
+            console.log(jsonifiedresponse);
             let url = jsonifiedresponse.results[0].cover_image;
             setImageUrl(url);
         } catch (error) {
