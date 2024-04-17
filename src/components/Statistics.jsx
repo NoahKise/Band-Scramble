@@ -105,7 +105,6 @@ const Statistics = () => {
 
     const successPercentage = (amountCorrect / (amountCorrect + amountIncorrect)) * 100;
     const roundedSuccessPercentage = Math.round((successPercentage + Number.EPSILON) * 100) / 100;
-    console.log(roundedSuccessPercentage);
 
     return (
         <>
