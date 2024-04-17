@@ -496,7 +496,7 @@ const MainGame = () => {
         return spaceIndices;
     };
 
-    function longestLineLength(artistName) {
+    const longestLineLength = (artistName) => {
         if (artistName.length <= 10) {
             return artistName.length;
         }
@@ -518,6 +518,11 @@ const MainGame = () => {
         return Math.max(firstLine.length, secondLine.length);
     }
 
+    const playMusic = () => {
+        let audio = new Audio("https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5b/98/32/5b9832bb-5337-cd4f-5a7e-063709c465cc/mzaf_8852412892959276575.plus.aac.p.m4a")
+        audio.play()
+    }
+
     return (
         <div className="App">
             {answerPool.length === 0 && (
@@ -529,7 +534,8 @@ const MainGame = () => {
             {gameStarted && (
                 <>
                     <div id='topContainer'>
-                        <img id='hintIcon' src={hintIcon} alt='hint icon' />
+                        <img id='hintIcon' src={hintIcon} alt='hint icon' onClick={playMusic} />
+                        {/* <button id='playMusicButton' onClick={playMusic}>Play Music</button> */}
                         {/* <Draggable> */}
                         <div id='gameImageDiv'>
                             <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
