@@ -285,19 +285,24 @@ const MainGame = () => {
     };
 
     const Deezer = async (bandName) => {
-        const index = Math.floor(Math.random() * 10);
+        const index = Math.floor(Math.random() * 3);
         console.log(index);
         try {
-            const response = await fetch(`https://api.deezer.com/search/track?q=${bandName}`);
+            const response = await fetch(`https://corsproxy.io/?https://api.deezer.com/search/track?q=${bandName}`);
             if (!response.ok) {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
             console.log(jsonifiedresponse);
-            let url = jsonifiedresponse.data[index].preview;
-            console.log(url);
-            setAudioPreviewUrl(url);
+            if (jsonifiedresponse) {
+                let url = jsonifiedresponse.data[index].preview;
+                console.log(url);
+                setAudioPreviewUrl(url);
+            } else {
+                console.log('no api response')
+            }
         } catch (error) {
+            console.log(error);
             throw new Error(error.message);
         }
     }
