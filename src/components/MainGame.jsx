@@ -52,6 +52,7 @@ const MainGame = () => {
     const [scoreFluctuation, setScoreFluctuation] = useState(0);
     const [userHistory, setUserHistory] = useState([]);
     const [answerPool, setAnswerPool] = useState([]);
+    const [audioPreviewUrl, setAudioPreviewUrl] = useState([]);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -155,6 +156,7 @@ const MainGame = () => {
             // console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             Discogs(newArtist);
+            Deezer(newArtist);
             setArtist(newArtist);
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
@@ -275,13 +277,30 @@ const MainGame = () => {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
-            console.log(jsonifiedresponse);
             let url = jsonifiedresponse.results[0].cover_image;
             setImageUrl(url);
         } catch (error) {
             throw new Error(error.message);
         }
     };
+
+    const Deezer = async (bandName) => {
+        const index = Math.floor(Math.random() * 10);
+        console.log(index);
+        try {
+            const response = await fetch(`https://api.deezer.com/search/track?q=${bandName}`);
+            if (!response.ok) {
+                throw new Error(`${response.status}: ${response.statusText}`);
+            }
+            const jsonifiedresponse = await response.json();
+            console.log(jsonifiedresponse);
+            let url = jsonifiedresponse.data[index].preview;
+            console.log(url);
+            setAudioPreviewUrl(url);
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
     const updateGuessedArtists = async (boolean) => {
         if (userId && artist !== "") {
@@ -520,8 +539,8 @@ const MainGame = () => {
     }
 
     const playMusic = () => {
-        let audio = new Audio("https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5b/98/32/5b9832bb-5337-cd4f-5a7e-063709c465cc/mzaf_8852412892959276575.plus.aac.p.m4a")
-        audio.play()
+        let audio = new Audio(audioPreviewUrl);
+        audio.play();
     }
 
     return (
