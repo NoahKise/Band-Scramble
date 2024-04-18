@@ -568,32 +568,41 @@ const MainGame = () => {
 
 
     const playMusic = () => {
-        if (!audio.current) {
-            audio.current = new Audio(audioPreviewUrl);
-        }
-
-        if (!musicPlaying) {
-            // If music is not playing, start playing
-            audio.current.volume = 0;
-            audio.current.play();
-            setTimeLeft(31);
-            setTimeout(() => {
-                const fadeOutInterval = setInterval(() => {
-                    if (audio.current.volume > 0.05) {
-                        audio.current.volume -= 0.05;
-                    } else {
-                        clearInterval(fadeOutInterval);
+        if (!revealed) {
+            if (!audio.current) {
+                audio.current = new Audio(audioPreviewUrl);
+            }
+            if (!musicPlaying) {
+                // If music is not playing, start playing
+                audio.current.volume = 0;
+                audio.current.play();
+                setTimeLeft(31);
+                setTimeout(() => {
+                    const fadeOutInterval = setInterval(() => {
+                        if (audio.current) {
+                            if (audio.current.volume > 0.05) {
+                                audio.current.volume -= 0.05;
+                            } else {
+                                clearInterval(fadeOutInterval);
+                            }
+                        }
+                    }, 300);
+                }, 24500);
+                const fadeInInterval = setInterval(() => {
+                    if (audio.current) {
+                        if (audio.current.volume < 0.95) {
+                            audio.current.volume += 0.05;
+                        } else {
+                            clearInterval(fadeInInterval);
+                        }
                     }
-                }, 300);
-            }, 24500);
-            const fadeInInterval = setInterval(() => {
-                if (audio.current.volume < 0.95) {
-                    audio.current.volume += 0.05;
-                } else {
-                    clearInterval(fadeInInterval);
-                }
-            }, 400);
-            setMusicPlaying(true);
+                }, 400);
+                setMusicPlaying(true);
+            } else {
+                // If music is playing, pause it
+                audio.current.pause();
+                setMusicPlaying(false);
+            }
         } else {
             // If music is playing, pause it
             audio.current.pause();
