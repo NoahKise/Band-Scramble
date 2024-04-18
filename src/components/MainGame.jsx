@@ -31,6 +31,10 @@ import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
 import hintIcon from '../assets/images/hintIcon.png'
+import whoosh from '../assets/sounds/whoosh.mp3'
+import twinkle from '../assets/sounds/twinkle.mp3'
+import shuffle from '../assets/sounds/shuffle.mp3'
+import recall from '../assets/sounds/recall.mp3'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -168,6 +172,7 @@ const MainGame = () => {
             }
             Discogs(newArtist);
             setArtist(newArtist);
+            playTwinkle();
             Deezer(newArtist);
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
@@ -232,6 +237,7 @@ const MainGame = () => {
     }
 
     const scramble = () => {
+        playShuffle();
         const placeholdersRemoved = originalLetters.filter((element) => element !== '!')
         setMixedString(ScrambledString(placeholdersRemoved.join('')));
         setOriginalLetters(ScrambledString(placeholdersRemoved.join('')).split(''))
@@ -390,6 +396,7 @@ const MainGame = () => {
     };
 
     const handleKeyPress = (event) => {
+
         const key = event.key.toUpperCase();
         if (newLetters.length === artist.length) {
             return;
@@ -410,6 +417,7 @@ const MainGame = () => {
                         setOriginalLetters([...originalLetters, lastLetter]);
                         return prevNewLetters.slice(0, -1);
                     } else {
+                        playRecall();
                         const index = originalLetters.indexOf('!');
                         if (index !== -1) {
                             const newOriginalLetters = [...originalLetters];
@@ -425,6 +433,7 @@ const MainGame = () => {
         } else {
             const index = originalLetters.findIndex(letter => letter === key);
             if (index !== -1) {
+                playTileWhoosh();
                 const newOriginalLetters = [...originalLetters];
                 if (key !== ' ') {
                     newOriginalLetters.splice(index, 1, '!');
@@ -576,18 +585,18 @@ const MainGame = () => {
                 // If music is not playing, start playing
                 audio.current.volume = 0;
                 audio.current.play();
-                setTimeLeft(31);
-                setTimeout(() => {
-                    const fadeOutInterval = setInterval(() => {
-                        if (audio.current) {
-                            if (audio.current.volume > 0.05) {
-                                audio.current.volume -= 0.05;
-                            } else {
-                                clearInterval(fadeOutInterval);
-                            }
-                        }
-                    }, 300);
-                }, 24500);
+                setTimeLeft(30);
+                // setTimeout(() => {
+                //     const fadeOutInterval = setInterval(() => {
+                //         if (audio.current) {
+                //             if (audio.current.volume > 0.05) {
+                //                 audio.current.volume -= 0.05;
+                //             } else {
+                //                 clearInterval(fadeOutInterval);
+                //             }
+                //         }
+                //     }, 300);
+                // }, 24500);
                 const fadeInInterval = setInterval(() => {
                     if (audio.current) {
                         if (audio.current.volume < 0.95) {
@@ -604,11 +613,31 @@ const MainGame = () => {
                 setMusicPlaying(false);
             }
         } else {
-            // If music is playing, pause it
-            audio.current.pause();
+            if (audio.current) {
+                audio.current.pause();
+            }
             setMusicPlaying(false);
         }
     };
+
+    const playTileWhoosh = () => {
+        const audio = new Audio(whoosh)
+        audio.play();
+    }
+    const playTwinkle = () => {
+        const audio = new Audio(twinkle)
+        audio.play();
+    }
+
+    const playShuffle = () => {
+        const audio = new Audio(shuffle)
+        audio.play();
+    }
+
+    const playRecall = () => {
+        const audio = new Audio(recall)
+        audio.play();
+    }
 
     return (
         <div className="App">
