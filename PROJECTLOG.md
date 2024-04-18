@@ -10,3 +10,4 @@
 
 * 7:35: getting started for the day
 * 1:00: looking into mobile specific ui / ux design, starting with [this article](https://www.innovecsgames.com/blog/mobile-game-design/)
+* 2:25: looking into animation dificulty

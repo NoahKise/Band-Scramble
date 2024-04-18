@@ -368,7 +368,7 @@ body {
 }
 
 .header {
-  margin-top: 90px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -417,7 +417,7 @@ body {
 }
 
 #leaderboard {
-  margin-top: 70px;
+  margin-top: 20px;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
