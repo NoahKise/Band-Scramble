@@ -302,7 +302,7 @@ const MainGame = () => {
     };
 
     const Deezer = async (bandName) => {
-        let index = 0;
+        let index = 1;
         let url = '';
         try {
             const response = await fetch(`https://corsproxy.io/?https://api.deezer.com/search/track?q=${bandName}`);
@@ -516,6 +516,7 @@ const MainGame = () => {
                             && artist !== "AT THE DRIVE IN"
                             && artist !== "JUDAS PRIEST"
                             && artist !== "JAMES TAYLOR"
+                            && artist !== "BUSTA RHYMES"
                             // && artist !== "ALICE COOPER"
                         ) {
                             tiles.pop();
