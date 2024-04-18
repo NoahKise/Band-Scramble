@@ -147,17 +147,19 @@ const MainGame = () => {
         };
     }, []);
 
+    let newArtist = '';
+
     const RandomArtist = useCallback(async () => {
         if (answerPool.length > 0) {
             const remainder = allData.filter((element) => answerPool.includes(element));
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-            const newArtist = remainder[index]; // to test with specific string set newArtist to test value
+            newArtist = remainder[index]; // to test with specific string set newArtist to test value
             // const newArtist = "DARKTHRONE"
             // console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             Discogs(newArtist);
-            Deezer(newArtist);
             setArtist(newArtist);
+            Deezer(newArtist);
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
             setResetClicked(false);
@@ -285,8 +287,8 @@ const MainGame = () => {
     };
 
     const Deezer = async (bandName) => {
-        const index = Math.floor(Math.random() * 3);
-        console.log(index);
+        let index = 0;
+        let url = '';
         try {
             const response = await fetch(`https://corsproxy.io/?https://api.deezer.com/search/track?q=${bandName}`);
             if (!response.ok) {
@@ -295,9 +297,20 @@ const MainGame = () => {
             const jsonifiedresponse = await response.json();
             console.log(jsonifiedresponse);
             if (jsonifiedresponse) {
-                let url = jsonifiedresponse.data[index].preview;
-                console.log(url);
-                setAudioPreviewUrl(url);
+                while (index < jsonifiedresponse.data.length) {
+                    if (jsonifiedresponse.data[index].artist.name[0].toUpperCase() === newArtist[0]) {
+                        url = jsonifiedresponse.data[index].preview;
+                        console.log(index);
+                        setAudioPreviewUrl(url);
+                        break;
+                    }
+                    index++;
+                }
+                if (!url && jsonifiedresponse.data.length > 0) {
+                    url = jsonifiedresponse.data[0].preview;
+                    console.log(url);
+                    setAudioPreviewUrl(url);
+                }
             } else {
                 console.log('no api response')
             }
