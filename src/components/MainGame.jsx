@@ -159,6 +159,9 @@ const MainGame = () => {
             newArtist = remainder[index]; // to test with specific string set newArtist to test value
             // const newArtist = "DARKTHRONE"
             // console.log(newArtist);
+            if (musicPlaying) {
+                playMusic();
+            }
             const artistArray = ScrambledString(newArtist).split('');
             if (audio && audio.current) {
                 audio.current = null;
