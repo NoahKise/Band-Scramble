@@ -35,6 +35,7 @@ import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
 import shuffle from '../assets/sounds/shuffle.mp3'
 import recall from '../assets/sounds/recall.mp3'
+import wrong from '../assets/sounds/wrong.mp3'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -275,6 +276,7 @@ const MainGame = () => {
             setResetClicked(true);
             updateGuessedArtists(true);
         } else {
+            playWrong();
             setOriginalLetters(ScrambledString(artist).split(''));
             setNewLetters([]);
             field.value = '';
@@ -638,6 +640,11 @@ const MainGame = () => {
 
     const playRecall = () => {
         const audio = new Audio(recall)
+        audio.play();
+    }
+
+    const playWrong = () => {
+        const audio = new Audio(wrong)
         audio.play();
     }
 
