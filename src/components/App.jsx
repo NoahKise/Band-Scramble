@@ -12,7 +12,6 @@ function App() {
     return (
         <>
             <Router>
-                <Navbar />
                 {/* <Header /> */}
                 <div id="bg"></div>
                 <div id="bubbles"></div>
@@ -22,6 +21,7 @@ function App() {
                     <Route path="/account" element={<Account />} />
                     <Route path="/statistics" element={<Statistics />} />
                 </Routes>
+                <Navbar />
             </Router>
         </>
     );
