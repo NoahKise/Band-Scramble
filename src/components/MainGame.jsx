@@ -1,5 +1,5 @@
 import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData } from '../Data';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
 import A from '../assets/images/A.png'
@@ -53,6 +53,9 @@ const MainGame = () => {
     const [userHistory, setUserHistory] = useState([]);
     const [answerPool, setAnswerPool] = useState([]);
     const [audioPreviewUrl, setAudioPreviewUrl] = useState([]);
+    const [musicPlaying, setMusicPlaying] = useState(false);
+
+    let audio = useRef(null);
 
     useEffect(() => {
         const checkCurrentUser = async () => {
@@ -157,6 +160,9 @@ const MainGame = () => {
             // const newArtist = "DARKTHRONE"
             // console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
+            if (audio && audio.current) {
+                audio.current = null;
+            }
             Discogs(newArtist);
             setArtist(newArtist);
             Deezer(newArtist);
@@ -556,27 +562,40 @@ const MainGame = () => {
         return Math.max(firstLine.length, secondLine.length);
     }
 
+
+
     const playMusic = () => {
-        let audio = new Audio(audioPreviewUrl);
-        audio.volume = 0;
-        audio.play();
-        setTimeLeft(31);
-        setTimeout(() => {
-            const fadeOutInterval = setInterval(() => {
-                if (audio.volume > 0.05) {
-                    audio.volume -= 0.05;
+        if (!audio.current) {
+            audio.current = new Audio(audioPreviewUrl);
+        }
+
+        if (!musicPlaying) {
+            // If music is not playing, start playing
+            audio.current.volume = 0;
+            audio.current.play();
+            setTimeLeft(31);
+            setTimeout(() => {
+                const fadeOutInterval = setInterval(() => {
+                    if (audio.current.volume > 0.05) {
+                        audio.current.volume -= 0.05;
+                    } else {
+                        clearInterval(fadeOutInterval);
+                    }
+                }, 300);
+            }, 24500);
+            const fadeInInterval = setInterval(() => {
+                if (audio.current.volume < 0.95) {
+                    audio.current.volume += 0.05;
                 } else {
-                    clearInterval(fadeOutInterval);
+                    clearInterval(fadeInInterval);
                 }
-            }, 300);
-        }, 24500);
-        const fadeInInterval = setInterval(() => {
-            if (audio.volume < 0.95) {
-                audio.volume += 0.05;
-            } else {
-                clearInterval(fadeInInterval);
-            }
-        }, 400);
+            }, 400);
+            setMusicPlaying(true);
+        } else {
+            // If music is playing, pause it
+            audio.current.pause();
+            setMusicPlaying(false);
+        }
     };
 
     return (
