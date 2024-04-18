@@ -172,7 +172,7 @@ const MainGame = () => {
             }
             Discogs(newArtist);
             setArtist(newArtist);
-            playTwinkle();
+            playShuffle();
             Deezer(newArtist);
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
@@ -267,6 +267,7 @@ const MainGame = () => {
         const field = document.getElementById("guess");
         let trimmedGuess = newLetters.join('').toUpperCase().trim();
         if (trimmedGuess === artist) {
+            playTwinkle();
             if (revealed === false) {
                 setScore(score + (mixedString.length + timeLeft) * 10);
             }
