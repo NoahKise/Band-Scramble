@@ -52,6 +52,7 @@ const MainGame = () => {
     const [resetClicked, setResetClicked] = useState(false);
     const [score, setScore] = useState(0);
     const [hints, setHints] = useState(0);
+    const [firstLetterHints, setFirstLetterHints] = useState(0);
     const [timeLeft, setTimeLeft] = useState(20);
     const [userId, setUserId] = useState('');
     const [gameStarted, setGameStarted] = useState(false);
@@ -113,6 +114,21 @@ const MainGame = () => {
             }
         };
         fetchHints();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchFirstLetterHints = async () => {
+            if (userId) {
+                const firstLetterHintsDoc = await getDoc(doc(db, "firstLetterHints", userId));
+                if (firstLetterHintsDoc.exists()) {
+                    const userData = firstLetterHintsDoc.data();
+                    setFirstLetterHints(userData.firstLetterHints);
+                } else {
+                    console.log("first letter hints not found")
+                }
+            }
+        };
+        fetchFirstLetterHints();
     }, [userId]);
 
     useEffect(() => {
@@ -188,6 +204,15 @@ const MainGame = () => {
     }, [hints]);
 
     useEffect(() => {
+        const updateFirstLetterHints = async () => {
+            if (userId) {
+                await setDoc(doc(db, "firstLetterHints", userId), { firstLetterHints });
+            }
+        };
+        updateFirstLetterHints();
+    }, [firstLetterHints]);
+
+    useEffect(() => {
         const handleKeyPress = (event) => {
             const inputElement = document.getElementById('guess');
             inputElement.focus();
@@ -204,8 +229,8 @@ const MainGame = () => {
         if (answerPool.length > 0) {
             const remainder = allData.filter((element) => answerPool.includes(element));
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-            //newArtist = remainder[index]; // to test with specific string set newArtist to test value
-            newArtist = "HOOTIE AND THE BLOWFISH"
+            newArtist = remainder[index]; // to test with specific string set newArtist to test value
+            // newArtist = "HOOTIE AND THE BLOWFISH"
             // console.log(newArtist);
             console.log(remainder.length);
             if (musicPlaying) {
@@ -323,6 +348,10 @@ const MainGame = () => {
                 console.log('adding a hint');
                 let newHintsTotal = hints + 1;
                 setHints(newHintsTotal);
+                playLevelUp();
+            } else if (newTotalCorrect % 5 === 0 && newTotalCorrect % 10 !== 0) {
+                let newFirstLetterHintsTotal = firstLetterHints + 1;
+                setFirstLetterHints(newFirstLetterHintsTotal);
                 playLevelUp();
             } else {
                 playTwinkle();
@@ -737,9 +766,7 @@ const MainGame = () => {
                 <>
                     <div id='topContainer'>
                         <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
-
-                        {/* <button id='playMusicButton' onClick={playMusic}>Play Music</button> */}
-                        {/* <Draggable> */}
+                        <p id='help'>?</p>
                         <div id='gameImageDiv'>
                             <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                             <input
@@ -758,7 +785,6 @@ const MainGame = () => {
                             >
                             </input>
                         </div>
-                        {/* </Draggable> */}
                     </div>
                     <br></br>
 
@@ -789,11 +815,11 @@ const MainGame = () => {
                             </div>
                             <div id='firstLetterHints'>
                                 <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' />
-                                <p id='firstLetterHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
+                                <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
                             </div>
                             <div id='coins'>
                                 <img id='coinGif' src={coinGif} alt='spinning coin' />
-                                <h3>{score}</h3>
+                                <h3 id='score'>{score}</h3>
                             </div>
                         </div>
                     </div>

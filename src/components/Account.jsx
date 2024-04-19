@@ -50,7 +50,6 @@ export const Account = () => {
                 <p>Logged in as {username}</p>
                 <button className='button' onClick={doSignOut}>Sign out</button>
             </div>
-            <img id='first' src={first} alt="first"></img>
         </>
     );
 }
