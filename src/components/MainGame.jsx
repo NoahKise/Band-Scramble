@@ -38,6 +38,7 @@ import shuffle from '../assets/sounds/shuffle.mp3'
 import recall from '../assets/sounds/recall.mp3'
 import wrong from '../assets/sounds/wrong.mp3'
 import buzzer from '../assets/sounds/buzzer.mp3'
+import sparkle from '../assets/sounds/sparkle.mp3'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -636,6 +637,7 @@ const MainGame = () => {
             }
             if (!musicPlaying) {
                 if (hints > 0) {
+                    playSparkle();
                     // If music is not playing, start playing
                     audio.current.volume = 0;
                     audio.current.play();
@@ -666,7 +668,6 @@ const MainGame = () => {
                 }
 
             } else {
-                // If music is playing, pause it
                 audio.current.pause();
                 setMusicPlaying(false);
             }
@@ -702,9 +703,16 @@ const MainGame = () => {
         audio.play();
     }
 
+    const playSparkle = () => {
+        const audio = new Audio(sparkle)
+        audio.play();
+    }
+
     const playBuzzer = () => {
         const audio = new Audio(buzzer)
-        audio.play();
+        if (gameStarted) {
+            audio.play();
+        }
     }
 
     return (

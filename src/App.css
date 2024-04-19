@@ -98,7 +98,6 @@ body {
   left: 0;
   right: 0;
   background-color: transparent;
-  z-index: -1;
 }
 
 #userInfo {
@@ -363,7 +362,7 @@ body {
 
 #bottomStuff {
   position: fixed;
-  bottom: 55px;
+  bottom: 56px;
   left: 0;
   right: 0;
   width: fit-content;
@@ -491,4 +490,5 @@ body {
   top: 0;
   right: 0;
   margin-top: 2px;
+  z-index: 1;
 }
