@@ -4,6 +4,8 @@ import { auth, db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
+import SPACE from '../assets/images/SPACE.png'
+import first from '../assets/images/first.png'
 
 export const Account = () => {
     const [username, setUsername] = useState('');
@@ -48,6 +50,7 @@ export const Account = () => {
                 <p>Logged in as {username}</p>
                 <button className='button' onClick={doSignOut}>Sign out</button>
             </div>
+            <img id='first' src={first} alt="first"></img>
         </>
     );
 }

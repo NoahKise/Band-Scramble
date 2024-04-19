@@ -31,7 +31,8 @@ import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
 import playPauseIcon from '../assets/images/playPauseIcon.png'
-import hintIcon from '../assets/images/hintIcon.png'
+import firstTile from '../assets/images/firstTile.png'
+import coinGif from '../assets/images/coin.gif'
 import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
 import shuffle from '../assets/sounds/shuffle.mp3'
@@ -39,6 +40,7 @@ import recall from '../assets/sounds/recall.mp3'
 import wrong from '../assets/sounds/wrong.mp3'
 import buzzer from '../assets/sounds/buzzer.mp3'
 import sparkle from '../assets/sounds/sparkle.mp3'
+import levelUp from '../assets/sounds/levelUp.mp3'
 import '../App.css';
 
 // import Draggable from 'react-draggable';
@@ -127,6 +129,7 @@ const MainGame = () => {
                         });
                         setUserHistory(historyList);
                         const difference = allData.filter(element => !historyList.includes(element));
+                        console.log(difference.length);
                         setAnswerPool(difference);
 
                         const rightAnswers = userData.map((data) => {
@@ -137,7 +140,6 @@ const MainGame = () => {
                             return counter;
                         });
                         const totalCorrect = rightAnswers.reduce((acc, val) => acc + val, 0);
-                        console.log(totalCorrect);
                         setAmountCorrect(totalCorrect);
 
                     } else {
@@ -202,9 +204,10 @@ const MainGame = () => {
         if (answerPool.length > 0) {
             const remainder = allData.filter((element) => answerPool.includes(element));
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-            newArtist = remainder[index]; // to test with specific string set newArtist to test value
-            // const newArtist = "DARKTHRONE"
+            //newArtist = remainder[index]; // to test with specific string set newArtist to test value
+            newArtist = "HOOTIE AND THE BLOWFISH"
             // console.log(newArtist);
+            console.log(remainder.length);
             if (musicPlaying) {
                 playMusic();
             }
@@ -310,7 +313,6 @@ const MainGame = () => {
         const field = document.getElementById("guess");
         let trimmedGuess = newLetters.join('').toUpperCase().trim();
         if (trimmedGuess === artist) {
-            playTwinkle();
             if (revealed === false) {
                 setScore(score + (mixedString.length + timeLeft) * 10);
             }
@@ -321,6 +323,9 @@ const MainGame = () => {
                 console.log('adding a hint');
                 let newHintsTotal = hints + 1;
                 setHints(newHintsTotal);
+                playLevelUp();
+            } else {
+                playTwinkle();
             }
             setRevealed(true);
             setResetClicked(true);
@@ -680,31 +685,36 @@ const MainGame = () => {
     };
 
     const playTileWhoosh = () => {
-        const audio = new Audio(whoosh)
+        const audio = new Audio(whoosh);
         audio.play();
     }
     const playTwinkle = () => {
-        const audio = new Audio(twinkle)
+        const audio = new Audio(twinkle);
         audio.play();
     }
 
     const playShuffle = () => {
-        const audio = new Audio(shuffle)
+        const audio = new Audio(shuffle);
         audio.play();
     }
 
     const playRecall = () => {
-        const audio = new Audio(recall)
+        const audio = new Audio(recall);
         audio.play();
     }
 
     const playWrong = () => {
-        const audio = new Audio(wrong)
+        const audio = new Audio(wrong);
         audio.play();
     }
 
     const playSparkle = () => {
-        const audio = new Audio(sparkle)
+        const audio = new Audio(sparkle);
+        audio.play();
+    }
+
+    const playLevelUp = () => {
+        const audio = new Audio(levelUp);
         audio.play();
     }
 
@@ -774,10 +784,17 @@ const MainGame = () => {
                         <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
                         <div id='timerAndScore'>
                             <div id='musicHints'>
-                                <img id='hintIcon' src={playPauseIcon} alt='hint icon' onClick={playMusic} />
+                                <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={playMusic} />
                                 <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
                             </div>
-                            <h3>Score: {score}</h3>
+                            <div id='firstLetterHints'>
+                                <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' />
+                                <p id='firstLetterHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
+                            </div>
+                            <div id='coins'>
+                                <img id='coinGif' src={coinGif} alt='spinning coin' />
+                                <h3>{score}</h3>
+                            </div>
                         </div>
                     </div>
                 </>
