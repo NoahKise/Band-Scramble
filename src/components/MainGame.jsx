@@ -182,7 +182,7 @@ const MainGame = () => {
             }
         };
         updateHints();
-    }, [score]);
+    }, [hints]);
 
     useEffect(() => {
         const handleKeyPress = (event) => {
