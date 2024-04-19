@@ -635,31 +635,36 @@ const MainGame = () => {
                 audio.current = new Audio(audioPreviewUrl);
             }
             if (!musicPlaying) {
-                // If music is not playing, start playing
-                audio.current.volume = 0;
-                audio.current.play();
-                setTimeLeft(30);
-                // setTimeout(() => {
-                //     const fadeOutInterval = setInterval(() => {
-                //         if (audio.current) {
-                //             if (audio.current.volume > 0.05) {
-                //                 audio.current.volume -= 0.05;
-                //             } else {
-                //                 clearInterval(fadeOutInterval);
-                //             }
-                //         }
-                //     }, 300);
-                // }, 24500);
-                const fadeInInterval = setInterval(() => {
-                    if (audio.current) {
-                        if (audio.current.volume < 0.95) {
-                            audio.current.volume += 0.05;
-                        } else {
-                            clearInterval(fadeInInterval);
+                if (hints > 0) {
+                    // If music is not playing, start playing
+                    audio.current.volume = 0;
+                    audio.current.play();
+                    setTimeLeft(30);
+                    // setTimeout(() => {
+                    //     const fadeOutInterval = setInterval(() => {
+                    //         if (audio.current) {
+                    //             if (audio.current.volume > 0.05) {
+                    //                 audio.current.volume -= 0.05;
+                    //             } else {
+                    //                 clearInterval(fadeOutInterval);
+                    //             }
+                    //         }
+                    //     }, 300);
+                    // }, 24500);
+                    const fadeInInterval = setInterval(() => {
+                        if (audio.current) {
+                            if (audio.current.volume < 0.95) {
+                                audio.current.volume += 0.05;
+                            } else {
+                                clearInterval(fadeInInterval);
+                            }
                         }
-                    }
-                }, 400);
-                setMusicPlaying(true);
+                    }, 400);
+                    setMusicPlaying(true);
+                    let hintsRemaining = hints - 1;
+                    setHints(hintsRemaining);
+                }
+
             } else {
                 // If music is playing, pause it
                 audio.current.pause();
@@ -760,7 +765,10 @@ const MainGame = () => {
                         <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
                         <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
                         <div id='timerAndScore'>
-                            <img id='hintIcon' src={playPauseIcon} alt='hint icon' onClick={playMusic} />
+                            <div id='musicHints'>
+                                <img id='hintIcon' src={playPauseIcon} alt='hint icon' onClick={playMusic} />
+                                <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
+                            </div>
                             <h3>Score: {score}</h3>
                         </div>
                     </div>

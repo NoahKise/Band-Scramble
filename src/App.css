@@ -98,6 +98,7 @@ body {
   left: 0;
   right: 0;
   background-color: transparent;
+  z-index: -1;
 }
 
 #userInfo {
@@ -470,4 +471,24 @@ body {
   padding-right: 10px;
   border-radius: 50%;
   border: 2px solid white;
+}
+
+#musicHints {
+  position: relative;
+  width: 70px;
+  margin-top: 5px;
+}
+
+#musicHintsNumber {
+  font-weight: bold;
+  border-radius: 50%;
+  padding-top: 3px;
+  padding-left: 8px;
+  padding-bottom: 3px;
+  padding-right: 8px;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 2px;
 }
