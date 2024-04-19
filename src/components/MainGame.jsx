@@ -754,6 +754,23 @@ const MainGame = () => {
         }
     }
 
+    const applyFirstLetterHint = () => {
+        if (firstLetterHints > 0) {
+            setOriginalLetters(ScrambledString(artist).split(''));
+            setNewLetters([]);
+            const field = document.getElementById("guess");
+            field.value = '';
+            playSparkle();
+            setTimeLeft(30);
+            setTimeout(() => {
+                const letterEvent = new KeyboardEvent('keydown', { key: artist[0] });
+                document.dispatchEvent(letterEvent);
+            }, 100);
+            let firstLetterHintsRemaining = firstLetterHints - 1;
+            setFirstLetterHints(firstLetterHintsRemaining);
+        }
+    }
+
     return (
         <div className="App">
             {answerPool.length === 0 && (
@@ -814,7 +831,7 @@ const MainGame = () => {
                                 <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
                             </div>
                             <div id='firstLetterHints'>
-                                <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' />
+                                <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={applyFirstLetterHint} />
                                 <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
                             </div>
                             <div id='coins'>
