@@ -30,6 +30,7 @@ import Y from '../assets/images/Y.png'
 import Z from '../assets/images/Z.png'
 import SPACE from '../assets/images/SPACE.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
+import playPauseIcon from '../assets/images/playPauseIcon.png'
 import hintIcon from '../assets/images/hintIcon.png'
 import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
@@ -712,7 +713,8 @@ const MainGame = () => {
             {gameStarted && (
                 <>
                     <div id='topContainer'>
-                        <img id='hintIcon' src={hintIcon} alt='hint icon' onClick={playMusic} />
+                        <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
+
                         {/* <button id='playMusicButton' onClick={playMusic}>Play Music</button> */}
                         {/* <Draggable> */}
                         <div id='gameImageDiv'>
@@ -758,7 +760,7 @@ const MainGame = () => {
                         <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
                         <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
                         <div id='timerAndScore'>
-                            <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
+                            <img id='hintIcon' src={playPauseIcon} alt='hint icon' onClick={playMusic} />
                             <h3>Score: {score}</h3>
                         </div>
                     </div>
