@@ -47,6 +47,7 @@ const MainGame = () => {
     const [mixedString, setMixedString] = useState("");
     const [resetClicked, setResetClicked] = useState(false);
     const [score, setScore] = useState(0);
+    const [hints, setHints] = useState(0);
     const [timeLeft, setTimeLeft] = useState(20);
     const [userId, setUserId] = useState('');
     const [gameStarted, setGameStarted] = useState(false);
@@ -60,6 +61,7 @@ const MainGame = () => {
     const [answerPool, setAnswerPool] = useState([]);
     const [audioPreviewUrl, setAudioPreviewUrl] = useState([]);
     const [musicPlaying, setMusicPlaying] = useState(false);
+    const [amountCorrect, setAmountCorrect] = useState(false);
 
     let audio = useRef(null);
 
@@ -95,6 +97,21 @@ const MainGame = () => {
     }, [userId]);
 
     useEffect(() => {
+        const fetchHints = async () => {
+            if (userId) {
+                const hintsDoc = await getDoc(doc(db, "hints", userId));
+                if (hintsDoc.exists()) {
+                    const userData = hintsDoc.data();
+                    setHints(userData.hints);
+                } else {
+                    console.log("hints not found")
+                }
+            }
+        };
+        fetchHints();
+    }, [userId]);
+
+    useEffect(() => {
         const fetchData = async () => {
             if (userId) {
                 const userDocRef = doc(db, "guessedArtists", userId);
@@ -109,6 +126,18 @@ const MainGame = () => {
                         setUserHistory(historyList);
                         const difference = allData.filter(element => !historyList.includes(element));
                         setAnswerPool(difference);
+
+                        const rightAnswers = userData.map((data) => {
+                            let counter = 0;
+                            if (data.mapValue.fields.correct.booleanValue === true) {
+                                counter++;
+                            }
+                            return counter;
+                        });
+                        const totalCorrect = rightAnswers.reduce((acc, val) => acc + val, 0);
+                        console.log(totalCorrect);
+                        setAmountCorrect(totalCorrect);
+
                     } else {
                         setUserHistory([]);
                         setAnswerPool(allData);
@@ -143,6 +172,15 @@ const MainGame = () => {
             }
         };
         updateScore();
+    }, [score]);
+
+    useEffect(() => {
+        const updateHints = async () => {
+            if (userId) {
+                await setDoc(doc(db, "hints", userId), { hints });
+            }
+        };
+        updateHints();
     }, [score]);
 
     useEffect(() => {
@@ -273,6 +311,14 @@ const MainGame = () => {
             playTwinkle();
             if (revealed === false) {
                 setScore(score + (mixedString.length + timeLeft) * 10);
+            }
+            let newTotalCorrect = amountCorrect + 1;
+            console.log(newTotalCorrect);
+            setAmountCorrect(newTotalCorrect)
+            if (newTotalCorrect % 10 === 0) {
+                console.log('adding a hint');
+                let newHintsTotal = hints + 1;
+                setHints(newHintsTotal);
             }
             setRevealed(true);
             setResetClicked(true);
