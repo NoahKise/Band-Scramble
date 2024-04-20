@@ -556,3 +556,16 @@ body {
 #score {
   font-size: 20px;
 }
+
+#helpDiv {
+  height: 93vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: #23d866;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  display: none;
+}

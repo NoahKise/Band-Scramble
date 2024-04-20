@@ -826,77 +826,81 @@ const MainGame = () => {
     }
 
     return (
-        <div className="App">
-            {answerPool.length === 0 && (
-                <h1>Loading...</h1>
-            )}
-            {answerPool.length > 0 && !gameStarted && (
-                <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
-            )}
-            {gameStarted && (
-                <>
-                    <div id='topContainer'>
-                        <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
-                        <p id='help'>?</p>
-                        <div id='gameImageDiv'>
-                            <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
-                            <input
-                                type='text'
-                                id='guess'
-                                autoComplete='off'
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && revealed === true) {
-                                        revealOrReset();
-                                    } else if (e.shiftKey) {
-                                        scramble();
-                                    } else if (e.key === 'Enter') {
-                                        makeGuess();
-                                    }
-                                }}
-                            >
-                            </input>
+        <>
+            <div className="App">
+                {answerPool.length === 0 && (
+                    <h1>Loading...</h1>
+                )}
+                {answerPool.length > 0 && !gameStarted && (
+                    <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
+                )}
+                {gameStarted && (
+                    <>
+                        <div id='topContainer'>
+                            <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
+                            <p id='help'>?</p>
+                            <div id='gameImageDiv'>
+                                <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
+                                <input
+                                    type='text'
+                                    id='guess'
+                                    autoComplete='off'
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && revealed === true) {
+                                            revealOrReset();
+                                        } else if (e.shiftKey) {
+                                            scramble();
+                                        } else if (e.key === 'Enter') {
+                                            makeGuess();
+                                        }
+                                    }}
+                                >
+                                </input>
+                            </div>
                         </div>
-                    </div>
-                    <br></br>
+                        <br></br>
 
 
-                    <div id='gameArea'>
-                        <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.6}px` }}>
-                            <div className="new-area">
+                        <div id='gameArea'>
+                            <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.6}px` }}>
+                                <div className="new-area">
+                                    <div className="letter-tiles">
+                                        {renderTiles(newLetters, 'new')}
+                                    </div>
+                                </div>
+                                <h1 id='gameBoard' onClick={handleNewAreaTileClick} dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
+                            </div>
+                            <div className="original-area">
                                 <div className="letter-tiles">
-                                    {renderTiles(newLetters, 'new')}
+                                    {renderTiles(originalLetters, 'original')}
                                 </div>
                             </div>
-                            <h1 id='gameBoard' onClick={handleNewAreaTileClick} dangerouslySetInnerHTML={{ __html: GameBoard(artist) }}></h1>
                         </div>
-                        <div className="original-area">
-                            <div className="letter-tiles">
-                                {renderTiles(originalLetters, 'original')}
-                            </div>
-                        </div>
-                    </div>
-                    <div id='bottomStuff'>
-                        <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
-                        <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
-                        <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
-                        <div id='timerAndScore'>
-                            <div id='musicHints'>
-                                <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={playMusic} />
-                                <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
-                            </div>
-                            <div id='firstLetterHints'>
-                                <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={applyFirstLetterHint} />
-                                <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
-                            </div>
-                            <div id='coins'>
-                                <img id='coinGif' src={coinGif} alt='spinning coin' />
-                                <h3 id='score'>{score}</h3>
+                        <div id='bottomStuff'>
+                            <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
+                            <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
+                            <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
+                            <div id='timerAndScore'>
+                                <div id='musicHints'>
+                                    <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={playMusic} />
+                                    <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
+                                </div>
+                                <div id='firstLetterHints'>
+                                    <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={applyFirstLetterHint} />
+                                    <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
+                                </div>
+                                <div id='coins'>
+                                    <img id='coinGif' src={coinGif} alt='spinning coin' />
+                                    <h3 id='score'>{score}</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>
-            )}
-        </div>
+                    </>
+                )}
+            </div>
+            <div id='helpDiv'>
+            </div>
+        </>
     );
 }
 
