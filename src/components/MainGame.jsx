@@ -69,6 +69,7 @@ const MainGame = () => {
     const [amountCorrect, setAmountCorrect] = useState(false);
     const [firstLetterHintUsed, setFirstLetterHintUsed] = useState(false);
     const [dailyMode, setDailyMode] = useState(true);
+    const [dailyPick, setDailyPick] = useState("");
 
     let audio = useRef(null);
 
@@ -101,6 +102,26 @@ const MainGame = () => {
             }
         };
         fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyPick = async () => {
+            try {
+                const dailyPickDoc = await getDoc(doc(db, "dailyPicks", '1'));
+                console.log(dailyPickDoc);
+                if (dailyPickDoc.exists()) {
+                    const dailyPickData = dailyPickDoc.data();
+                    const dailyPickArray = dailyPickData.name;
+                    const dailyPick = dailyPickArray[dailyPickArray.length - 1];
+                    setDailyPick(dailyPick);
+                } else {
+                    console.log("Daily pick document does not exist");
+                }
+            } catch (error) {
+                console.error("Error fetching daily pick:", error);
+            }
+        };
+        fetchDailyPick();
     }, [userId]);
 
     useEffect(() => {
@@ -246,7 +267,7 @@ const MainGame = () => {
                 if (mostRecentDate !== todaysDate) {
                     console.log('no date match, daily mode triggered');
                     // newArtist = "MY DAILY PICK FROM FIREBASE";
-                    newArtist = "ADRIANNE LENKER";
+                    newArtist = dailyPick;
                 } else {
                     console.log('date match')
                     setDailyMode(false);
