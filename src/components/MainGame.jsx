@@ -1,4 +1,4 @@
-import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData } from '../Data';
+import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData, problemData } from '../Data';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
@@ -231,8 +231,12 @@ const MainGame = () => {
             const remainder = allData.filter((element) => answerPool.includes(element));
             const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
             newArtist = remainder[index]; // to test with specific string set newArtist to test value
-            // newArtist = "HOOTIE AND THE BLOWFISH"
+            // newArtist = "A BOOGIE WIT DA HOODIE";
             // console.log(newArtist);
+
+            // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
+            // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
+
             console.log(remainder.length);
             if (musicPlaying) {
                 playMusic();

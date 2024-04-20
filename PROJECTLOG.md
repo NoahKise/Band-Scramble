@@ -12,3 +12,7 @@
 * 1:00: looking into mobile specific ui / ux design, starting with [this article](https://www.innovecsgames.com/blog/mobile-game-design/)
 * 2:25: looking into animation dificulty
 * 3:30: looking into a tile map w/ canvas element
+
+#### Saturday 4/20
+
+* 10:55: working out how to implement daily mode
