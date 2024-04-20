@@ -756,18 +756,20 @@ const MainGame = () => {
 
     const applyFirstLetterHint = () => {
         if (firstLetterHints > 0) {
-            setOriginalLetters(ScrambledString(artist).split(''));
-            setNewLetters([]);
-            const field = document.getElementById("guess");
-            field.value = '';
-            playSparkle();
-            setTimeLeft(30);
-            setTimeout(() => {
-                const letterEvent = new KeyboardEvent('keydown', { key: artist[0] });
-                document.dispatchEvent(letterEvent);
-            }, 100);
-            let firstLetterHintsRemaining = firstLetterHints - 1;
-            setFirstLetterHints(firstLetterHintsRemaining);
+            if (!revealed) {
+                setOriginalLetters(ScrambledString(artist).split(''));
+                setNewLetters([]);
+                const field = document.getElementById("guess");
+                field.value = '';
+                playSparkle();
+                setTimeLeft(30);
+                setTimeout(() => {
+                    const letterEvent = new KeyboardEvent('keydown', { key: artist[0] });
+                    document.dispatchEvent(letterEvent);
+                }, 100);
+                let firstLetterHintsRemaining = firstLetterHints - 1;
+                setFirstLetterHints(firstLetterHintsRemaining);
+            }
         }
     }
 
@@ -793,7 +795,7 @@ const MainGame = () => {
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' && revealed === true) {
                                         revealOrReset();
-                                    } else if (e.key === 'Enter' && e.shiftKey) {
+                                    } else if (e.shiftKey) {
                                         scramble();
                                     } else if (e.key === 'Enter') {
                                         makeGuess();
