@@ -16,3 +16,4 @@
 #### Saturday 4/20
 
 * 10:55: working out how to implement daily mode
+* 1:00: looking into slide in help panel
