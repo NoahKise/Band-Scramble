@@ -68,6 +68,7 @@ const MainGame = () => {
     const [musicPlaying, setMusicPlaying] = useState(false);
     const [amountCorrect, setAmountCorrect] = useState(false);
     const [firstLetterHintUsed, setFirstLetterHintUsed] = useState(false);
+    const [dailyMode, setDailyMode] = useState(true);
 
     let audio = useRef(null);
 
@@ -227,17 +228,40 @@ const MainGame = () => {
     let newArtist = '';
 
     const RandomArtist = useCallback(async () => {
+        let dailyModeTracker = true;
         if (answerPool.length > 0) {
-            const remainder = allData.filter((element) => answerPool.includes(element));
-            const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-            newArtist = remainder[index]; // to test with specific string set newArtist to test value
-            // newArtist = "A BOOGIE WIT DA HOODIE";
-            // console.log(newArtist);
+            if (dailyMode) {
+                dailyModeTracker = true;
+            } else {
+                dailyModeTracker = false;
+            }
+            if (dailyModeTracker === true) {
+                let mostRecentDate = '';
+                if (guessedArtists.length > 0) {
+                    mostRecentDate = new Date(guessedArtists[guessedArtists.length - 1].timestamp).toLocaleDateString('en-US');
+                } else {
+                    mostRecentDate = new Date(1713221222714).toLocaleDateString('en-US');
+                }
+                let todaysDate = new Date(Date.now()).toLocaleDateString('en-us');
+                if (mostRecentDate !== todaysDate) {
+                    console.log('no date match, daily mode triggered');
+                    // newArtist = "MY DAILY PICK FROM FIREBASE";
+                    newArtist = "ADRIANNE LENKER";
+                } else {
+                    console.log('date match')
+                    setDailyMode(false);
+                    dailyModeTracker = false;
+                }
+            }
+            if (dailyModeTracker === false) {
+                const remainder = allData.filter((element) => answerPool.includes(element));
+                const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
+                newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                // newArtist = "A BOOGIE WIT DA HOODIE";
 
-            // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
-            // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
-
-            console.log(remainder.length);
+                // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
+                // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
+            }
             if (musicPlaying) {
                 playMusic();
             }
@@ -311,6 +335,7 @@ const MainGame = () => {
         setNewLetters(artist.split(''));
         setOriginalLetters([]);
         setRevealed(true);
+        setDailyMode(false);
     }
 
     const scramble = () => {
@@ -363,6 +388,7 @@ const MainGame = () => {
                 playTwinkle();
             }
             setRevealed(true);
+            setDailyMode(false);
             setResetClicked(true);
             updateGuessedArtists(true);
         } else {
