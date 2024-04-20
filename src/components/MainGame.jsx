@@ -757,22 +757,20 @@ const MainGame = () => {
     }
 
     const applyFirstLetterHint = () => {
-        if (firstLetterHints > 0) {
-            if (!revealed && !firstLetterHintUsed) {
-                setOriginalLetters(ScrambledString(artist).split(''));
-                setNewLetters([]);
-                const field = document.getElementById("guess");
-                field.value = '';
-                playSparkle();
-                setTimeLeft(30);
-                setTimeout(() => {
-                    const letterEvent = new KeyboardEvent('keydown', { key: artist[0] });
-                    document.dispatchEvent(letterEvent);
-                }, 100);
-                let firstLetterHintsRemaining = firstLetterHints - 1;
-                setFirstLetterHints(firstLetterHintsRemaining);
-                setFirstLetterHintUsed(true);
-            }
+        if (!revealed && !firstLetterHintUsed && firstLetterHints > 0) {
+            setOriginalLetters(ScrambledString(artist).split(''));
+            setNewLetters([]);
+            const field = document.getElementById("guess");
+            field.value = '';
+            playSparkle();
+            setTimeLeft(30);
+            setTimeout(() => {
+                const letterEvent = new KeyboardEvent('keydown', { key: artist[0] });
+                document.dispatchEvent(letterEvent);
+            }, 100);
+            let firstLetterHintsRemaining = firstLetterHints - 1;
+            setFirstLetterHints(firstLetterHintsRemaining);
+            setFirstLetterHintUsed(true);
         }
     }
 
