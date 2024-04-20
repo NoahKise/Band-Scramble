@@ -67,6 +67,7 @@ const MainGame = () => {
     const [audioPreviewUrl, setAudioPreviewUrl] = useState([]);
     const [musicPlaying, setMusicPlaying] = useState(false);
     const [amountCorrect, setAmountCorrect] = useState(false);
+    const [firstLetterHintUsed, setFirstLetterHintUsed] = useState(false);
 
     let audio = useRef(null);
 
@@ -240,6 +241,7 @@ const MainGame = () => {
             if (audio && audio.current) {
                 audio.current = null;
             }
+            setFirstLetterHintUsed(false);
             Discogs(newArtist);
             setArtist(newArtist);
             playShuffle();
@@ -756,7 +758,7 @@ const MainGame = () => {
 
     const applyFirstLetterHint = () => {
         if (firstLetterHints > 0) {
-            if (!revealed) {
+            if (!revealed && !firstLetterHintUsed) {
                 setOriginalLetters(ScrambledString(artist).split(''));
                 setNewLetters([]);
                 const field = document.getElementById("guess");
@@ -769,6 +771,7 @@ const MainGame = () => {
                 }, 100);
                 let firstLetterHintsRemaining = firstLetterHints - 1;
                 setFirstLetterHints(firstLetterHintsRemaining);
+                setFirstLetterHintUsed(true);
             }
         }
     }
