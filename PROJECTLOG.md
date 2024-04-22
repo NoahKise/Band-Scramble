@@ -17,3 +17,6 @@
 
 * 10:55: working out how to implement daily mode
 * 1:00: looking into slide in help panel
+
+#### Monday 4/22
+* 8:30: Preparing for interview
