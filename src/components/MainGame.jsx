@@ -71,6 +71,10 @@ const MainGame = () => {
     const [dailyMode, setDailyMode] = useState(true);
     const [dailyPick, setDailyPick] = useState("");
     const [audioUnavailable, setAudioUnavailable] = useState(false);
+    const [discogsId, setDiscogsId] = useState("");
+    const [discogsUrl, setDiscogsUrl] = useState("");
+    const [discogsBio, setDiscogsBio] = useState("");
+
 
     let audio = useRef(null);
 
@@ -109,7 +113,6 @@ const MainGame = () => {
         const fetchDailyPick = async () => {
             try {
                 const dailyPickDoc = await getDoc(doc(db, "dailyPicks", '1'));
-                console.log(dailyPickDoc);
                 if (dailyPickDoc.exists()) {
                     const dailyPickData = dailyPickDoc.data();
                     const dailyPickArray = dailyPickData.name;
@@ -169,7 +172,6 @@ const MainGame = () => {
                         });
                         setUserHistory(historyList);
                         const difference = allData.filter(element => !historyList.includes(element));
-                        console.log(difference.length);
                         setAnswerPool(difference);
 
                         const rightAnswers = userData.map((data) => {
@@ -266,11 +268,8 @@ const MainGame = () => {
                 }
                 let todaysDate = new Date(Date.now()).toLocaleDateString('en-us');
                 if (mostRecentDate !== todaysDate) {
-                    console.log('no date match, daily mode triggered');
-                    // newArtist = "MY DAILY PICK FROM FIREBASE";
                     newArtist = dailyPick;
                 } else {
-                    console.log('date match')
                     setDailyMode(false);
                     dailyModeTracker = false;
                 }
@@ -396,10 +395,8 @@ const MainGame = () => {
                 setScore(score + (mixedString.length + timeLeft) * 10);
             }
             let newTotalCorrect = amountCorrect + 1;
-            console.log(newTotalCorrect);
             setAmountCorrect(newTotalCorrect)
             if (newTotalCorrect % 10 === 0) {
-                console.log('adding a hint');
                 let newHintsTotal = hints + 1;
                 setHints(newHintsTotal);
                 playLevelUp();
@@ -437,7 +434,18 @@ const MainGame = () => {
             }
             const jsonifiedresponse = await response.json();
             let url = jsonifiedresponse.results[0].cover_image;
+            let artistId = jsonifiedresponse.results[0].id;
+            let resourceUrl = jsonifiedresponse.results[0].resource_url;
+            setDiscogsId(artistId);
+            setDiscogsUrl(resourceUrl);
             setImageUrl(url);
+            const bioResponse = await fetch(`https://api.discogs.com/artists/${artistId}`)
+            if (!bioResponse.ok) {
+                throw new Error(`${response.status}: ${response.statusText}`);
+            }
+            const jsonifiedBioResponse = await bioResponse.json();
+            let artistBio = jsonifiedBioResponse.profile;
+            setDiscogsBio(artistBio);
         } catch (error) {
             throw new Error(error.message);
         }
@@ -452,12 +460,10 @@ const MainGame = () => {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
-            console.log(jsonifiedresponse);
             if (jsonifiedresponse) {
                 while (index < jsonifiedresponse.data.length) {
                     if (jsonifiedresponse.data[index].artist.name[0].toUpperCase() === newArtist[0]) {
                         url = jsonifiedresponse.data[index].preview;
-                        console.log(index);
                         setAudioPreviewUrl(url);
                         break;
                     }
@@ -465,7 +471,6 @@ const MainGame = () => {
                 }
                 if (!url && jsonifiedresponse.data.length > 0) {
                     url = jsonifiedresponse.data[0].preview;
-                    console.log(url);
                     setAudioPreviewUrl(url);
                 }
             } else {
@@ -835,7 +840,65 @@ const MainGame = () => {
                     <h1>Loading...</h1>
                 )}
                 {answerPool.length > 0 && !gameStarted && (
-                    <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
+                    <>
+                        <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
+                        <form>
+                            <div id='genreSelectList'>
+                                <div className='genreSelectRow'>
+                                    <p>Rock</p>
+                                    <input type="checkbox" id="rock" name="rock" value="rock"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Hip-Hop</p>
+                                    <input type="checkbox" id="hip-hop" name="hip-hop" value="hip-hop"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Pop</p>
+                                    <input type="checkbox" id="pop" name="pop" value="pop"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>R&B</p>
+                                    <input type="checkbox" id="r&b" name="r&b" value="r&b"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Indie/Alternative</p>
+                                    <input type="checkbox" id="indieAlternative" name="indieAlternative" value="indieAlternative"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Dance</p>
+                                    <input type="checkbox" id="dance" name="dance" value="dance"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Country</p>
+                                    <input type="checkbox" id="country" name="country" value="country"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Metal</p>
+                                    <input type="checkbox" id="metal" name="metal" value="metal"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Electronic</p>
+                                    <input type="checkbox" id="electronic" name="electronic" value="electronic"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Jazz</p>
+                                    <input type="checkbox" id="jazz" name="jazz" value="jazz"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Blues</p>
+                                    <input type="checkbox" id="blues" name="blues" value="blues"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Soul/Funk</p>
+                                    <input type="checkbox" id="soulFunk" name="soulFunk" value="soulFunk"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Classic Rock</p>
+                                    <input type="checkbox" id="classicRock" name="classicRock" value="classicRock"></input>
+                                </div>
+                            </div>
+                        </form>
+                    </>
                 )}
                 {gameStarted && (
                     <>

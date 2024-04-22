@@ -569,3 +569,20 @@ body {
   border-bottom-right-radius: 30px;
   display: none;
 }
+
+.genreSelectRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#genreSelectList {
+  font-weight: bold;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  height: 60vh;
+  overflow: scroll;
+  padding-right: 25px;
+  columns: 2;
+}
