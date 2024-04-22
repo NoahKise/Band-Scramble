@@ -20,3 +20,5 @@
 
 #### Monday 4/22
 * 8:30: Preparing for interview
+* 9:30: interview
+* 11:00: back at it
