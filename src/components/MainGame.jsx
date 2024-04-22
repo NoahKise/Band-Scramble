@@ -70,6 +70,7 @@ const MainGame = () => {
     const [firstLetterHintUsed, setFirstLetterHintUsed] = useState(false);
     const [dailyMode, setDailyMode] = useState(true);
     const [dailyPick, setDailyPick] = useState("");
+    const [audioUnavailable, setAudioUnavailable] = useState(false);
 
     let audio = useRef(null);
 
@@ -290,6 +291,7 @@ const MainGame = () => {
             if (audio && audio.current) {
                 audio.current = null;
             }
+            setAudioUnavailable(false);
             setFirstLetterHintUsed(false);
             Discogs(newArtist);
             setArtist(newArtist);
@@ -471,7 +473,8 @@ const MainGame = () => {
             }
         } catch (error) {
             console.log(error);
-            throw new Error(error.message);
+            // throw new Error(error.message);
+            setAudioUnavailable(true);
         }
     }
 
@@ -723,7 +726,7 @@ const MainGame = () => {
                 audio.current = new Audio(audioPreviewUrl);
             }
             if (!musicPlaying) {
-                if (hints > 0) {
+                if (hints > 0 && !audioUnavailable) {
                     playSparkle();
                     // If music is not playing, start playing
                     audio.current.volume = 0;
