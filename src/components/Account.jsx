@@ -9,6 +9,7 @@ import first from '../assets/images/first.png'
 
 export const Account = () => {
     const [username, setUsername] = useState('');
+    const [bioText, setBioText] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {

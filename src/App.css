@@ -558,7 +558,7 @@ body {
 }
 
 #helpDiv {
-  height: 93vh;
+  height: 73vh;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -567,6 +567,7 @@ body {
   background-color: #23d866;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  overflow: scroll;
   display: none;
 }
 

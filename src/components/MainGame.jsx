@@ -445,7 +445,8 @@ const MainGame = () => {
             }
             const jsonifiedBioResponse = await bioResponse.json();
             let artistBio = jsonifiedBioResponse.profile;
-            setDiscogsBio(artistBio);
+            const cleanText = artistBio.replace(/\[(\/?[^\/\]]+?)\]|"a=/g, '');
+            setDiscogsBio(cleanText);
         } catch (error) {
             throw new Error(error.message);
         }
@@ -965,6 +966,7 @@ const MainGame = () => {
                 )}
             </div>
             <div id='helpDiv'>
+                {discogsBio}
             </div>
         </>
     );
