@@ -13,6 +13,7 @@ const Statistics = () => {
     const [userHistory, setUserHistory] = useState([]);
     const [amountCorrect, setAmountCorrect] = useState(0);
     const [amountIncorrect, setAmountIncorrect] = useState(0);
+    const [noDataAvailable, setNoDataAvailable] = useState(false);
     const [propData, setPropData] = useState({
         labels: [],
         datasets: [
@@ -44,8 +45,12 @@ const Statistics = () => {
             if (userId) {
                 const userDocRef = doc(db, "guessedArtists", userId);
                 const userDoc = await getDoc(userDocRef);
-                const data = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
-                setUserData(data);
+                if (userDoc.exists()) {
+                    const data = userDoc._document.data.value.mapValue.fields.artists.arrayValue.values;
+                    setUserData(data);
+                } else {
+                    setNoDataAvailable(true);
+                }
             }
         };
 
@@ -109,79 +114,85 @@ const Statistics = () => {
     return (
         <>
             <h1 className='header'>Statistics</h1>
-            <div id='statsFullPage'>
-                <Line className='graph' data={propData} options={{
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'black'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                unit: 'hour',
-                                stepSize: 3,
-                                tooltipFormat: 'HH:mm',
-                            },
-                            ticks: {
-                                color: 'black',
-                                major: {
-                                    enabled: true,
-                                    fontStyle: 'bold',
-                                    fontColor: 'red'
+            {noDataAvailable ? (
+                <div id="noDataMessage">
+                    <p>Please play a round before returning to this statistics page.</p>
+                </div>
+            ) : (
+                <div id='statsFullPage'>
+                    <Line className='graph' data={propData} options={{
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'black'
                                 }
                             }
                         },
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: 'black',
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'hour',
+                                    stepSize: 3,
+                                    tooltipFormat: 'HH:mm',
+                                },
+                                ticks: {
+                                    color: 'black',
+                                    major: {
+                                        enabled: true,
+                                        fontStyle: 'bold',
+                                        fontColor: 'red'
+                                    }
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'black',
+                                }
                             }
                         }
-                    }
-                }} />
-                <div id='doughnut'>
-                    <h1 id='percentage'>{!isNaN(roundedSuccessPercentage) ? `${roundedSuccessPercentage}%` : ''}</h1>
-                    <Doughnut className='graph'
-                        data={{
-                            labels: ['Correct', 'Incorrect'], // Labels for the two categories
-                            datasets: [
-                                {
-                                    data: [amountCorrect, amountIncorrect], // Pass the actual values here
-                                    backgroundColor: [
-                                        '#23d866', // Color for success
-                                        '#f9435d' // Color for fail
-                                    ]
-                                }
-                            ]
-                        }}
-                    />
-                </div>
-                <div id='history'>
-                    <h2>History</h2>
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {userHistory.slice().reverse().map((artist, index) => (
-                            <li key={index}>
-                                <div className='listedArtist'>
-                                    <p>{artist}</p>
-                                    <div className='historyIcons'>
-                                        <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
-                                            <img src={appleMusicIcon} alt='apple music logo' />
-                                        </a>
-                                        <br />
-                                        <a href={`https://open.spotify.com/search/${encodeURIComponent(artist)}/artists`} target="_blank" rel="noopener noreferrer">
-                                            <img src={spotifyIcon} alt='spotify logo' />
-                                        </a>
+                    }} />
+                    <div id='doughnut'>
+                        <h1 id='percentage'>{!isNaN(roundedSuccessPercentage) ? `${roundedSuccessPercentage}%` : ''}</h1>
+                        <Doughnut className='graph'
+                            data={{
+                                labels: ['Correct', 'Incorrect'], // Labels for the two categories
+                                datasets: [
+                                    {
+                                        data: [amountCorrect, amountIncorrect], // Pass the actual values here
+                                        backgroundColor: [
+                                            '#23d866', // Color for success
+                                            '#f9435d' // Color for fail
+                                        ]
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                    <div id='history'>
+                        <h2>History</h2>
+                        <ul style={{ listStyleType: 'none', padding: 0 }}>
+                            {userHistory.slice().reverse().map((artist, index) => (
+                                <li key={index}>
+                                    <div className='listedArtist'>
+                                        <p>{artist}</p>
+                                        <div className='historyIcons'>
+                                            <a href={`https://music.apple.com/us/search?term=${encodeURIComponent(artist)}`} target="_blank" rel="noopener noreferrer">
+                                                <img src={appleMusicIcon} alt='apple music logo' />
+                                            </a>
+                                            <br />
+                                            <a href={`https://open.spotify.com/search/${encodeURIComponent(artist)}/artists`} target="_blank" rel="noopener noreferrer">
+                                                <img src={spotifyIcon} alt='spotify logo' />
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };
