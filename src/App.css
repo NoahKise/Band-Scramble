@@ -685,6 +685,8 @@ body {
   height: 100vw;
   width: 100vw;
   max-width: 400px;
+  max-height: 400px;
+  min-height: 350px;
   position: fixed;
   top: 15px;
   left: 0;
@@ -700,4 +702,10 @@ body {
 #clues {
   height: 321px;
   margin-left: 5px;
+}
+
+#artistBio {
+  height: 70vw;
+  overflow: scroll;
+  min-height: 200px;
 }

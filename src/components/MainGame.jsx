@@ -93,6 +93,7 @@ const MainGame = () => {
     const [helpClicked, setHelpClicked] = useState(false);
     const [bioOpen, setBioOpen] = useState(false);
     const [bioClicked, setBioClicked] = useState(false);
+    const [bioArtistName, setBioArtistName] = useState("");
 
 
     let audio = useRef(null);
@@ -466,8 +467,10 @@ const MainGame = () => {
             }
             const jsonifiedresponse = await response.json();
             let url = jsonifiedresponse.results[0].cover_image;
+            let name = jsonifiedresponse.results[0].title;
             let artistId = jsonifiedresponse.results[0].id;
             let resourceUrl = jsonifiedresponse.results[0].resource_url;
+            setBioArtistName(name);
             setDiscogsId(artistId);
             setDiscogsUrl(resourceUrl);
             setImageUrl(url);
@@ -1087,7 +1090,8 @@ const MainGame = () => {
                 className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
                 style={{ display: bioClicked ? '' : 'none' }}>
                 <button id='bioCloseButton' onClick={toggleBio}>X</button>
-                <h1>test</h1>
+                <h1>{bioArtistName}</h1>
+                <p id='artistBio'>{discogsBio}</p>
             </div>
         </>
     );
