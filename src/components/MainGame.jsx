@@ -88,6 +88,7 @@ const MainGame = () => {
     const [discogsUrl, setDiscogsUrl] = useState("");
     const [discogsBio, setDiscogsBio] = useState("");
     const [helpOpen, setHelpOpen] = useState(false);
+    const [helpClicked, setHelpClicked] = useState(false);
 
 
     let audio = useRef(null);
@@ -862,6 +863,7 @@ const MainGame = () => {
     }
 
     const toggleHelp = () => {
+        setHelpClicked(true);
         if (!helpOpen) {
             setHelpOpen(true);
         } else {
@@ -1003,14 +1005,14 @@ const MainGame = () => {
             <div
                 className={`animate__animated ${helpOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
                 id='helpDiv'
-                style={{ display: gameStarted ? '' : 'none' }}
+                style={{ display: helpClicked ? '' : 'none' }}
             >
                 <button id='helpCloseButton' onClick={toggleHelp}>X</button>
                 <div id='helpContent'>
                     <h1>How To Play</h1>
-                    <h3>Objective</h3>
+                    <h3>Objective:</h3>
                     <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
-                    <h3>Controls</h3>
+                    <h3>Controls:</h3>
                     <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
                     <div className='instructionRow'>
                         <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
@@ -1033,15 +1035,15 @@ const MainGame = () => {
                         <p className='instructionText'>Advance to the next puzzle. On desktop, you may alternatively press the enter/return key.</p>
                     </div>
                     <p></p>
-                    <h3>Clues</h3>
+                    <h3>Clues:</h3>
                     <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word.</p>
                     <p>Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
-                    <h3>Scoring</h3>
+                    <h3>Scoring:</h3>
                     <p>When you successfully complete a round by guessing the correct artist name, you will receive points based on the difficulty of the puzzle and the speed at which you solved it.</p>
                     <p>If the time runs out before you solve the puzzle, you will lose points based on the difficulty of the puzzle.</p>
                     <p>Head to the home page to check out the leaderboard!</p>
                     <p>Check out your stats by clicking the statistics icon in the bottom navigation bar!</p>
-                    <h3>Hints</h3>
+                    <h3>Hints:</h3>
                     <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint</p>
                     <div className='hintInstructionRow'>
                         <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
