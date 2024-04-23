@@ -2,6 +2,7 @@ import { technoData, rockData, hiphopData, allData, noahData, topChartData, coun
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
+import 'animate.css';
 import A from '../assets/images/A.png'
 import B from '../assets/images/B.png'
 import C from '../assets/images/C.png'
@@ -74,6 +75,7 @@ const MainGame = () => {
     const [discogsId, setDiscogsId] = useState("");
     const [discogsUrl, setDiscogsUrl] = useState("");
     const [discogsBio, setDiscogsBio] = useState("");
+    const [helpOpen, setHelpOpen] = useState(false);
 
 
     let audio = useRef(null);
@@ -311,9 +313,13 @@ const MainGame = () => {
     }, [answerPool]);
 
     useEffect(() => {
-        const timerInterval = setInterval(() => {
-            setTimeLeft(prevTime => prevTime - 1);
-        }, 1000);
+        let timerInterval;
+
+        if (!helpOpen) {
+            timerInterval = setInterval(() => {
+                setTimeLeft(prevTime => prevTime - 1);
+            }, 1000);
+        }
 
         if (timeLeft === 0) {
             revealArtist();
@@ -322,8 +328,9 @@ const MainGame = () => {
         } else if (revealed) {
             clearInterval(timerInterval);
         }
+
         return () => clearInterval(timerInterval);
-    }, [revealed, timeLeft]);
+    }, [revealed, timeLeft, helpOpen]);
 
     const GameBoard = (string) => {
         let outputArray = [];
@@ -834,6 +841,14 @@ const MainGame = () => {
         }
     }
 
+    const toggleHelp = () => {
+        if (!helpOpen) {
+            setHelpOpen(true);
+        } else {
+            setHelpOpen(false);
+        }
+    }
+
     return (
         <>
             <div className="App">
@@ -905,7 +920,7 @@ const MainGame = () => {
                     <>
                         <div id='topContainer'>
                             <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
-                            <p id='help'>?</p>
+                            <p id='help' onClick={toggleHelp}>?</p>
                             <div id='gameImageDiv'>
                                 <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                                 <input
@@ -965,8 +980,13 @@ const MainGame = () => {
                     </>
                 )}
             </div>
-            <div id='helpDiv'>
+            <div
+                className={`animate__animated ${helpOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
+                id='helpDiv'
+                style={{ display: gameStarted ? '' : 'none' }}
+            >
                 {discogsBio}
+                <button onClick={toggleHelp}>close</button>
             </div>
         </>
     );

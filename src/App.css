@@ -201,6 +201,10 @@ body {
   bottom: 0;
 }
 
+#help:hover {
+  cursor: pointer;
+}
+
 #guess {
   margin-top: -5px;
   z-index: 0;
@@ -568,7 +572,6 @@ body {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   overflow: scroll;
-  display: none;
 }
 
 .genreSelectRow {
