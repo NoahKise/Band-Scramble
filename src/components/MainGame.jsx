@@ -94,6 +94,7 @@ const MainGame = () => {
     const [bioOpen, setBioOpen] = useState(false);
     const [bioClicked, setBioClicked] = useState(false);
     const [bioArtistName, setBioArtistName] = useState("");
+    const [audioHintUsed, setAudioHintUsed] = useState(false);
 
 
     let audio = useRef(null);
@@ -310,6 +311,7 @@ const MainGame = () => {
             if (audio && audio.current) {
                 audio.current = null;
             }
+            setAudioHintUsed(false);
             setAudioUnavailable(false);
             setFirstLetterHintUsed(false);
             Discogs(newArtist);
@@ -764,8 +766,6 @@ const MainGame = () => {
         return Math.max(firstLine.length, secondLine.length);
     }
 
-
-
     const playMusic = () => {
         if (!revealed) {
             if (!audio.current) {
@@ -799,8 +799,11 @@ const MainGame = () => {
                         }
                     }, 400);
                     setMusicPlaying(true);
-                    let hintsRemaining = hints - 1;
-                    setHints(hintsRemaining);
+                    if (!audioHintUsed) {
+                        let hintsRemaining = hints - 1;
+                        setHints(hintsRemaining);
+                        setAudioHintUsed(true);
+                    }
                 }
 
             } else {
