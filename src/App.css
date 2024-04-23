@@ -39,6 +39,10 @@
   }
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   font-family: 'Courier New', Courier, monospace;
 }
@@ -566,7 +570,7 @@ body {
 
 #helpDiv {
   box-sizing: border-box;
-  height: 73vh;
+  height: 93vh;
   width: 100vw;
   max-width: 400px;
   position: fixed;
@@ -578,12 +582,16 @@ body {
   background-size: contain;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  overflow: scroll;
   border: 5px solid black;
 }
 
+#helpContent {
+  height: 100%;
+  overflow: scroll;
+}
+
 #helpCloseButton {
-  position: absolute;
+  position: fixed;
   top: 5px;
   right: 5px;
   font-size: 25px;
