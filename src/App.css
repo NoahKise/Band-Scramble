@@ -480,6 +480,10 @@ body {
   margin-right: auto;
 }
 
+#statsFullPage h2 {
+  text-align: center;
+}
+
 #doughnut {
   width: 100%;
   position: relative;

@@ -95,6 +95,7 @@ const MainGame = () => {
     const [bioClicked, setBioClicked] = useState(false);
     const [bioArtistName, setBioArtistName] = useState("");
     const [audioHintUsed, setAudioHintUsed] = useState(false);
+    const [dailyModeStreak, setDailyModeStreak] = useState(0);
 
 
     let audio = useRef(null);
@@ -128,6 +129,21 @@ const MainGame = () => {
             }
         };
         fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyModeStreak = async () => {
+            if (userId) {
+                const dailyModeStreakDoc = await getDoc(doc(db, "dailyModeStreak", userId));
+                if (dailyModeStreakDoc.exists()) {
+                    const userData = dailyModeStreakDoc.data();
+                    setDailyModeStreak(userData.dailyModeStreak);
+                } else {
+                    console.log("daily mode streak not found")
+                }
+            }
+        };
+        fetchDailyModeStreak();
     }, [userId]);
 
     useEffect(() => {
@@ -240,6 +256,15 @@ const MainGame = () => {
         };
         updateScore();
     }, [score]);
+
+    useEffect(() => {
+        const updateDailyModeStreak = async () => {
+            if (userId) {
+                await setDoc(doc(db, "dailyModeStreak", userId), { dailyModeStreak });
+            }
+        };
+        updateDailyModeStreak();
+    }, [dailyModeStreak]);
 
     useEffect(() => {
         const updateHints = async () => {
@@ -384,6 +409,9 @@ const MainGame = () => {
         setNewLetters(artist.split(''));
         setOriginalLetters([]);
         setRevealed(true);
+        if (dailyMode) {
+            setDailyModeStreak(0);
+        }
         setDailyMode(false);
     }
 
@@ -448,6 +476,10 @@ const MainGame = () => {
                 playTwinkle();
             }
             setRevealed(true);
+            if (dailyMode) {
+                let newStreak = dailyModeStreak + 1;
+                setDailyModeStreak(newStreak);
+            }
             setDailyMode(false);
             setResetClicked(true);
             updateGuessedArtists(true);

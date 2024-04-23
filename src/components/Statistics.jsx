@@ -12,6 +12,8 @@ const Statistics = () => {
     const [userData, setUserData] = useState([]);
     const [userHistory, setUserHistory] = useState([]);
     const [userLongestStreak, setUserLongestStreak] = useState(0);
+    const [userCurrentDailyStreak, setUserCurrentDailyStreak] = useState(0);
+    const [userScore, setUserScore] = useState(0);
     const [amountCorrect, setAmountCorrect] = useState(0);
     const [amountIncorrect, setAmountIncorrect] = useState(0);
     const [noDataAvailable, setNoDataAvailable] = useState(false);
@@ -56,6 +58,36 @@ const Statistics = () => {
         };
 
         fetchData();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchScore = async () => {
+            if (userId) {
+                const scoreDoc = await getDoc(doc(db, "score", userId));
+                if (scoreDoc.exists()) {
+                    const userData = scoreDoc.data();
+                    setUserScore(userData.score);
+                } else {
+                    console.log("score not found")
+                }
+            }
+        };
+        fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyModeStreak = async () => {
+            if (userId) {
+                const dailyModeStreakDoc = await getDoc(doc(db, "dailyModeStreak", userId));
+                if (dailyModeStreakDoc.exists()) {
+                    const userData = dailyModeStreakDoc.data();
+                    setUserCurrentDailyStreak(userData.dailyModeStreak);
+                } else {
+                    console.log("daily mode streak not found")
+                }
+            }
+        };
+        fetchDailyModeStreak();
     }, [userId]);
 
     useEffect(() => {
@@ -146,6 +178,7 @@ const Statistics = () => {
                 </div>
             ) : (
                 <div id='statsFullPage'>
+                    <h2>{userScore}</h2>
                     <Line className='graph' data={propData} options={{
                         plugins: {
                             legend: {
@@ -197,6 +230,7 @@ const Statistics = () => {
                         />
                     </div>
                     <h2 id='longestStreak'>Longest Streak: {userLongestStreak}</h2>
+                    <h2 id='currentDailyStreak'>Current Daily Streak: {userCurrentDailyStreak}</h2>
                     <div id='history'>
                         <h2>History</h2>
                         <ul style={{ listStyleType: 'none', padding: 0 }}>
