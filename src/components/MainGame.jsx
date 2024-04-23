@@ -981,16 +981,22 @@ const MainGame = () => {
                             </div>
                         </div>
                         <div id='bottomStuff'>
-                            <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={makeGuess}>{recallTilesText}</button>
-                            <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={scramble}>{scrambleButtonText}</button>
-                            <button className={`gameButton ${advanceButtonClass}`} id='reveal' onClick={revealOrReset}>GIVE UP</button>
+                            <button style={scoreColor} className={`gameButton ${recallTilesButtonClass}`} id='guessButton' onClick={!helpOpen ? makeGuess : undefined}>{recallTilesText}</button>
+                            <button className={`gameButton ${scrambleButtonClass}`} id='rescramble' onClick={!helpOpen ? scramble : undefined}>{scrambleButtonText}</button>
+                            <button
+                                className={`gameButton ${advanceButtonClass}`}
+                                id='reveal'
+                                onClick={!helpOpen ? revealOrReset : undefined}
+                            >
+                                GIVE UP
+                            </button>
                             <div id='timerAndScore'>
                                 <div id='musicHints'>
-                                    <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={playMusic} />
+                                    <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={!helpOpen ? playMusic : undefined} />
                                     <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
                                 </div>
                                 <div id='firstLetterHints'>
-                                    <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={applyFirstLetterHint} />
+                                    <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={!helpOpen ? applyFirstLetterHint : undefined} />
                                     <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
                                 </div>
                                 <div id='coins'>
@@ -1051,7 +1057,7 @@ const MainGame = () => {
                     </div>
                     <div className='hintInstructionRow'>
                         <img className='instructionImg' src={firstTileHintIconScreenshot} alt='first tile hint icon' />
-                        <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name.</p>
+                        <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name (and set the timer to 30 seconds remaining).</p>
                     </div>
                 </div>
             </div>
