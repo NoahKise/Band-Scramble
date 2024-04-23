@@ -11,6 +11,7 @@ const Statistics = () => {
     const [userId, setUserId] = useState('');
     const [userData, setUserData] = useState([]);
     const [userHistory, setUserHistory] = useState([]);
+    const [userLongestStreak, setUserLongestStreak] = useState(0);
     const [amountCorrect, setAmountCorrect] = useState(0);
     const [amountIncorrect, setAmountIncorrect] = useState(0);
     const [noDataAvailable, setNoDataAvailable] = useState(false);
@@ -85,6 +86,13 @@ const Statistics = () => {
             });
             setUserHistory(historyList);
 
+            const successArray = userData.map((data) => {
+                const bool = data.mapValue.fields.correct.booleanValue;
+                return bool;
+            });
+            const longestStreak = longestTrueStreak(successArray)
+            setUserLongestStreak(longestStreak)
+
             const rightAnswers = userData.map((data) => {
                 let counter = 0; // Initialize counter outside of map
                 if (data.mapValue.fields.correct.booleanValue === true) {
@@ -107,6 +115,24 @@ const Statistics = () => {
 
         }
     }, [userData]);
+
+    const longestTrueStreak = (array) => {
+        let maxStreak = 0;
+        let currentStreak = 0;
+
+        for (const value of array) {
+            if (value === true) {
+                currentStreak++;
+                if (currentStreak > maxStreak) {
+                    maxStreak = currentStreak;
+                }
+            } else {
+                currentStreak = 0;
+            }
+        }
+
+        return maxStreak;
+    }
 
     const successPercentage = (amountCorrect / (amountCorrect + amountIncorrect)) * 100;
     const roundedSuccessPercentage = Math.round((successPercentage + Number.EPSILON) * 100) / 100;
@@ -170,6 +196,7 @@ const Statistics = () => {
                             }}
                         />
                     </div>
+                    <h2 id='longestStreak'>Longest Streak: {userLongestStreak}</h2>
                     <div id='history'>
                         <h2>History</h2>
                         <ul style={{ listStyleType: 'none', padding: 0 }}>

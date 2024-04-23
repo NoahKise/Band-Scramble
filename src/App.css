@@ -708,3 +708,7 @@ body {
   overflow: scroll;
   min-height: 200px;
 }
+
+#longestStreak {
+  text-align: center;
+}
