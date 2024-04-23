@@ -178,7 +178,7 @@ const Statistics = () => {
                 </div>
             ) : (
                 <div id='statsFullPage'>
-                    <h2>{userScore}</h2>
+                    <h2>Score: {userScore}</h2>
                     <Line className='graph' data={propData} options={{
                         plugins: {
                             legend: {
@@ -229,7 +229,7 @@ const Statistics = () => {
                             }}
                         />
                     </div>
-                    <h2 id='longestStreak'>Longest Streak: {userLongestStreak}</h2>
+                    <h2 id='longestStreak'>Longest Winning Streak: {userLongestStreak}</h2>
                     <h2 id='currentDailyStreak'>Current Daily Streak: {userCurrentDailyStreak}</h2>
                     <div id='history'>
                         <h2>History</h2>
