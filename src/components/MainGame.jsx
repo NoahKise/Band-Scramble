@@ -2,7 +2,10 @@ import { technoData, rockData, hiphopData, allData, noahData, topChartData, coun
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
+
 import 'animate.css';
+import '../App.css';
+
 import A from '../assets/images/A.png'
 import B from '../assets/images/B.png'
 import C from '../assets/images/C.png'
@@ -33,7 +36,16 @@ import SPACE from '../assets/images/SPACE.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
 import playPauseIcon from '../assets/images/playPauseIcon.png'
 import firstTile from '../assets/images/firstTile.png'
+import advanceScreenshot from '../assets/images/advanceScreenshot.png'
+import audioHintIconScreenshot from '../assets/images/audioHintIconScreenshot.png'
+import firstTileHintIconScreenshot from '../assets/images/firstTileHintIconScreenshot.png'
+import giveUpScreenshot from '../assets/images/giveUpScreenshot.png'
+import guessScreenshot from '../assets/images/guessScreenshot.png'
+import recallTilesScreenshot from '../assets/images/recallTilesScreenshot.png'
+import shuffleTilesScreenshot from '../assets/images/shuffleTilesScreenshot.png'
+
 import coinGif from '../assets/images/coin.gif'
+
 import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
 import shuffle from '../assets/sounds/shuffle.mp3'
@@ -42,7 +54,7 @@ import wrong from '../assets/sounds/wrong.mp3'
 import buzzer from '../assets/sounds/buzzer.mp3'
 import sparkle from '../assets/sounds/sparkle.mp3'
 import levelUp from '../assets/sounds/levelUp.mp3'
-import '../App.css';
+
 
 // import Draggable from 'react-draggable';
 
@@ -999,10 +1011,26 @@ const MainGame = () => {
                 <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
                 <h3>Controls</h3>
                 <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
-                <p>Recall all tiles from the solution area to the tile bank. On desktop, you may alternatively press the enter/return key.</p>
-                <p>Shuffle tiles in the tile bank. On desktop, you may alternatively press the shift key.</p>
-                <p>Make a guess. If your tiles are in the right position, you'll win the round! If not, your tiles will be recalled to the tile bank for you to try again. On desktop, you may alternatively press the enter/return key.</p>
-                <p>Advance to the next puzzle. On desktop, you may alternatively press the enter/return key.</p>
+                <div className='instructionRow'>
+                    <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
+                    <p className='instructionText'>Recall all tiles from the solution area to the tile bank. On desktop, you may alternatively press the enter/return key.</p>
+                </div>
+                <div className='instructionRow'>
+                    <img className='instructionImg' src={shuffleTilesScreenshot} alt='shuffle tiles icon' />
+                    <p className='instructionText'>Shuffle tiles in the tile bank. On desktop, you may alternatively press the shift key.</p>
+                </div>
+                <div className='instructionRow'>
+                    <img className='instructionImg' src={guessScreenshot} alt='make guess button' />
+                    <p className='instructionText'>Make a guess. If your tiles are in the right position, you'll win the round! If not, your tiles will be recalled to the tile bank for you to try again. On desktop, you may alternatively press the enter/return key.</p>
+                </div>
+                <div className='instructionRow'>
+                    <img className='instructionImg' src={giveUpScreenshot} alt='give up button' />
+                    <p className='instructionText'>Give up, and forfeit the round.</p>
+                </div>
+                <div className='instructionRow'>
+                    <img className='instructionImg' src={advanceScreenshot} alt='advance to next round button' />
+                    <p className='instructionText'>Advance to the next puzzle. On desktop, you may alternatively press the enter/return key.</p>
+                </div>
                 <p></p>
                 <h3>Clues</h3>
                 <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word.</p>
@@ -1014,8 +1042,14 @@ const MainGame = () => {
                 <p>Check out your stats by clicking the statistics icon in the bottom navigation bar!</p>
                 <h3>Hints</h3>
                 <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint</p>
-                <p>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining).</p>
-                <p>Clicking the 1st tile icon will reveal the correct first letter of the artist's name.</p>
+                <div className='hintInstructionRow'>
+                    <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
+                    <p className='instructionText'>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining). Click again to pause.</p>
+                </div>
+                <div className='hintInstructionRow'>
+                    <img className='instructionImg' src={firstTileHintIconScreenshot} alt='first tile hint icon' />
+                    <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name.</p>
+                </div>
 
 
                 {discogsBio}

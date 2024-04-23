@@ -609,3 +609,33 @@ body {
   padding-right: 25px;
   columns: 2;
 }
+
+.instructionRow {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: #E5E7EB;
+  margin-bottom: 5px;
+  /* height: fit-content; */
+  display: flex;
+  flex-direction: row;
+}
+
+.hintInstructionRow {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: #fbfbfb;
+  margin-bottom: 5px;
+  /* height: fit-content; */
+  display: flex;
+  flex-direction: row;
+}
+
+.instructionImg {
+  margin-right: 10px;
+  height: 50px;
+  width: 120px;
+}
+
+.instructionText {
+  margin: 0;
+}
