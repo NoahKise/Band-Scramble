@@ -386,7 +386,9 @@ const MainGame = () => {
     }
 
     const scramble = () => {
-        playShuffle();
+        if (!revealed) {
+            playShuffle();
+        }
         const placeholdersRemoved = originalLetters.filter((element) => element !== '!')
         setMixedString(ScrambledString(placeholdersRemoved.join('')));
         setOriginalLetters(ScrambledString(placeholdersRemoved.join('')).split(''))
@@ -394,6 +396,9 @@ const MainGame = () => {
 
     const revealOrReset = () => {
         if (resetClicked) {
+            if (bioOpen) {
+                toggleBio();
+            }
             document.getElementById("guess").value = "";
             RandomArtist();
         } else {
@@ -1006,7 +1011,7 @@ const MainGame = () => {
                             <button
                                 className={`gameButton ${advanceButtonClass}`}
                                 id='reveal'
-                                onClick={!helpOpen ? revealOrReset : undefined}
+                                onClick={helpOpen ? undefined : revealOrReset}
                             >
                                 GIVE UP
                             </button>
