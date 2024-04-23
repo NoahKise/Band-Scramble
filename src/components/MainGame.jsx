@@ -45,6 +45,8 @@ import recallTilesScreenshot from '../assets/images/recallTilesScreenshot.png'
 import shuffleTilesScreenshot from '../assets/images/shuffleTilesScreenshot.png'
 
 import coinGif from '../assets/images/coin.gif'
+import exampleGameplayGif from '../assets/images/exampleGameplay.gif'
+import clues from '../assets/images/clues.gif'
 
 import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
@@ -89,6 +91,8 @@ const MainGame = () => {
     const [discogsBio, setDiscogsBio] = useState("");
     const [helpOpen, setHelpOpen] = useState(false);
     const [helpClicked, setHelpClicked] = useState(false);
+    const [bioOpen, setBioOpen] = useState(false);
+    const [bioClicked, setBioClicked] = useState(false);
 
 
     let audio = useRef(null);
@@ -293,7 +297,7 @@ const MainGame = () => {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
                 newArtist = remainder[index]; // to test with specific string set newArtist to test value
-                // newArtist = "A BOOGIE WIT DA HOODIE";
+                // newArtist = "CYPRESS HILL";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
@@ -871,6 +875,16 @@ const MainGame = () => {
         }
     }
 
+    const toggleBio = () => {
+        setBioClicked(true);
+        if (!bioOpen) {
+            setBioOpen(true);
+        } else {
+            setBioOpen(false);
+            setBioClicked(false);
+        }
+    }
+
     return (
         <>
             <div className="App">
@@ -944,6 +958,9 @@ const MainGame = () => {
                             <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
                             <p id='help' onClick={toggleHelp}>?</p>
                             <div id='gameImageDiv'>
+                                <p id='bioButton'
+                                    onClick={toggleBio} style={{ display: revealed ? '' : 'none' }}
+                                    className={'animate__animated animate__heartBeat'}>i</p>
                                 <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                                 <input
                                     type='text'
@@ -1019,7 +1036,10 @@ const MainGame = () => {
                     <h3>Objective:</h3>
                     <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
                     <h3>Controls:</h3>
-                    <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
+                    <div className='instructionRow'>
+                        <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
+                        <img src={exampleGameplayGif} alt='gameplay example' />
+                    </div>
                     <div className='instructionRow'>
                         <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
                         <p className='instructionText'>Recall all tiles from the solution area to the tile bank. On desktop, you may alternatively press the enter/return key.</p>
@@ -1042,8 +1062,10 @@ const MainGame = () => {
                     </div>
                     <p></p>
                     <h3>Clues:</h3>
-                    <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word.</p>
-                    <p>Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
+                    <div className='instructionRow'>
+                        <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word. Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
+                        <img id='clues' src={clues} alt='gameplay example' />
+                    </div>
                     <h3>Scoring:</h3>
                     <p>When you successfully complete a round by guessing the correct artist name, you will receive points based on the difficulty of the puzzle and the speed at which you solved it.</p>
                     <p>If the time runs out before you solve the puzzle, you will lose points based on the difficulty of the puzzle.</p>
@@ -1060,6 +1082,12 @@ const MainGame = () => {
                         <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name (and set the timer to 30 seconds remaining).</p>
                     </div>
                 </div>
+            </div>
+            <div id='moreArtistInfo'
+                className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
+                style={{ display: bioClicked ? '' : 'none' }}>
+                <button id='bioCloseButton' onClick={toggleBio}>X</button>
+                <h1>test</h1>
             </div>
         </>
     );
