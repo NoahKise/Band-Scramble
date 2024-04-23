@@ -562,16 +562,31 @@ body {
 }
 
 #helpDiv {
+  box-sizing: border-box;
   height: 73vh;
   width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
+  padding: 15px;
   z-index: 2;
-  background-color: #23d866;
+  background-image: url(./assets/images/wood.jpg);
+  background-size: contain;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   overflow: scroll;
+  border: 5px solid black;
+}
+
+#helpCloseButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 25px;
+}
+
+#helpCloseButton:hover {
+  cursor: pointer;
 }
 
 .genreSelectRow {

@@ -985,8 +985,23 @@ const MainGame = () => {
                 id='helpDiv'
                 style={{ display: gameStarted ? '' : 'none' }}
             >
+                <button id='helpCloseButton' onClick={toggleHelp}>X</button>
+                <h1>How To Play</h1>
+                <h3>Objective</h3>
+                <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
+                <h3>Clues</h3>
+                <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word.</p>
+                <p>Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
+                <h3>Scoring</h3>
+                <p>When you successfully complete a round by guessing the correct artist name, you receive points based on the length of the artist name, and how quickly you solved the puzzle.</p>
+                <p>If the time runs out before you solve the puzzle, you will lose points based on the length of the artist name.</p>
+                <h3>Hints</h3>
+                <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint</p>
+                <p>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs.</p>
+                <p>Clicking the 1st tile icon will reveal the correct first letter of the artist's name.</p>
+
+
                 {discogsBio}
-                <button onClick={toggleHelp}>close</button>
             </div>
         </>
     );
