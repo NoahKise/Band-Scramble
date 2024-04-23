@@ -23,3 +23,6 @@
 * 9:30: interview
 * 11:00: back at it
 * 2:00: looking into third party API for returning related artists
+
+#### Tuesday 4/23
+* 8:30: beginning work on instructions/help view
