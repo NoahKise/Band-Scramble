@@ -1161,6 +1161,7 @@ const MainGame = () => {
                 <button id='bioCloseButton' onClick={toggleBio}>X</button>
                 <h1>{bioArtistName}</h1>
                 <p id='artistBio'>{discogsBio}</p>
+                <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
             </div>
         </>
     );

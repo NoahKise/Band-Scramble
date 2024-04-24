@@ -710,11 +710,20 @@ body {
 }
 
 #artistBio {
-  height: 70vw;
+  height: 55vw;
   overflow: scroll;
-  min-height: 200px;
+  min-height: 180px;
+  max-height: 220px;
 }
 
 #longestStreak {
   text-align: center;
+}
+
+#bioAudio {
+  width: 90vw;
+  height: 11vw;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 360px;
 }
