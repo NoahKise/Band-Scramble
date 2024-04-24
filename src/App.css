@@ -188,6 +188,7 @@ body {
   position: absolute;
   right: 0;
   bottom: 0;
+  margin-bottom: 0;
 }
 
 #help {
@@ -203,6 +204,7 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
+  margin-bottom: 0;
 }
 
 #bioButton {
