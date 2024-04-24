@@ -307,14 +307,42 @@ const MainGame = () => {
             }
             if (dailyModeTracker === true) {
                 let mostRecentDate = '';
+                let oldMonth = '';
+                let oldDay = '';
                 if (guessedArtists.length > 0) {
                     mostRecentDate = new Date(guessedArtists[guessedArtists.length - 1].timestamp).toLocaleDateString('en-US');
+                    const match = mostRecentDate.match(/(\d{1,2})\/(\d{1,2})\/\d{4}/);
+                    if (match) {
+                        oldMonth = parseInt(match[1], 10);
+                        oldDay = parseInt(match[2], 10);
+                        console.log("Day:", oldDay);
+                        console.log("Month:", oldMonth);
+                    } else {
+                        console.log("Invalid date string format");
+                    }
+                    console.log(mostRecentDate);
                 } else {
                     mostRecentDate = new Date(1713221222714).toLocaleDateString('en-US');
+                    console.log(mostRecentDate);
                 }
                 let todaysDate = new Date(Date.now()).toLocaleDateString('en-us');
+                const todaysDateMatched = todaysDate.match(/(\d{1,2})\/(\d{1,2})\/\d{4}/);
+                const newDay = parseInt(todaysDateMatched[2], 10);
+                const newMonth = parseInt(todaysDateMatched[1], 10);
+                console.log("Day:", newDay);
+                console.log("Month:", newMonth);
+                console.log(todaysDate);
                 if (mostRecentDate !== todaysDate) {
                     newArtist = dailyPick;
+                    if (oldMonth === newMonth && (newDay - oldDay) > 1) {
+                        setDailyModeStreak(0);
+                    } else if (oldMonth !== newMonth && newDay !== 1) {
+                        setDailyModeStreak(0);
+                    } else if (oldMonth !== newMonth && oldDay < 30 && oldMonth !== 2) {
+                        setDailyModeStreak(0);
+                    } else if (oldMonth !== newMonth && oldMonth === 2 && oldDay < 28) {
+                        setDailyModeStreak(0);
+                    }
                 } else {
                     setDailyMode(false);
                     dailyModeTracker = false;
