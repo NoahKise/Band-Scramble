@@ -26,3 +26,6 @@
 
 #### Tuesday 4/23
 * 8:30: beginning work on instructions/help view
+
+#### Wednesday 4/24
+* 1:40: preparing for interview
