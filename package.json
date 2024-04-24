@@ -22,6 +22,8 @@
     "dotenv": "^16.4.5",
     "firebase": "^9.23.0",
     "jsdom": "^24.0.0",
+    "path-browserify": "^1.0.1",
+    "puppeteer": "^22.7.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
@@ -55,6 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.7.4"
+    "@capacitor/cli": "^5.7.4",
+    "@craco/craco": "^7.1.0"
   }
 }

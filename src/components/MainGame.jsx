@@ -324,7 +324,7 @@ const MainGame = () => {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
                 newArtist = remainder[index]; // to test with specific string set newArtist to test value
-                // newArtist = "CYPRESS HILL";
+                // newArtist = "DUSTER";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
@@ -507,9 +507,10 @@ const MainGame = () => {
             const jsonifiedresponse = await response.json();
             let url = jsonifiedresponse.results[0].cover_image;
             let name = jsonifiedresponse.results[0].title;
+            let cleanedName = name.replace(/\([^()]*\)/g, '');
             let artistId = jsonifiedresponse.results[0].id;
             let resourceUrl = jsonifiedresponse.results[0].resource_url;
-            setBioArtistName(name);
+            setBioArtistName(cleanedName);
             setDiscogsId(artistId);
             setDiscogsUrl(resourceUrl);
             setImageUrl(url);
