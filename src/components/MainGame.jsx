@@ -520,6 +520,21 @@ const MainGame = () => {
     };
 
     const startGame = () => {
+        const rock = document.getElementById("rock");
+        const hiphop = document.getElementById("hiphop");
+        const pop = document.getElementById("pop");
+        const rAndB = document.getElementById("rAndB");
+        const indie = document.getElementById("indie");
+        const alternative = document.getElementById("alternative");
+        const folk = document.getElementById("folk");
+        const country = document.getElementById("country");
+        const metal = document.getElementById("metal");
+        const electronic = document.getElementById("electronic");
+        const jazz = document.getElementById("jazz");
+        const blues = document.getElementById("blues");
+        const soulFunk = document.getElementById("soulFunk");
+        const classicRock = document.getElementById("classicRock");
+        console.log(rock.checked);
         RandomArtist();
         setGameStarted(true);
     };
@@ -974,7 +989,7 @@ const MainGame = () => {
                                 </div>
                                 <div className='genreSelectRow'>
                                     <p>Hip-Hop</p>
-                                    <input type="checkbox" id="hip-hop" name="hip-hop" value="hip-hop"></input>
+                                    <input type="checkbox" id="hiphop" name="hiphop" value="hiphop"></input>
                                 </div>
                                 <div className='genreSelectRow'>
                                     <p>Pop</p>
@@ -982,15 +997,19 @@ const MainGame = () => {
                                 </div>
                                 <div className='genreSelectRow'>
                                     <p>R&B</p>
-                                    <input type="checkbox" id="r&b" name="r&b" value="r&b"></input>
+                                    <input type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
                                 </div>
                                 <div className='genreSelectRow'>
-                                    <p>Indie/Alternative</p>
-                                    <input type="checkbox" id="indieAlternative" name="indieAlternative" value="indieAlternative"></input>
+                                    <p>Indie</p>
+                                    <input type="checkbox" id="indie" name="indie" value="indie"></input>
                                 </div>
                                 <div className='genreSelectRow'>
-                                    <p>Dance</p>
-                                    <input type="checkbox" id="dance" name="dance" value="dance"></input>
+                                    <p>Alternative</p>
+                                    <input type="checkbox" id="alternative" name="alternative" value="alternative"></input>
+                                </div>
+                                <div className='genreSelectRow'>
+                                    <p>Folk</p>
+                                    <input type="checkbox" id="folk" name="folk" value="folk"></input>
                                 </div>
                                 <div className='genreSelectRow'>
                                     <p>Country</p>

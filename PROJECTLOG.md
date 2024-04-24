@@ -30,3 +30,4 @@
 #### Wednesday 4/24
 * 1:40: preparing for interview
 * 2:45: interview over, back at it
+* 3:45: working on implementing genre select, nothing to commit yet though
