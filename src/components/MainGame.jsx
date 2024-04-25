@@ -138,6 +138,7 @@ const MainGame = () => {
                 if (dailyModeStreakDoc.exists()) {
                     const userData = dailyModeStreakDoc.data();
                     setDailyModeStreak(userData.dailyModeStreak);
+                    console.log("daily mode streak set to", userData.dailyModeStreak, "at fetchDailyModeStreak");
                 } else {
                     console.log("daily mode streak not found")
                 }
@@ -337,12 +338,16 @@ const MainGame = () => {
                     newArtist = dailyPick;
                     if (oldMonth === newMonth && (newDay - oldDay) > 1) {
                         setDailyModeStreak(0);
+                        console.log("daily mode streak set to 0 at day skip logic level 1");
                     } else if (oldMonth !== newMonth && newDay !== 1) {
                         setDailyModeStreak(0);
+                        console.log("daily mode streak set to 0 at day skip logic level 2");
                     } else if (oldMonth !== newMonth && oldDay < 30 && oldMonth !== 2) {
                         setDailyModeStreak(0);
+                        console.log("daily mode streak set to 0 at day skip logic level 3");
                     } else if (oldMonth !== newMonth && oldMonth === 2 && oldDay < 28) {
                         setDailyModeStreak(0);
+                        console.log("daily mode streak set to 0 at day skip logic level 4");
                     }
                 } else {
                     setDailyMode(false);
@@ -396,7 +401,10 @@ const MainGame = () => {
         }
 
         if (timeLeft === 0) {
-            revealArtist();
+            if (gameStarted) {
+                revealArtist();
+                console.log("reveal artist triggered in timerInterval block");
+            }
             setResetClicked(true);
             clearInterval(timerInterval);
         } else if (revealed) {
@@ -440,6 +448,7 @@ const MainGame = () => {
         setRevealed(true);
         if (dailyMode) {
             setDailyModeStreak(0);
+            console.log("daily mode streak set to 0 at revealArtist");
         }
         setDailyMode(false);
     }
@@ -462,6 +471,7 @@ const MainGame = () => {
             RandomArtist();
         } else {
             revealArtist();
+            console.log("reveal artist triggered in reveal or reset block");
         }
         setResetClicked(!resetClicked);
     }
@@ -508,6 +518,7 @@ const MainGame = () => {
             if (dailyMode) {
                 let newStreak = dailyModeStreak + 1;
                 setDailyModeStreak(newStreak);
+                console.log("daily mode streak set to", newStreak, "at makeGuess");
             }
             setDailyMode(false);
             setResetClicked(true);
@@ -1011,7 +1022,11 @@ const MainGame = () => {
         console.log(dupesRemovedGenreSelectedPool);
         const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
         console.log(difference);
-        setAnswerPool(difference);
+        if (difference.length === 0) {
+            setAnswerPool(allData);
+        } else {
+            setAnswerPool(difference);
+        }
         setGenreChoicesConfirmed(true);
     }
 
