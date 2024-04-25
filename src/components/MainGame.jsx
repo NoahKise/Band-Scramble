@@ -1,4 +1,4 @@
-import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData, problemData } from '../Data';
+import { technoData, rockData, hiphopData, allData, noahData, topChartData, countryData, problemData, popData, rAndBData, indieData, alternativeData, folkData, metalData, electronicData, jazzData, bluesData, soulFunkData, classicRockData } from '../Data';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
@@ -210,6 +210,7 @@ const MainGame = () => {
                         setUserHistory(historyList);
                         const difference = allData.filter(element => !historyList.includes(element));
                         setAnswerPool(difference);
+                        console.log("answer pool set to", difference, "in fetchData");
 
                         const rightAnswers = userData.map((data) => {
                             let counter = 0;
@@ -520,23 +521,61 @@ const MainGame = () => {
     };
 
     const startGame = () => {
-        const rock = document.getElementById("rock");
-        const hiphop = document.getElementById("hiphop");
-        const pop = document.getElementById("pop");
-        const rAndB = document.getElementById("rAndB");
-        const indie = document.getElementById("indie");
-        const alternative = document.getElementById("alternative");
-        const folk = document.getElementById("folk");
-        const country = document.getElementById("country");
-        const metal = document.getElementById("metal");
-        const electronic = document.getElementById("electronic");
-        const jazz = document.getElementById("jazz");
-        const blues = document.getElementById("blues");
-        const soulFunk = document.getElementById("soulFunk");
-        const classicRock = document.getElementById("classicRock");
-        console.log(rock.checked);
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let genreSelectedPool = [];
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const genre = checkbox.id;
+                const genreData = getGenreData(genre);
+                genreSelectedPool = genreSelectedPool.concat(genreData);
+            }
+        });
+
+        console.log(genreSelectedPool);
+        const dupesRemovedGenreSelectedPool = genreSelectedPool.filter((value, index) => genreSelectedPool.indexOf(value) === index);
+        console.log(dupesRemovedGenreSelectedPool);
+        const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
+        console.log(difference);
+        setAnswerPool(difference);
         RandomArtist();
         setGameStarted(true);
+    };
+
+    const getGenreData = (genre) => {
+        // Replace this with your actual data retrieval logic based on the genre
+        switch (genre) {
+            case 'rock':
+                return rockData;
+            case 'hiphop':
+                return hiphopData;
+            case 'pop':
+                return popData;
+            case 'rAndB':
+                return rAndBData;
+            case 'indie':
+                return indieData;
+            case 'alternative':
+                return alternativeData;
+            case 'folk':
+                return folkData;
+            case 'country':
+                return countryData;
+            case 'metal':
+                return metalData;
+            case 'electronic':
+                return electronicData;
+            case 'jazz':
+                return jazzData;
+            case 'blues':
+                return bluesData;
+            case 'soulFunk':
+                return soulFunkData;
+            case 'classicRock':
+                return classicRockData;
+            default:
+                return [];
+        }
     };
 
     const Discogs = async (bandName) => {
@@ -626,6 +665,7 @@ const MainGame = () => {
                 newAnswerPool.splice(index, 1);
             }
             setAnswerPool(newAnswerPool);
+            console.log("set answer pool to new answer pool", newAnswerPool, "in update guessed artists");
         }
     };
 

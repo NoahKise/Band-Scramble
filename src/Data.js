@@ -262,6 +262,10 @@ export const countryData = [
     "CHRIS STAPLETON",
     "BLAKE SHELTON",
     "CARRIE UNDERWOOD",
+    "FAITH HILL",
+    "TOBY KEITH",
+    "LUKE COMBS",
+    "LUKE BRYAN",
 ]
 
 export const noahData = [
@@ -998,3 +1002,15 @@ export const problemData = [
     "THE SMASHING PUMPKINS",
     "BROKEN SOCIAL SCENE"
 ]
+
+export const popData = [];
+export const rAndBData = [];
+export const indieData = [];
+export const alternativeData = [];
+export const folkData = [];
+export const metalData = [];
+export const electronicData = [];
+export const jazzData = [];
+export const bluesData = [];
+export const soulFunkData = [];
+export const classicRockData = [];
