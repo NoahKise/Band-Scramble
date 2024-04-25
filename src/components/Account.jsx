@@ -4,6 +4,7 @@ import { auth, db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
+import wood from '../assets/images/wood.jpg'
 
 export const Account = () => {
     const [username, setUsername] = useState('');
@@ -74,9 +75,10 @@ export const Account = () => {
     };
     return (
         <>
+            <button id='signOutButton' className='button' onClick={doSignOut}>Sign out</button>
             <div id='userInfo'>
-                <p>Logged in as {username}</p>
-                <button className='button' onClick={doSignOut}>Sign out</button>
+                <img id='avatar' src={wood} alt='avatar' />
+                <h1>{username}</h1>
             </div>
             <div id="soundToggle">
                 <h2>Game Sounds</h2>
