@@ -1222,7 +1222,7 @@ const MainGame = () => {
                     <p>Head to the home page to check out the leaderboard!</p>
                     <p>Check out your stats by clicking the statistics icon in the bottom navigation bar!</p>
                     <h3>Hints:</h3>
-                    <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint</p>
+                    <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint.</p>
                     <div className='hintInstructionRow'>
                         <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
                         <p className='instructionText'>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining). Click again to pause.</p>
