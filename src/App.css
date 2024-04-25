@@ -701,7 +701,6 @@ body {
   background-size: contain;
   border-radius: 30px;
   border: 5px solid black;
-  /* display: none; */
 }
 
 #clues {
@@ -710,10 +709,10 @@ body {
 }
 
 #artistBio {
-  height: 55vw;
+  height: 50vw;
   overflow: scroll;
   min-height: 180px;
-  max-height: 220px;
+  max-height: 200px;
 }
 
 #longestStreak {
@@ -726,4 +725,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 360px;
+}
+
+#artistBioName {
+  height: 60px;
 }

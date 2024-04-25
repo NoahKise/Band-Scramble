@@ -357,8 +357,8 @@ const MainGame = () => {
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-                newArtist = remainder[index]; // to test with specific string set newArtist to test value
-                // newArtist = "DUSTER";
+                // newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                newArtist = "HOOTIE AND THE BLOWFISH";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
@@ -1039,8 +1039,11 @@ const MainGame = () => {
                     <h1>Loading...</h1>
                 )}
                 {answerPool.length > 0 && !gameStarted && (
+                    <button id='startButton' className={`button-53 ${genreChoicesConfirmed ? 'animate_animated animate__heartBeat' : ''}`} onClick={genreChoicesConfirmed ? startGame : confirmGenreSelections}>{startButtonText}</button>
+                )}
+                {answerPool.length > 0 && !gameStarted && !genreChoicesConfirmed && (
                     <>
-                        <button id='startButton' className='button-53' onClick={genreChoicesConfirmed ? startGame : confirmGenreSelections}>{startButtonText}</button>
+                        <h3>Select genres (optional). Selecting none defaults to all artists.</h3>
                         <form>
                             <div id='genreSelectList'>
                                 <div className='genreSelectRow'>
@@ -1237,7 +1240,9 @@ const MainGame = () => {
                 className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
                 style={{ display: bioClicked ? '' : 'none' }}>
                 <button id='bioCloseButton' onClick={toggleBio}>X</button>
-                <h1>{bioArtistName}</h1>
+                <div id='artistBioName'>
+                    <h1>{bioArtistName}</h1>
+                </div>
                 <p id='artistBio'>{discogsBio}</p>
                 <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
             </div>
