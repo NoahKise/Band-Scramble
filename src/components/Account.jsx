@@ -8,7 +8,7 @@ import { signOut } from "firebase/auth";
 export const Account = () => {
     const [username, setUsername] = useState('');
     const [userId, setUserId] = useState('');
-    const [soundSetting, setSoundSetting] = useState(true);
+    const [soundSetting, setSoundSetting] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -83,7 +83,7 @@ export const Account = () => {
                 <label className="switch">
                     <input
                         type="checkbox"
-                        defaultChecked={soundSetting === true}
+                        checked={soundSetting}
                         onChange={handleSoundSettingChange}
                     />
                     <span className="slider round"></span>

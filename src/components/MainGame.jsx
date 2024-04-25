@@ -97,6 +97,7 @@ const MainGame = () => {
     const [audioHintUsed, setAudioHintUsed] = useState(false);
     const [dailyModeStreak, setDailyModeStreak] = useState(0);
     const [genreChoicesConfirmed, setGenreChoicesConfirmed] = useState(false);
+    const [soundSetting, setSoundSetting] = useState(true);
 
     let audio = useRef(null);
 
@@ -129,6 +130,21 @@ const MainGame = () => {
             }
         };
         fetchScore();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchSoundSetting = async () => {
+            if (userId) {
+                const soundSettingDoc = await getDoc(doc(db, "soundSetting", userId));
+                if (soundSettingDoc.exists()) {
+                    const userData = soundSettingDoc.data();
+                    setSoundSetting(userData.soundSetting);
+                } else {
+                    console.log("sound setting not found")
+                }
+            }
+        };
+        fetchSoundSetting();
     }, [userId]);
 
     useEffect(() => {
@@ -929,41 +945,55 @@ const MainGame = () => {
 
     const playTileWhoosh = () => {
         const audio = new Audio(whoosh);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
     const playTwinkle = () => {
         const audio = new Audio(twinkle);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playShuffle = () => {
         const audio = new Audio(shuffle);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playRecall = () => {
         const audio = new Audio(recall);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playWrong = () => {
         const audio = new Audio(wrong);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playSparkle = () => {
         const audio = new Audio(sparkle);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playLevelUp = () => {
         const audio = new Audio(levelUp);
-        audio.play();
+        if (soundSetting) {
+            audio.play();
+        }
     }
 
     const playBuzzer = () => {
         const audio = new Audio(buzzer)
-        if (gameStarted) {
+        if (gameStarted && soundSetting) {
             audio.play();
         }
     }
