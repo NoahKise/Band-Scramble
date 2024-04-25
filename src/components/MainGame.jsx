@@ -96,7 +96,7 @@ const MainGame = () => {
     const [bioArtistName, setBioArtistName] = useState("");
     const [audioHintUsed, setAudioHintUsed] = useState(false);
     const [dailyModeStreak, setDailyModeStreak] = useState(0);
-
+    const [genreChoicesConfirmed, setGenreChoicesConfirmed] = useState(false);
 
     let audio = useRef(null);
 
@@ -521,29 +521,11 @@ const MainGame = () => {
     };
 
     const startGame = () => {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        let genreSelectedPool = [];
-
-        checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                const genre = checkbox.id;
-                const genreData = getGenreData(genre);
-                genreSelectedPool = genreSelectedPool.concat(genreData);
-            }
-        });
-
-        console.log(genreSelectedPool);
-        const dupesRemovedGenreSelectedPool = genreSelectedPool.filter((value, index) => genreSelectedPool.indexOf(value) === index);
-        console.log(dupesRemovedGenreSelectedPool);
-        const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
-        console.log(difference);
-        setAnswerPool(difference);
         RandomArtist();
         setGameStarted(true);
     };
 
     const getGenreData = (genre) => {
-        // Replace this with your actual data retrieval logic based on the genre
         switch (genre) {
             case 'rock':
                 return rockData;
@@ -1012,6 +994,29 @@ const MainGame = () => {
         }
     }
 
+    const confirmGenreSelections = () => {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let genreSelectedPool = [];
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const genre = checkbox.id;
+                const genreData = getGenreData(genre);
+                genreSelectedPool = genreSelectedPool.concat(genreData);
+            }
+        });
+
+        console.log(genreSelectedPool);
+        const dupesRemovedGenreSelectedPool = genreSelectedPool.filter((value, index) => genreSelectedPool.indexOf(value) === index);
+        console.log(dupesRemovedGenreSelectedPool);
+        const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
+        console.log(difference);
+        setAnswerPool(difference);
+        setGenreChoicesConfirmed(true);
+    }
+
+    const startButtonText = genreChoicesConfirmed ? 'Start Game' : 'Confirm Genres';
+
     return (
         <>
             <div className="App">
@@ -1020,7 +1025,7 @@ const MainGame = () => {
                 )}
                 {answerPool.length > 0 && !gameStarted && (
                     <>
-                        <button id='startButton' className='button-53' onClick={startGame}>Start Game</button>
+                        <button id='startButton' className='button-53' onClick={genreChoicesConfirmed ? startGame : confirmGenreSelections}>{startButtonText}</button>
                         <form>
                             <div id='genreSelectList'>
                                 <div className='genreSelectRow'>
@@ -1111,7 +1116,6 @@ const MainGame = () => {
                             </div>
                         </div>
                         <br></br>
-
 
                         <div id='gameArea'>
                             <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.6}px` }}>
