@@ -357,8 +357,8 @@ const MainGame = () => {
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-                // newArtist = remainder[index]; // to test with specific string set newArtist to test value
-                newArtist = "HOOTIE AND THE BLOWFISH";
+                newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                // newArtist = "HOOTIE AND THE BLOWFISH";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
