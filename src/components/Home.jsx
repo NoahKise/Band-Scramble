@@ -16,7 +16,7 @@ import avatar6 from '../assets/images/avatar6.png'
 import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
-import editIcon from '../assets/images/editIcon.svg'
+import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
 
 const defaultTheme = createTheme();
 
@@ -183,6 +183,7 @@ export default function Home() {
         7: avatar7,
         8: avatar8,
         9: avatar9,
+        10: PLACEHOLDER,
     };
 
     return (
@@ -205,7 +206,7 @@ export default function Home() {
                                         <td>
                                             <div style={{ display: "flex", alignItems: "center" }}>
                                                 <img
-                                                    src={entry.avatarId ? avatarImages[entry.avatarId] : avatarImages[8]}
+                                                    src={entry.avatarId ? avatarImages[entry.avatarId] : avatarImages[10]}
                                                     alt={`Avatar for ${entry.username}`}
                                                     className="leaderboardAvatar"
                                                 />
