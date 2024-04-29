@@ -93,11 +93,14 @@ const MainGame = () => {
     const [helpClicked, setHelpClicked] = useState(false);
     const [bioOpen, setBioOpen] = useState(false);
     const [bioClicked, setBioClicked] = useState(false);
+    const [dailyBioOpen, setDailyBioOpen] = useState(false);
+    const [dailyBioClicked, setDailyBioClicked] = useState(false);
     const [bioArtistName, setBioArtistName] = useState("");
     const [audioHintUsed, setAudioHintUsed] = useState(false);
     const [dailyModeStreak, setDailyModeStreak] = useState(0);
     const [genreChoicesConfirmed, setGenreChoicesConfirmed] = useState(false);
     const [soundSetting, setSoundSetting] = useState(true);
+    const [dailyModeBioButton, setDailyModeBioButton] = useState(false);
 
     let audio = useRef(null);
 
@@ -378,6 +381,9 @@ const MainGame = () => {
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
+                if (dailyModeBioButton) {
+                    setDailyModeBioButton(false);
+                }
             }
             if (musicPlaying) {
                 playMusic();
@@ -463,6 +469,8 @@ const MainGame = () => {
         setOriginalLetters([]);
         setRevealed(true);
         if (dailyMode) {
+            setDailyModeBioButton(true);
+            toggleDailyBio();
             setDailyModeStreak(0);
             console.log("daily mode streak set to 0 at revealArtist");
         }
@@ -482,6 +490,9 @@ const MainGame = () => {
         if (resetClicked) {
             if (bioOpen) {
                 toggleBio();
+            }
+            if (dailyBioOpen) {
+                toggleDailyBio();
             }
             document.getElementById("guess").value = "";
             RandomArtist();
@@ -532,6 +543,8 @@ const MainGame = () => {
             }
             setRevealed(true);
             if (dailyMode) {
+                toggleDailyBio();
+                setDailyModeBioButton(true);
                 let newStreak = dailyModeStreak + 1;
                 setDailyModeStreak(newStreak);
                 console.log("daily mode streak set to", newStreak, "at makeGuess");
@@ -1035,6 +1048,20 @@ const MainGame = () => {
         }
     }
 
+    const toggleDailyBio = () => {
+        setDailyBioClicked(true);
+        if (!dailyBioOpen) {
+            setDailyBioOpen(true);
+        } else {
+            const player = document.getElementById('video')
+            if (player && typeof player.pauseVideo === 'function') {
+                player.pauseVideo();
+            }
+            setDailyBioOpen(false);
+            setDailyBioClicked(false);
+        }
+    }
+
     const confirmGenreSelections = () => {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         let genreSelectedPool = [];
@@ -1143,7 +1170,7 @@ const MainGame = () => {
                             <p id='help' onClick={toggleHelp}>?</p>
                             <div id='gameImageDiv'>
                                 <p id='bioButton'
-                                    onClick={toggleBio} style={{ display: revealed ? '' : 'none' }}
+                                    onClick={dailyModeBioButton ? toggleDailyBio : toggleBio} style={{ display: revealed ? '' : 'none' }}
                                     className={'animate__animated animate__heartBeat'}>i</p>
                                 <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                                 <input
@@ -1275,6 +1302,16 @@ const MainGame = () => {
                 </div>
                 <p id='artistBio'>{discogsBio}</p>
                 <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
+            </div>
+            <div id='dailyBio'
+                className={`animate__animated ${dailyBioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
+                style={{ display: dailyBioClicked ? '' : 'none' }}>
+                <button id='bioCloseButton' onClick={toggleDailyBio}>X</button>
+                <div id='artistDailyBioName'>
+                    <h1>{bioArtistName}</h1>
+                </div>
+                <p id='artistDailyBio'>The daily featured artist's bio</p>
+                <iframe id='video' src="https://www.youtube.com/embed/8qt67uXXlzc?si=AGHflAtvWSn0n0Q0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </>
     );

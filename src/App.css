@@ -463,6 +463,8 @@ body {
   margin-right: auto;
   background-image: url(./assets/images/wood.jpg);
   padding: 10px;
+  height: 90vh;
+  overflow: scroll;
 }
 
 #leaderboard tbody {
@@ -477,6 +479,18 @@ body {
 #leaderboard h1 {
   text-align: center;
   text-decoration: underline;
+}
+
+.rank {
+  font-size: 26px;
+}
+
+.leaderboardUsername {
+  font-size: 20px;
+}
+
+.leaderboardScore {
+  font-size: 20px;
 }
 
 .graph {
@@ -713,6 +727,24 @@ body {
   border: 5px solid black;
 }
 
+#dailyBio {
+  box-sizing: border-box;
+  height: 100vw;
+  width: 100vw;
+  max-width: 400px;
+  max-height: 400px;
+  min-height: 350px;
+  position: fixed;
+  top: 15px;
+  right: 0;
+  padding: 15px;
+  z-index: 2;
+  background-image: url(./assets/images/wood.jpg);
+  background-size: contain;
+  border-radius: 30px;
+  border: 5px solid black;
+}
+
 #clues {
   height: 321px;
   margin-left: 5px;
@@ -835,7 +867,7 @@ input:checked+.slider:before {
 }
 
 #signOutButton {
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 10px;
   background-image: url(./assets/images/wood.jpg);
@@ -923,4 +955,31 @@ input:checked+.slider:before {
 
 #avatarSelectCloseButton:hover {
   cursor: pointer;
+}
+
+.leaderboardAvatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+#artistSpotlightDiv {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-image: url(./assets/images/wood.jpg);
+  padding: 10px;
+  border-radius: 30px;
+  border: 3px solid black;
+}
+
+#artistSpotlightDiv h2 {
+  text-decoration: underline;
+}
+
+#video {
+  width: 360px;
+  height: 203px;
 }

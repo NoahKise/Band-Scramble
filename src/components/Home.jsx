@@ -194,26 +194,26 @@ export default function Home() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Rank</th>
                                     <th>Username</th>
                                     <th>Score</th>
+                                    <th>Rank</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {leaderboard.map((entry, index) => (
                                     <tr key={index}>
-                                        <td>{index + 1}</td>
                                         <td>
                                             <div style={{ display: "flex", alignItems: "center" }}>
                                                 <img
                                                     src={entry.avatarId ? avatarImages[entry.avatarId] : avatarImages[8]}
                                                     alt={`Avatar for ${entry.username}`}
-                                                    style={{ width: 60, height: 60, marginRight: 10 }}
+                                                    className="leaderboardAvatar"
                                                 />
-                                                <span>{entry.username}</span>
+                                                <span className="leaderboardUsername">{entry.username}</span>
                                             </div>
                                         </td>
-                                        <td>{entry.score}</td>
+                                        <td className="leaderboardScore">{entry.score}</td>
+                                        <td className="rank">{index + 1}</td>
                                     </tr>
                                 ))}
                             </tbody>

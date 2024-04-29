@@ -4,7 +4,6 @@ import { auth, db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
-import wood from '../assets/images/wood.jpg'
 import avatar1 from '../assets/images/avatar1.png'
 import avatar2 from '../assets/images/avatar2.png'
 import avatar3 from '../assets/images/avatar3.png'
@@ -138,13 +137,17 @@ export const Account = () => {
     };
     return (
         <>
-            <button id='signOutButton' className='button' onClick={doSignOut}>Sign out</button>
             <div id='userInfo'>
+                <button id='signOutButton' className='button' onClick={doSignOut}>Sign out</button>
                 <img id='avatarPic' src={avatarImages[avatarId]} alt='avatar' />
                 <h1>{username}</h1>
                 <div id='avatarButtonDiv' onClick={toggleAvatarSelect}>
                     <img src={editIcon} id='avatarEditButton' alt='edit icon' />
                 </div>
+            </div>
+            <div id='artistSpotlightDiv'>
+                <h2>Artist Spotlight</h2>
+                <h3>My Bloody Valentine</h3>
             </div>
             <div id="soundToggle">
                 <h2>Game Sounds</h2>
