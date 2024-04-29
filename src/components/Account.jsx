@@ -5,6 +5,15 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import wood from '../assets/images/wood.jpg'
+import avatar1 from '../assets/images/avatar1.png'
+import avatar2 from '../assets/images/avatar2.png'
+import avatar3 from '../assets/images/avatar3.png'
+import avatar4 from '../assets/images/avatar4.png'
+import avatar5 from '../assets/images/avatar5.png'
+import avatar6 from '../assets/images/avatar6.png'
+import avatar7 from '../assets/images/avatar7.png'
+import avatar8 from '../assets/images/avatar8.png'
+import avatar9 from '../assets/images/avatar9.png'
 
 export const Account = () => {
     const [username, setUsername] = useState('');
@@ -90,6 +99,10 @@ export const Account = () => {
                     />
                     <span className="slider round"></span>
                 </label>
+            </div>
+            <div id='avatarSelect'>
+                <input type="radio" id="huey" name="drone" value="huey" />
+                <label for="huey">Huey</label>
             </div>
         </>
     );
