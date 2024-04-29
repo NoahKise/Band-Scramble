@@ -857,6 +857,8 @@ input:checked+.slider:before {
 .avatarPreview {
   width: 250px;
   margin-left: 50px;
+  border-radius: 30px;
+  border: 3px solid black;
 }
 
 .radioPair {
@@ -910,4 +912,15 @@ input:checked+.slider:before {
   position: absolute;
   top: 145px;
   right: 90px;
+}
+
+#avatarSelectCloseButton {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  font-size: 25px;
+}
+
+#avatarSelectCloseButton:hover {
+  cursor: pointer;
 }

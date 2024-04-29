@@ -20,6 +20,7 @@ export const Account = () => {
     const [username, setUsername] = useState('');
     const [userId, setUserId] = useState('');
     const [soundSetting, setSoundSetting] = useState(false);
+    const [avatarId, setAvatarId] = useState(8);
     const [avatarSelectClicked, setAvatarSelectClicked] = useState(false);
     const [avatarSelectOpen, setAvatarSelectOpen] = useState(false);
     const navigate = useNavigate();
@@ -64,6 +65,30 @@ export const Account = () => {
     }, [userId]);
 
     useEffect(() => {
+        const fetchAvatarId = async () => {
+            if (userId) {
+                const avatarIdDoc = await getDoc(doc(db, "avatarId", userId));
+                if (avatarIdDoc.exists()) {
+                    const userData = avatarIdDoc.data();
+                    setAvatarId(userData.avatarId);
+                } else {
+                    console.log("avatar ID not found")
+                }
+            }
+        };
+        fetchAvatarId();
+    }, [userId]);
+
+    useEffect(() => {
+        const updateAvatarId = async () => {
+            if (userId) {
+                await setDoc(doc(db, "avatarId", userId), { avatarId });
+            }
+        };
+        updateAvatarId();
+    }, [avatarId]);
+
+    useEffect(() => {
         const updateSoundSetting = async () => {
             if (userId) {
                 await setDoc(doc(db, "soundSetting", userId), { soundSetting });
@@ -75,6 +100,11 @@ export const Account = () => {
     const handleSoundSettingChange = async (event) => {
         const newValue = event.target.checked ? true : false;
         setSoundSetting(newValue);
+    };
+
+    const handleAvatarChange = (event) => {
+        const selectedAvatar = event.target.value;
+        setAvatarId(selectedAvatar);
     };
 
     const toggleAvatarSelect = () => {
@@ -94,11 +124,23 @@ export const Account = () => {
             console.log('error signing out');
         }
     };
+
+    const avatarImages = {
+        1: avatar1,
+        2: avatar2,
+        3: avatar3,
+        4: avatar4,
+        5: avatar5,
+        6: avatar6,
+        7: avatar7,
+        8: avatar8,
+        9: avatar9,
+    };
     return (
         <>
             <button id='signOutButton' className='button' onClick={doSignOut}>Sign out</button>
             <div id='userInfo'>
-                <img id='avatarPic' src={wood} alt='avatar' />
+                <img id='avatarPic' src={avatarImages[avatarId]} alt='avatar' />
                 <h1>{username}</h1>
                 <div id='avatarButtonDiv' onClick={toggleAvatarSelect}>
                     <img src={editIcon} id='avatarEditButton' alt='edit icon' />
@@ -121,55 +163,55 @@ export const Account = () => {
                 style={{ display: avatarSelectClicked ? '' : 'none' }}>
                 <button id='avatarSelectCloseButton' onClick={toggleAvatarSelect}>X</button>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar1" name="avatar" value="avatar1" />
+                    <input className='radio' type="radio" id="avatar1" name="avatar" value="1" onChange={handleAvatarChange} />
                     <label htmlFor="avatar1">
                         <img className='avatarPreview' src={avatar1} alt='avatar1' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar2" name="avatar" value="avatar2" />
+                    <input className='radio' type="radio" id="avatar2" name="avatar" value="2" onChange={handleAvatarChange} />
                     <label htmlFor="avatar2">
                         <img className='avatarPreview' src={avatar2} alt='avatar2' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar3" name="avatar" value="avatar3" />
+                    <input className='radio' type="radio" id="avatar3" name="avatar" value="3" onChange={handleAvatarChange} />
                     <label htmlFor="avatar3">
                         <img className='avatarPreview' src={avatar3} alt='avatar3' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar4" name="avatar" value="avatar4" />
+                    <input className='radio' type="radio" id="avatar4" name="avatar" value="4" onChange={handleAvatarChange} />
                     <label htmlFor="avatar4">
                         <img className='avatarPreview' src={avatar4} alt='avatar4' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar5" name="avatar" value="avatar5" />
+                    <input className='radio' type="radio" id="avatar5" name="avatar" value="5" onChange={handleAvatarChange} />
                     <label htmlFor="avatar5">
                         <img className='avatarPreview' src={avatar5} alt='avatar5' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar6" name="avatar" value="avatar6" />
+                    <input className='radio' type="radio" id="avatar6" name="avatar" value="6" onChange={handleAvatarChange} />
                     <label htmlFor="avatar6">
                         <img className='avatarPreview' src={avatar6} alt='avatar6' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar7" name="avatar" value="avatar7" />
+                    <input className='radio' type="radio" id="avatar7" name="avatar" value="7" onChange={handleAvatarChange} />
                     <label htmlFor="avatar7">
                         <img className='avatarPreview' src={avatar7} alt='avatar7' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar8" name="avatar" value="avatar8" />
+                    <input className='radio' type="radio" id="avatar8" name="avatar" value="8" onChange={handleAvatarChange} />
                     <label htmlFor="avatar8">
                         <img className='avatarPreview' src={avatar8} alt='avatar8' />
                     </label>
                 </div>
                 <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar9" name="avatar" value="avatar9" />
+                    <input className='radio' type="radio" id="avatar9" name="avatar" value="9" onChange={handleAvatarChange} />
                     <label htmlFor="avatar9">
                         <img className='avatarPreview' src={avatar9} alt='avatar9' />
                     </label>
