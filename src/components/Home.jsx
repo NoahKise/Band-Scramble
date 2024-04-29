@@ -131,8 +131,10 @@ export default function Home() {
             try {
                 const scoresCollection = collection(db, "score");
                 const avatarIdsCollection = collection(db, "avatarId");
+                const artistSpotlightsCollection = collection(db, "artistSpotlight");
                 const snapshot = await getDocs(scoresCollection);
                 const avatarIdSnapshot = await getDocs(avatarIdsCollection);
+                const artistSpotlightSnapshot = await getDocs(artistSpotlightsCollection);
                 const leaderboardData = [];
 
                 // Fetch usernames for each userId
@@ -153,13 +155,21 @@ export default function Home() {
                     avatarIdMap[userId] = avatarId;
                 });
 
+                const artistSpotlightMap = {};
+                artistSpotlightSnapshot.forEach(doc => {
+                    const userId = doc.id;
+                    const artistSpotlight = doc.data().artistSpotlight;
+                    artistSpotlightMap[userId] = artistSpotlight;
+                });
+
                 // Create leaderboard data
                 snapshot.forEach(doc => {
                     const userId = doc.id;
                     const scoreData = doc.data();
                     const username = userIdToUsernameMap[userId] || "Unknown"; // Default to "Unknown" if username not found
                     const avatarId = avatarIdMap[userId] || null; // Default to null if avatarId not found
-                    leaderboardData.push({ username, avatarId, ...scoreData });
+                    const artistSpotlight = artistSpotlightMap[userId] || null; // Default to null if artistSpotlight not found
+                    leaderboardData.push({ username, avatarId, artistSpotlight, ...scoreData });
                 });
 
                 leaderboardData.sort((a, b) => b.score - a.score);
@@ -211,6 +221,7 @@ export default function Home() {
                                                     className="leaderboardAvatar"
                                                 />
                                                 <span className="leaderboardUsername">{entry.username}</span>
+                                                <p>{entry.artistSpotlight ? entry.artistSpotlight : ''}</p>
                                             </div>
                                         </td>
                                         <td className="leaderboardScore">{entry.score}</td>
