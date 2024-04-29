@@ -7,6 +7,16 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswor
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, doc, setDoc, getDocs, updateDoc, collection, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import avatar1 from '../assets/images/avatar1.png'
+import avatar2 from '../assets/images/avatar2.png'
+import avatar3 from '../assets/images/avatar3.png'
+import avatar4 from '../assets/images/avatar4.png'
+import avatar5 from '../assets/images/avatar5.png'
+import avatar6 from '../assets/images/avatar6.png'
+import avatar7 from '../assets/images/avatar7.png'
+import avatar8 from '../assets/images/avatar8.png'
+import avatar9 from '../assets/images/avatar9.png'
+import editIcon from '../assets/images/editIcon.svg'
 
 const defaultTheme = createTheme();
 
@@ -118,32 +128,62 @@ export default function Home() {
 
     useEffect(() => {
         const fetchLeaderboard = async () => {
-            const scoresCollection = collection(db, "score");
-            const snapshot = await getDocs(scoresCollection);
-            const leaderboardData = [];
+            try {
+                const scoresCollection = collection(db, "score");
+                const avatarIdsCollection = collection(db, "avatarId");
+                const snapshot = await getDocs(scoresCollection);
+                const avatarIdSnapshot = await getDocs(avatarIdsCollection);
+                const leaderboardData = [];
 
-            // Fetch usernames for each userId
-            const userIds = snapshot.docs.map(doc => doc.id);
-            const usersCollection = collection(db, "users");
-            const usersSnapshot = await getDocs(usersCollection);
-            const userIdToUsernameMap = {};
-            usersSnapshot.forEach(doc => {
-                const userId = doc.id;
-                const username = doc.data().username;
-                userIdToUsernameMap[userId] = username;
-            });
-            snapshot.forEach(doc => {
-                const userId = doc.id;
-                const scoreData = doc.data();
-                const username = userIdToUsernameMap[userId] || "Unknown"; // Default to "Unknown" if username not found
-                leaderboardData.push({ username, ...scoreData });
-            });
-            leaderboardData.sort((a, b) => b.score - a.score);
-            setLeaderboard(leaderboardData);
+                // Fetch usernames for each userId
+                const userIdToUsernameMap = {};
+                const usersCollection = collection(db, "users");
+                const usersSnapshot = await getDocs(usersCollection);
+                usersSnapshot.forEach(doc => {
+                    const userId = doc.id;
+                    const username = doc.data().username;
+                    userIdToUsernameMap[userId] = username;
+                });
+
+                // Fetch avatarIds for each userId
+                const avatarIdMap = {};
+                avatarIdSnapshot.forEach(doc => {
+                    const userId = doc.id;
+                    const avatarId = doc.data().avatarId;
+                    avatarIdMap[userId] = avatarId;
+                });
+
+                // Create leaderboard data
+                snapshot.forEach(doc => {
+                    const userId = doc.id;
+                    const scoreData = doc.data();
+                    const username = userIdToUsernameMap[userId] || "Unknown"; // Default to "Unknown" if username not found
+                    const avatarId = avatarIdMap[userId] || null; // Default to null if avatarId not found
+                    leaderboardData.push({ username, avatarId, ...scoreData });
+                });
+
+                leaderboardData.sort((a, b) => b.score - a.score);
+                console.log(leaderboardData);
+                setLeaderboard(leaderboardData);
+            } catch (error) {
+                console.error("Error fetching leaderboard:", error);
+            }
         };
 
         fetchLeaderboard();
     }, []);
+
+    const avatarImages = {
+        1: avatar1,
+        2: avatar2,
+        3: avatar3,
+        4: avatar4,
+        5: avatar5,
+        6: avatar6,
+        7: avatar7,
+        8: avatar8,
+        9: avatar9,
+    };
 
     return (
         <>
@@ -163,7 +203,16 @@ export default function Home() {
                                 {leaderboard.map((entry, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{entry.username}</td>
+                                        <td>
+                                            <div style={{ display: "flex", alignItems: "center" }}>
+                                                <img
+                                                    src={entry.avatarId ? avatarImages[entry.avatarId] : avatarImages[8]}
+                                                    alt={`Avatar for ${entry.username}`}
+                                                    style={{ width: 60, height: 60, marginRight: 10 }}
+                                                />
+                                                <span>{entry.username}</span>
+                                            </div>
+                                        </td>
                                         <td>{entry.score}</td>
                                     </tr>
                                 ))}
@@ -188,11 +237,6 @@ export default function Home() {
                                         <TextField type='text' name='email' placeholder='Email' fullWidth />
                                         <TextField type="text" name="username" placeholder="Username" fullWidth />
                                         <TextField minLength="6" type="password" name="password" placeholder="Password" fullWidth />
-                                        <br />
-                                        Profile Image:
-                                        <br />
-                                        <CustomFileInput onChange={handleImageChange} />
-                                        <br />
                                     </>
                                 )}
                                 {!showSignUp && (
