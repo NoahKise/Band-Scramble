@@ -107,6 +107,10 @@ body {
 #userInfo {
   margin-top: 30px;
   text-align: center;
+  width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
 .tile {
@@ -848,4 +852,62 @@ input:checked+.slider:before {
 
 #signOutButton:hover {
   cursor: pointer;
+}
+
+.avatarPreview {
+  width: 250px;
+  margin-left: 50px;
+}
+
+.radioPair {
+  position: relative;
+}
+
+.radio {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#avatarSelect {
+  box-sizing: border-box;
+  height: 93vh;
+  width: 100vw;
+  max-width: 400px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  z-index: 2;
+  background-image: url(./assets/images/wood.jpg);
+  background-size: contain;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border: 5px solid black;
+  overflow: scroll;
+}
+
+#avatarEditButton {
+  display: block;
+  width: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 9px;
+}
+
+#avatarButtonDiv:hover {
+  cursor: pointer;
+}
+
+#avatarButtonDiv {
+  width: 50px;
+  height: 50px;
+  background-image: url(./assets/images/wood.jpg);
+  border-radius: 50%;
+  border: 3px solid black;
+  position: absolute;
+  top: 145px;
+  right: 90px;
 }
