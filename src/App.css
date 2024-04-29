@@ -700,7 +700,7 @@ body {
   min-height: 350px;
   position: fixed;
   top: 15px;
-  left: 0;
+  right: 0;
   padding: 15px;
   z-index: 2;
   background-image: url(./assets/images/wood.jpg);

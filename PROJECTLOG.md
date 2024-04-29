@@ -32,5 +32,8 @@
 * 2:45: interview over, back at it
 * 3:45: working on implementing genre select, nothing to commit yet though
 
-#### Thursdau 4/25
+#### Thursday 4/25
 * 10-11:15: internship interview, and emailing company to thank them and express my interest.
+
+#### Monday 4/29
+* 9:45: looking into avatars
