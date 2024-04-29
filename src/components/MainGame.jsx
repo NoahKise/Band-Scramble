@@ -85,6 +85,9 @@ const MainGame = () => {
     const [firstLetterHintUsed, setFirstLetterHintUsed] = useState(false);
     const [dailyMode, setDailyMode] = useState(true);
     const [dailyPick, setDailyPick] = useState("");
+    const [dailyInstagram, setDailyInstagram] = useState("");
+    const [dailyYoutube, setDailyYoutube] = useState("");
+    const [dailyBio, setDailyBio] = useState("");
     const [audioUnavailable, setAudioUnavailable] = useState(false);
     const [discogsId, setDiscogsId] = useState("");
     const [discogsUrl, setDiscogsUrl] = useState("");
@@ -183,6 +186,63 @@ const MainGame = () => {
             }
         };
         fetchDailyPick();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyBio = async () => {
+            try {
+                const dailyBioDoc = await getDoc(doc(db, "dailyBio", '1'));
+                if (dailyBioDoc.exists()) {
+                    const dailyBioData = dailyBioDoc.data();
+                    const dailyBioArray = dailyBioData.bio;
+                    const dailyBio = dailyBioArray[dailyBioArray.length - 1];
+                    setDailyBio(dailyBio);
+                } else {
+                    console.log("Daily bio document does not exist");
+                }
+            } catch (error) {
+                console.error("Error fetching daily bio:", error);
+            }
+        };
+        fetchDailyBio();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyYoutube = async () => {
+            try {
+                const dailyYoutubeDoc = await getDoc(doc(db, "dailyYoutube", '1'));
+                if (dailyYoutubeDoc.exists()) {
+                    const dailyYoutubeData = dailyYoutubeDoc.data();
+                    const dailyYoutubeArray = dailyYoutubeData.url;
+                    const dailyYoutube = dailyYoutubeArray[dailyYoutubeArray.length - 1];
+                    setDailyYoutube(dailyYoutube);
+                } else {
+                    console.log("Daily youtube document does not exist");
+                }
+            } catch (error) {
+                console.error("Error fetching daily youtube:", error);
+            }
+        };
+        fetchDailyYoutube();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyInstagram = async () => {
+            try {
+                const dailyInstagramDoc = await getDoc(doc(db, "dailyInstagram", '1'));
+                if (dailyInstagramDoc.exists()) {
+                    const dailyInstagramData = dailyInstagramDoc.data();
+                    const dailyInstagramArray = dailyInstagramData.url;
+                    const dailyInstagram = dailyInstagramArray[dailyInstagramArray.length - 1];
+                    setDailyInstagram(dailyInstagram);
+                } else {
+                    console.log("Daily instagram document does not exist");
+                }
+            } catch (error) {
+                console.error("Error fetching daily instagram:", error);
+            }
+        };
+        fetchDailyInstagram();
     }, [userId]);
 
     useEffect(() => {
@@ -1311,8 +1371,10 @@ const MainGame = () => {
                 <div id='artistDailyBioName'>
                     <h1>{bioArtistName}</h1>
                 </div>
-                <p id='artistDailyBio'>The daily featured artist's bio</p>
-                <iframe id='video' src="https://www.youtube.com/embed/8qt67uXXlzc?si=AGHflAtvWSn0n0Q0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe id='video' src={`https://www.youtube.com/embed/${dailyYoutube}?si=SnzGjZ3Fu9prbbdD`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div id='dailyBioText'>
+                    <p id='artistDailyBio'>{dailyBio}</p>
+                </div>
             </div>
         </>
     );
