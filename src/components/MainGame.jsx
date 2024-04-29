@@ -384,6 +384,11 @@ const MainGame = () => {
                 if (dailyModeBioButton) {
                     setDailyModeBioButton(false);
                 }
+                const video = document.getElementById('video');
+                if (video) {
+                    const iframeContainer = document.getElementById('dailyBio');
+                    iframeContainer.removeChild(video);
+                }
             }
             if (musicPlaying) {
                 playMusic();
@@ -1053,10 +1058,6 @@ const MainGame = () => {
         if (!dailyBioOpen) {
             setDailyBioOpen(true);
         } else {
-            const player = document.getElementById('video')
-            if (player && typeof player.pauseVideo === 'function') {
-                player.pauseVideo();
-            }
             setDailyBioOpen(false);
             setDailyBioClicked(false);
         }
