@@ -428,6 +428,7 @@ body {
   overflow: scroll;
   padding-left: none;
   max-width: 700px;
+  margin-bottom: 35px;
 }
 
 #history h2 {
@@ -820,7 +821,7 @@ input:checked+.slider:before {
   margin-bottom: auto;
 }
 
-#avatar {
+#avatarPic {
   width: 200px;
   height: 200px;
   margin-left: auto;
@@ -843,4 +844,8 @@ input:checked+.slider:before {
   font-weight: bold;
   text-align: center;
   border: 3px solid black;
+}
+
+#signOutButton:hover {
+  cursor: pointer;
 }

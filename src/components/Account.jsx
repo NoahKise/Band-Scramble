@@ -77,7 +77,7 @@ export const Account = () => {
         <>
             <button id='signOutButton' className='button' onClick={doSignOut}>Sign out</button>
             <div id='userInfo'>
-                <img id='avatar' src={wood} alt='avatar' />
+                <img id='avatarPic' src={wood} alt='avatar' />
                 <h1>{username}</h1>
             </div>
             <div id="soundToggle">
