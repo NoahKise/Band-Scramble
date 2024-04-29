@@ -997,3 +997,25 @@ input:checked+.slider:before {
   position: absolute;
   right: 10px;
 }
+
+#artistSpotlightInput {
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 20px;
+  width: 260px;
+  text-align: center;
+}
+
+#artistSpotlightButton {
+  background-color: #2196F3;
+  color: #fbfbfb;
+  font-size: 18px;
+  border-radius: 20px;
+  border: none;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+#artistSpotlightButton:hover {
+  cursor: pointer;
+}

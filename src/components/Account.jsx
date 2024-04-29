@@ -22,6 +22,8 @@ export const Account = () => {
     const [avatarId, setAvatarId] = useState(8);
     const [avatarSelectClicked, setAvatarSelectClicked] = useState(false);
     const [avatarSelectOpen, setAvatarSelectOpen] = useState(false);
+    const [artistSpotlight, setArtistSpotlight] = useState('');
+    const [confirmationMessage, setConfirmationMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -79,6 +81,30 @@ export const Account = () => {
     }, [userId]);
 
     useEffect(() => {
+        const fetchArtistSpotlight = async () => {
+            if (userId) {
+                const artistSpotlightDoc = await getDoc(doc(db, "artistSpotlight", userId));
+                if (artistSpotlightDoc.exists()) {
+                    const userData = artistSpotlightDoc.data();
+                    setArtistSpotlight(userData.artistSpotlight);
+                } else {
+                    console.log("artist spotlight not found")
+                }
+            }
+        };
+        fetchArtistSpotlight();
+    }, [userId]);
+
+    useEffect(() => {
+        const updateArtistSpotlight = async () => {
+            if (userId) {
+                await setDoc(doc(db, "artistSpotlight", userId), { artistSpotlight });
+            }
+        };
+        updateArtistSpotlight();
+    }, [artistSpotlight]);
+
+    useEffect(() => {
         const updateAvatarId = async () => {
             if (userId) {
                 await setDoc(doc(db, "avatarId", userId), { avatarId });
@@ -95,6 +121,12 @@ export const Account = () => {
         };
         updateSoundSetting();
     }, [soundSetting]);
+
+    const handleArtistSpotlightChange = () => {
+        const input = document.getElementById('artistSpotlightInput');
+        setArtistSpotlight(input.value);
+        setConfirmationMessage("Changes saved successfully!");
+    }
 
     const handleSoundSettingChange = async (event) => {
         const newValue = event.target.checked ? true : false;
@@ -135,6 +167,8 @@ export const Account = () => {
         8: avatar8,
         9: avatar9,
     };
+
+
     return (
         <>
             <div id='userInfo'>
@@ -147,7 +181,9 @@ export const Account = () => {
             </div>
             <div id='artistSpotlightDiv'>
                 <h2>Artist Spotlight</h2>
-                <h3>My Bloody Valentine</h3>
+                <input type='text' id='artistSpotlightInput' defaultValue={artistSpotlight}></input>
+                <button id='artistSpotlightButton' onClick={handleArtistSpotlightChange}>Save Changes</button>
+                <p>{confirmationMessage}</p>
             </div>
             <div id="soundToggle">
                 <h2>Game Sounds</h2>
