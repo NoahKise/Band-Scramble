@@ -749,7 +749,7 @@ body {
 }
 
 #dailyBioText {
-  height: 260px;
+  height: 225px;
   overflow: scroll;
 }
 
@@ -990,4 +990,10 @@ input:checked+.slider:before {
 #video {
   width: 360px;
   height: 203px;
+}
+
+#instagramIcon {
+  width: 50px;
+  position: absolute;
+  right: 10px;
 }

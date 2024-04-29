@@ -43,6 +43,7 @@ import giveUpScreenshot from '../assets/images/giveUpScreenshot.png'
 import guessScreenshot from '../assets/images/guessScreenshot.png'
 import recallTilesScreenshot from '../assets/images/recallTilesScreenshot.png'
 import shuffleTilesScreenshot from '../assets/images/shuffleTilesScreenshot.png'
+import instagramIcon from '../assets/images/instagramIcon.png'
 
 import coinGif from '../assets/images/coin.gif'
 import exampleGameplayGif from '../assets/images/exampleGameplay.gif'
@@ -1375,6 +1376,9 @@ const MainGame = () => {
                 <div id='dailyBioText'>
                     <p id='artistDailyBio'>{dailyBio}</p>
                 </div>
+                <a href={dailyInstagram} target="_blank" rel="noopener noreferrer">
+                    <img id='instagramIcon' src={instagramIcon} alt='instagram icon' />
+                </a>
             </div>
         </>
     );
