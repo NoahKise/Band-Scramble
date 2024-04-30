@@ -37,3 +37,6 @@
 
 #### Monday 4/29
 * 9:45: looking into avatars
+
+#### Tuesday 4/30
+* 11:45: working on tricky bug, when user has played every possible round, what should happen?
