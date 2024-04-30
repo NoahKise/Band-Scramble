@@ -1071,7 +1071,7 @@ input:checked+.slider:before {
 #dailyModeStyling {
   text-align: center;
   position: fixed;
-  top: 10px;
+  top: 250px;
   left: 0;
   z-index: 4;
   width: 320px;
