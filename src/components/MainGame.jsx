@@ -1297,88 +1297,94 @@ const MainGame = () => {
                     </>
                 )}
             </div>
-            <div
-                className={`animate__animated ${helpOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
-                id='helpDiv'
-                style={{ display: helpClicked ? '' : 'none' }}
-            >
-                <button id='helpCloseButton' onClick={toggleHelp}>X</button>
-                <div id='helpContent'>
-                    <h1>How To Play</h1>
-                    <h3>Objective:</h3>
-                    <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
-                    <h3>Controls:</h3>
-                    <div className='instructionRow'>
-                        <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
-                        <img src={exampleGameplayGif} alt='gameplay example' />
-                    </div>
-                    <div className='instructionRow'>
-                        <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
-                        <p className='instructionText'>Recall all tiles from the solution area to the tile bank. On desktop, you may alternatively press the enter/return key.</p>
-                    </div>
-                    <div className='instructionRow'>
-                        <img className='instructionImg' src={shuffleTilesScreenshot} alt='shuffle tiles icon' />
-                        <p className='instructionText'>Shuffle tiles in the tile bank. On desktop, you may alternatively press the shift key.</p>
-                    </div>
-                    <div className='instructionRow'>
-                        <img className='instructionImg' src={guessScreenshot} alt='make guess button' />
-                        <p className='instructionText'>Make a guess. If your tiles are in the right position, you'll win the round! If not, your tiles will be recalled to the tile bank for you to try again. On desktop, you may alternatively press the enter/return key.</p>
-                    </div>
-                    <div className='instructionRow'>
-                        <img className='instructionImg' src={giveUpScreenshot} alt='give up button' />
-                        <p className='instructionText'>Give up, and forfeit the round.</p>
-                    </div>
-                    <div className='instructionRow'>
-                        <img className='instructionImg' src={advanceScreenshot} alt='advance to next round button' />
-                        <p className='instructionText'>Advance to the next puzzle. On desktop, you may alternatively press the enter/return key.</p>
-                    </div>
-                    <p></p>
-                    <h3>Clues:</h3>
-                    <div className='instructionRow'>
-                        <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word. Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
-                        <img id='clues' src={clues} alt='gameplay example' />
-                    </div>
-                    <h3>Scoring:</h3>
-                    <p>When you successfully complete a round by guessing the correct artist name, you will receive points based on the difficulty of the puzzle and the speed at which you solved it.</p>
-                    <p>If the time runs out before you solve the puzzle, you will lose points based on the difficulty of the puzzle.</p>
-                    <p>Head to the home page to check out the leaderboard!</p>
-                    <p>Check out your stats by clicking the statistics icon in the bottom navigation bar!</p>
-                    <h3>Hints:</h3>
-                    <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint.</p>
-                    <div className='hintInstructionRow'>
-                        <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
-                        <p className='instructionText'>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining). Click again to pause.</p>
-                    </div>
-                    <div className='hintInstructionRow'>
-                        <img className='instructionImg' src={firstTileHintIconScreenshot} alt='first tile hint icon' />
-                        <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name (and set the timer to 30 seconds remaining).</p>
+            <div className='menuContainer'>
+                <div
+                    className={`animate__animated ${helpOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
+                    id='helpDiv'
+                    style={{ display: helpClicked ? '' : 'none' }}
+                >
+                    <button id='helpCloseButton' onClick={toggleHelp}>X</button>
+                    <div id='helpContent'>
+                        <h1>How To Play</h1>
+                        <h3>Objective:</h3>
+                        <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
+                        <h3>Controls:</h3>
+                        <div className='instructionRow'>
+                            <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
+                            <img src={exampleGameplayGif} alt='gameplay example' />
+                        </div>
+                        <div className='instructionRow'>
+                            <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
+                            <p className='instructionText'>Recall all tiles from the solution area to the tile bank. On desktop, you may alternatively press the enter/return key.</p>
+                        </div>
+                        <div className='instructionRow'>
+                            <img className='instructionImg' src={shuffleTilesScreenshot} alt='shuffle tiles icon' />
+                            <p className='instructionText'>Shuffle tiles in the tile bank. On desktop, you may alternatively press the shift key.</p>
+                        </div>
+                        <div className='instructionRow'>
+                            <img className='instructionImg' src={guessScreenshot} alt='make guess button' />
+                            <p className='instructionText'>Make a guess. If your tiles are in the right position, you'll win the round! If not, your tiles will be recalled to the tile bank for you to try again. On desktop, you may alternatively press the enter/return key.</p>
+                        </div>
+                        <div className='instructionRow'>
+                            <img className='instructionImg' src={giveUpScreenshot} alt='give up button' />
+                            <p className='instructionText'>Give up, and forfeit the round.</p>
+                        </div>
+                        <div className='instructionRow'>
+                            <img className='instructionImg' src={advanceScreenshot} alt='advance to next round button' />
+                            <p className='instructionText'>Advance to the next puzzle. On desktop, you may alternatively press the enter/return key.</p>
+                        </div>
+                        <p></p>
+                        <h3>Clues:</h3>
+                        <div className='instructionRow'>
+                            <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word. Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
+                            <img id='clues' src={clues} alt='gameplay example' />
+                        </div>
+                        <h3>Scoring:</h3>
+                        <p>When you successfully complete a round by guessing the correct artist name, you will receive points based on the difficulty of the puzzle and the speed at which you solved it.</p>
+                        <p>If the time runs out before you solve the puzzle, you will lose points based on the difficulty of the puzzle.</p>
+                        <p>Head to the home page to check out the leaderboard!</p>
+                        <p>Check out your stats by clicking the statistics icon in the bottom navigation bar!</p>
+                        <h3>Hints:</h3>
+                        <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint.</p>
+                        <div className='hintInstructionRow'>
+                            <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
+                            <p className='instructionText'>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining). Click again to pause.</p>
+                        </div>
+                        <div className='hintInstructionRow'>
+                            <img className='instructionImg' src={firstTileHintIconScreenshot} alt='first tile hint icon' />
+                            <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name (and set the timer to 30 seconds remaining).</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id='moreArtistInfo'
-                className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
-                style={{ display: bioClicked ? '' : 'none' }}>
-                <button id='bioCloseButton' onClick={toggleBio}>X</button>
-                <div id='artistBioName'>
-                    <h1>{bioArtistName}</h1>
+            <div className='menuContainer'>
+                <div id='moreArtistInfo'
+                    className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
+                    style={{ display: bioClicked ? '' : 'none' }}>
+                    <button id='bioCloseButton' onClick={toggleBio}>X</button>
+                    <div id='artistBioName'>
+                        <h1>{bioArtistName}</h1>
+                    </div>
+                    <p id='artistBio'>{discogsBio}</p>
+                    <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
                 </div>
-                <p id='artistBio'>{discogsBio}</p>
-                <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
             </div>
-            <div id='dailyBio'
-                className={`animate__animated ${dailyBioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
-                style={{ display: dailyBioClicked ? '' : 'none' }}>
-                <button id='bioCloseButton' onClick={toggleDailyBio}>X</button>
-                <div id='artistDailyBioName'>
-                    <h1>{bioArtistName}</h1>
+            <div className='menuContainer'>
+                <div id='dailyBio'
+                    className={`animate__animated ${dailyBioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
+                    style={{ display: dailyBioClicked ? '' : 'none' }}>
+                    <button id='bioCloseButton' onClick={toggleDailyBio}>X</button>
+                    <div id='artistDailyBioName'>
+                        <h1>{bioArtistName}</h1>
+                    </div>
+                    <iframe id='video' src={`https://www.youtube.com/embed/${dailyYoutube}?si=SnzGjZ3Fu9prbbdD`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div id='dailyBioText'>
+                        <p id='artistDailyBio'>{dailyBio}</p>
+                    </div>
+                    <a href={dailyInstagram} target="_blank" rel="noopener noreferrer">
+                        <img id='instagramIcon' src={instagramIcon} alt='instagram icon' />
+                    </a>
                 </div>
-                <iframe id='video' src={`https://www.youtube.com/embed/${dailyYoutube}?si=SnzGjZ3Fu9prbbdD`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                <div id='dailyBioText'>
-                    <p id='artistDailyBio'>{dailyBio}</p>
-                </div>
-                <a href={dailyInstagram} target="_blank" rel="noopener noreferrer">
-                    <img id='instagramIcon' src={instagramIcon} alt='instagram icon' />
-                </a>
             </div>
         </>
     );
