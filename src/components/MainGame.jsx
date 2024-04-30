@@ -1096,6 +1096,9 @@ const MainGame = () => {
     }
 
     const toggleHelp = () => {
+        if (bioOpen) {
+            toggleBio();
+        }
         setHelpClicked(true);
         if (!helpOpen) {
             setHelpOpen(true);
@@ -1162,67 +1165,69 @@ const MainGame = () => {
                 )}
                 {answerPool.length > 0 && !gameStarted && !genreChoicesConfirmed && (
                     <>
-                        <h3>Select genres (optional). Selecting none defaults to all artists.</h3>
-                        <form>
+                        <div id='fullGenreSelectArea'>
+                            <h3>Select genres (optional). Selecting none defaults to all artists.</h3>
                             <div id='genreSelectList'>
-                                <div className='genreSelectRow'>
-                                    <p>Rock</p>
-                                    <input type="checkbox" id="rock" name="rock" value="rock"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Hip-Hop</p>
-                                    <input type="checkbox" id="hiphop" name="hiphop" value="hiphop"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Pop</p>
-                                    <input type="checkbox" id="pop" name="pop" value="pop"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>R&B</p>
-                                    <input type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Indie</p>
-                                    <input type="checkbox" id="indie" name="indie" value="indie"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Alternative</p>
-                                    <input type="checkbox" id="alternative" name="alternative" value="alternative"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Folk</p>
-                                    <input type="checkbox" id="folk" name="folk" value="folk"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Country</p>
-                                    <input type="checkbox" id="country" name="country" value="country"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Metal</p>
-                                    <input type="checkbox" id="metal" name="metal" value="metal"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Electronic</p>
-                                    <input type="checkbox" id="electronic" name="electronic" value="electronic"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Jazz</p>
-                                    <input type="checkbox" id="jazz" name="jazz" value="jazz"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Blues</p>
-                                    <input type="checkbox" id="blues" name="blues" value="blues"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Soul/Funk</p>
-                                    <input type="checkbox" id="soulFunk" name="soulFunk" value="soulFunk"></input>
-                                </div>
-                                <div className='genreSelectRow'>
-                                    <p>Classic Rock</p>
-                                    <input type="checkbox" id="classicRock" name="classicRock" value="classicRock"></input>
-                                </div>
+                                <form>
+                                    <div className='genreSelectRow'>
+                                        <p>Rock</p>
+                                        <input className='checkbox' type="checkbox" id="rock" name="rock" value="rock"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Hip-Hop</p>
+                                        <input className='checkbox' type="checkbox" id="hiphop" name="hiphop" value="hiphop"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Pop</p>
+                                        <input className='checkbox' type="checkbox" id="pop" name="pop" value="pop"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>R&B</p>
+                                        <input className='checkbox' type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Indie</p>
+                                        <input className='checkbox' type="checkbox" id="indie" name="indie" value="indie"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Alternative</p>
+                                        <input className='checkbox' type="checkbox" id="alternative" name="alternative" value="alternative"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Folk</p>
+                                        <input className='checkbox' type="checkbox" id="folk" name="folk" value="folk"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Country</p>
+                                        <input className='checkbox' type="checkbox" id="country" name="country" value="country"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Metal</p>
+                                        <input className='checkbox' type="checkbox" id="metal" name="metal" value="metal"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Electronic</p>
+                                        <input className='checkbox' type="checkbox" id="electronic" name="electronic" value="electronic"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Jazz</p>
+                                        <input className='checkbox' type="checkbox" id="jazz" name="jazz" value="jazz"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Blues</p>
+                                        <input className='checkbox' type="checkbox" id="blues" name="blues" value="blues"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Soul/Funk</p>
+                                        <input className='checkbox' type="checkbox" id="soulFunk" name="soulFunk" value="soulFunk"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Classic Rock</p>
+                                        <input className='checkbox' type="checkbox" id="classicRock" name="classicRock" value="classicRock"></input>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </>
                 )}
                 {gameStarted && (
@@ -1359,7 +1364,7 @@ const MainGame = () => {
             </div>
             <div className='menuContainer'>
                 <div id='moreArtistInfo'
-                    className={`animate__animated ${bioOpen ? 'animate__zoomIn' : 'animate__zoomOut'}`}
+                    className={`animate__animated ${bioOpen ? 'animate__fadeInUp' : 'animate__zoomOut'}`}
                     style={{ display: bioClicked ? '' : 'none' }}>
                     <button id='bioCloseButton' onClick={toggleBio}>X</button>
                     <div id='artistBioName'>

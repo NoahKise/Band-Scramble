@@ -667,6 +667,12 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #E5E7EB;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #genreSelectList {
@@ -674,10 +680,33 @@ body {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  height: 60vh;
+  height: fit-content;
   overflow: scroll;
-  padding-right: 25px;
   columns: 2;
+
+}
+
+#fullGenreSelectArea {
+  background-image: url(./assets/images/wood.jpg);
+  max-width: 400px;
+  width: 95vw;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid black;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  margin-top: 20px;
+}
+
+.checkbox {
+  width: 25px;
+  height: 25px;
+  margin-top: 12px;
+}
+
+.checkbox:hover {
+  cursor: pointer;
 }
 
 .instructionRow {
@@ -970,6 +999,7 @@ input:checked+.slider:before {
   top: 5px;
   right: 5px;
   font-size: 25px;
+  z-index: 4;
 }
 
 #avatarSelectCloseButton:hover {
