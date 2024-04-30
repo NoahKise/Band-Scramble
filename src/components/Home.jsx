@@ -239,9 +239,6 @@ export default function Home() {
                     <Container component="main" maxWidth="xs">
                         <CssBaseline />
                         <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <Avatar id='avatar' sx={{ m: 1, bgcolor: "secondary.main" }}>
-                                <LockOutlinedIcon />
-                            </Avatar>
                             <Typography id="signInH1" component="h1" variant="h5">
                                 {showSignUp ? "Sign Up" : "Sign In"}
                             </Typography>
