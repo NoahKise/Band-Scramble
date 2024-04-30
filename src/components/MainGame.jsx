@@ -1255,7 +1255,7 @@ const MainGame = () => {
                         <br></br>
 
                         <div id='gameArea'>
-                            <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.6}px` }}>
+                            <div id='topTwoRows' style={{ width: `${longestLineLength(artist) * 37.8}px` }}>
                                 <div className="new-area">
                                     <div className="letter-tiles">
                                         {renderTiles(newLetters, 'new')}
