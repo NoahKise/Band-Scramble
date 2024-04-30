@@ -1067,3 +1067,30 @@ input:checked+.slider:before {
   border-radius: 10px;
   width: fit-content;
 }
+
+#dailyModeStyling {
+  text-align: center;
+  position: fixed;
+  top: 10px;
+  left: 0;
+  z-index: 4;
+  width: 320px;
+}
+
+#dailyModeStyling img {
+  width: 30px;
+}
+
+.downLetter {
+  transform: translate(0, 10%);
+}
+
+#dailyModeStylingContainer {
+  position: fixed;
+  max-width: 320px;
+  width: 100vw;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+}

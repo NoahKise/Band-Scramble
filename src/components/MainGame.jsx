@@ -1235,6 +1235,20 @@ const MainGame = () => {
                         <div id='topContainer'>
                             <p id='timer' style={{ color: timeLeft > 10 ? 'black' : 'red' }}>{timeLeft}</p>
                             <p id='help' onClick={toggleHelp}>?</p>
+                            <div id='dailyModeStylingContainer' style={{ display: dailyMode ? '' : 'none' }}>
+                                <div id='dailyModeStyling' className='animate__animated animate__shakeY'>
+                                    <img className='downLetter' src={D} alt='D' />
+                                    <img src={A} alt='A' />
+                                    <img className='downLetter' src={I} alt='I' />
+                                    <img src={L} alt='L' />
+                                    <img className='downLetter' src={Y} alt='Y' />
+                                    <img style={{ display: 'inline-block', opacity: '0' }} src={SPACE} alt='SPACE' />
+                                    <img src={M} alt='M' />
+                                    <img className='downLetter' src={O} alt='O' />
+                                    <img src={D} alt='D' />
+                                    <img className='downLetter' src={E} alt='E' />
+                                </div>
+                            </div>
                             <div id='gameImageDiv'>
                                 <p id='bioButton'
                                     onClick={dailyModeBioButton ? toggleDailyBio : toggleBio} style={{ display: revealed ? '' : 'none' }}
