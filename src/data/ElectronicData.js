@@ -28,4 +28,5 @@ export const electronicData = [
     "FLOATING POINTS",
     "FOUR TET",
     "PHOTEK",
+    "BRIAN ENO",
 ]
