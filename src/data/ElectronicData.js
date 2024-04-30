@@ -29,4 +29,5 @@ export const electronicData = [
     "FOUR TET",
     "PHOTEK",
     "BRIAN ENO",
+    "KRAFTWERK",
 ]

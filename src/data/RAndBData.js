@@ -8,4 +8,5 @@ export const rAndBData = [
     "DESTINYS CHILD",
     "USHER",
     "NELLY",
+    "PRINCE",
 ]

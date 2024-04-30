@@ -44,4 +44,5 @@ export const popData = [
     "LANA DEL REY",
     "SLEIGH BELLS",
     "SHANIA TWAIN",
+    "PRINCE",
 ]

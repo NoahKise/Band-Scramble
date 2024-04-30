@@ -1,186 +1,26 @@
-export const rockData = [
-    "THE BEATLES",
-    "RADIOHEAD",
-    "PINK FLOYD",
-    "LED ZEPPELIN",
-    "BOB DYLAN",
-    "DAVID BOWIE",
-    "METALLICA",
-    "BLACK SABBATH",
-    "THE ROLLING STONES",
-    "NEIL YOUNG",
-    "SONIC YOUTH",
-    "IRON MAIDEN",
-    "OPETH",
-    "THE CURE",
-    "KING CRIMSON",
-    "NIRVANA",
-    "THE WHO",
-    "PIXIES",
-    "TOM WAITS",
-    "THE DOORS",
-    "FRANK ZAPPA",
-    "THE SMITHS",
-    "SIGUR ROS",
-    "JIMI HENDRIX",
-    "TALKING HEADS",
-    "JOY DIVISION",
-    "ARCADE FIRE",
-    "NICK DRAKE",
-    "THE FLAMING LIPS",
-    "THE CLASH",
-    "TOOL",
-    "ELLIOTT SMITH",
-    "THE KINKS",
-    "PAVEMENT",
-    "GENESIS",
-    "THE BEACH BOYS",
-    "THE STOOGES",
-    "RUSH",
-    "SLAYER",
-    "ANIMAL COLLECTIVE",
-    "WILCO",
-    "CAN",
-    "MY BLOODY VALENTINE",
-    "YES",
-    "ELVIS COSTELLO",
-    "BELLE AND SEBASTIAN",
-    "JUDAS PRIEST",
-    "BRIAN ENO",
-    "NINE INCH NAILS",
-    "DEATH",
-    "PEARL JAM",
-    "THE WHITE STRIPES",
-    "BECK",
-    "JETHRO TULL",
-    "MEGADETH",
-    "WEEZER",
-    "MODEST MOUSE",
-    "VAN MORRISON",
-    "PJ HARVEY",
-    "RAMONES",
-    "MASTODON",
-    "DREAM THEATER",
-    "LOU REED",
-    "QUEEN",
-    "DEEP PURPLE",
-    "THE FALL",
-    "TALK TALK",
-    "OASIS",
-    "THE BYRDS",
-    "WIRE",
-    "THE NATIONAL",
-    "FAITH NO MORE",
-    "PRINCE",
-    "STEELY DAN",
-    "JEFF BUCKLEY",
-    "LOVE",
-    "TELEVISION",
-    "CAPTAIN BEEFHEART",
-    "INTERPOL",
-    "SIMON AND GARFUNKEL",
-    "ROXY MUSIC",
-    "XTC",
-    "COCTEAU TWINS",
-    "PETER GABRIEL",
-    "THE STROKES",
-    "YO LA TENGO",
-    "GUNS N ROSES",
-    "PULP",
-    "FUGAZI",
-    "KYUSS",
-    "JOHN LENNON",
-    "THE MARS VOLTA",
-    "HUSKER DU",
-    "FLEETWOOD MAC",
-    "BUILT TO SPILL",
-    "THE SHINS",
-    "ALICE IN CHAINS",
-    "SUFJAN STEVENS",
-    "DINOSAUR JR",
-    "KRAFTWERK",
-    "BLUR",
-    "CREAM",
-    "TV ON THE RADIO",
-    "THE STONE ROSES",
-    "NEW ORDER",
-    "THE BAND",
-    "PATTI SMITH",
-    "FUNKADELIC",
-    "DEAD KENNEDYS",
-    "AIR",
-    "BIG STAR",
-    "MOTORHEAD",
-    "THE ZOMBIES",
-    "SLINT",
-    "SLOWDIVE",
-    "CONVERGE",
-    "JEFFERSON AIRPLANE",
-    "PORTISHEAD",
-    "MOGWAI",
-    "SANTANA",
-    "DIRE STRAITS",
-    "GUIDED BY VOICES",
-    "SEX PISTOLS",
-    "GANG OF FOUR",
-    "T REX",
-    "MR BUNGLE",
-    "SPOON",
-    "ALICE COOPER",
-    "FLEET FOXES",
-    "IGGY POP",
-    "SEPULTURA",
-    "EMPEROR",
-    "VIOLENT FEMMES",
-    "VAN HALEN",
-    "ELTON JOHN",
-    "SWANS",
-    "PANTERA",
-    "EELS",
-    "THE MAGNETIC FIELDS",
-    "FAUST",
-    "OF MONTREAL",
-    "TESTAMENT",
-    "THIN LIZZY",
-    "PAUL SIMON",
-    "THE POGUES",
-    "TORTOISE",
-    "DARKTHRONE",
-    "PERE UBU",
-    "BATHORY",
-    "MINUTEMEN",
-    "PANDA BEAR",
-    "STEREOLAB",
-    "BJORK",
-    "MERCURY REV",
-    "GRATEFUL DEAD",
-    "JANES ADDICTION",
-    "OZZY OSBOURNE",
-    "LYNYRD SKYNYRD",
-    "BAUHAUS",
-    "PRIMUS",
-]
+// export const rockData = [
 
-export const topChartData = [
+// ]
 
-]
+// export const topChartData = [
 
-export const countryData = [
+// ]
 
-]
+// export const countryData = [
 
-export const noahData = [
+// ]
 
-]
+// export const noahData = [
 
-export const hiphopData = [
+// ]
 
-]
+// export const hiphopData = [
 
-// Techno data not yet added to all data
-export const technoData = [
+// ]
 
-]
+// export const technoData = [
+
+// ]
 
 export const allData = [
     "THE BEATLES",
@@ -677,14 +517,14 @@ export const problemData = [
     "BROKEN SOCIAL SCENE"
 ]
 
-export const popData = [];
-export const rAndBData = [];
-export const indieData = [];
-export const alternativeData = [];
-export const folkData = [];
-export const metalData = [];
-export const electronicData = [];
-export const jazzData = [];
-export const bluesData = [];
-export const soulFunkData = [];
-export const classicRockData = [];
+// export const popData = [];
+// export const rAndBData = [];
+// export const indieData = [];
+// export const alternativeData = [];
+// export const folkData = [];
+// export const metalData = [];
+// export const electronicData = [];
+// export const jazzData = [];
+// export const bluesData = [];
+// export const soulFunkData = [];
+// export const classicRockData = [];
