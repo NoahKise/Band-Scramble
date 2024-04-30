@@ -1,4 +1,4 @@
-export const funkSoulData = [
+export const soulFunkData = [
     "BRUNO MARS",
     "SZA",
     "CURTIS MAYFIELD",

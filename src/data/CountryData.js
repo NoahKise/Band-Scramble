@@ -17,9 +17,5 @@ export const countryData = [
     "CHRIS STAPLETON",
     "BLAKE SHELTON",
     "CARRIE UNDERWOOD",
-    "FAITH HILL",
-    "TOBY KEITH",
-    "LUKE COMBS",
-    "LUKE BRYAN",
     "JOHNNY CASH",
 ]

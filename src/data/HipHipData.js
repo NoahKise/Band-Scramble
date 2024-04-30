@@ -1,4 +1,4 @@
-export const hipHopData = [
+export const hiphopData = [
     "POST MALONE",
     "JUICE WRLD",
     "SZA",
