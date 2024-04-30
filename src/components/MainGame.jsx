@@ -1,5 +1,5 @@
 import { allData, problemData } from '../Data';
-import { alternativeData } from '../data/AlternativeData';
+import { classicalData } from '../data/ClassicalData';
 import { bluesData } from '../data/BluesData';
 import { classicRockData } from '../data/ClassicRockData';
 import { countryData } from '../data/CountryData';
@@ -657,8 +657,8 @@ const MainGame = () => {
                 return rAndBData;
             case 'indie':
                 return indieData;
-            case 'alternative':
-                return alternativeData;
+            case 'classical':
+                return classicalData;
             case 'folk':
                 return folkData;
             case 'country':
@@ -1200,12 +1200,12 @@ const MainGame = () => {
                                         <input className='checkbox' type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
                                     </div>
                                     <div className='genreSelectRow'>
-                                        <p>Indie</p>
+                                        <p>Alt/Indie</p>
                                         <input className='checkbox' type="checkbox" id="indie" name="indie" value="indie"></input>
                                     </div>
                                     <div className='genreSelectRow'>
-                                        <p>Alternative</p>
-                                        <input className='checkbox' type="checkbox" id="alternative" name="alternative" value="alternative"></input>
+                                        <p>Classical</p>
+                                        <input className='checkbox' type="checkbox" id="classical" name="classical" value="classical"></input>
                                     </div>
                                     <div className='genreSelectRow'>
                                         <p>Folk</p>
