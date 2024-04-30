@@ -246,7 +246,7 @@ export default function Home() {
                                 {showSignUp && (
                                     <>
                                         <TextField type='text' name='email' placeholder='Email' fullWidth />
-                                        <TextField type="text" name="username" placeholder="Username" fullWidth />
+                                        <TextField id="usernameInput" type="text" name="username" placeholder="Username" fullWidth />
                                         <TextField minLength="6" type="password" name="password" placeholder="Password" fullWidth />
                                     </>
                                 )}
@@ -256,7 +256,6 @@ export default function Home() {
                                         <TextField margin="normal" required fullWidth name="signinPassword" label="Password" type="password" id="signinPassword" autoComplete="current-password" />
                                     </>
                                 )}
-                                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
                                 {errorMessage && <Typography variant="subtitle2" color="error">{errorMessage}</Typography>}
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                     {showSignUp ? "Sign Up" : "Sign In"}
