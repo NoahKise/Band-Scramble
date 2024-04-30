@@ -487,6 +487,7 @@ body {
 
 .leaderboardUsername {
   font-size: 20px;
+  margin-bottom: -5px;
 }
 
 .leaderboardScore {
@@ -1018,4 +1019,11 @@ input:checked+.slider:before {
 
 #artistSpotlightButton:hover {
   cursor: pointer;
+}
+
+.leaderboardArtistSpotlight {
+  font-size: 11px;
+  background-color: #fbfbfb;
+  border-radius: 10px;
+  width: fit-content;
 }

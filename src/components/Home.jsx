@@ -220,8 +220,10 @@ export default function Home() {
                                                     alt={`Avatar for ${entry.username}`}
                                                     className="leaderboardAvatar"
                                                 />
-                                                <span className="leaderboardUsername">{entry.username}</span>
-                                                <p>{entry.artistSpotlight ? entry.artistSpotlight : ''}</p>
+                                                <div className="leaderboardNameGroup">
+                                                    <p className="leaderboardUsername">{entry.username}</p>
+                                                    <p className="leaderboardArtistSpotlight" style={{ padding: entry.artistSpotlight ? '3px' : '' }}>{entry.artistSpotlight ? entry.artistSpotlight : ''}</p>
+                                                </div>
                                             </div>
                                         </td>
                                         <td className="leaderboardScore">{entry.score}</td>
