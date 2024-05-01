@@ -489,7 +489,6 @@ export const allData = [
     "DEEP CHORD",
     "OLIVER LIEB",
     "BASIC CHANNEL",
-    "RICARDO VILLALOBOS",
     "PLASTIKMAN",
     "DREXCIYA",
     "LUKE VIBERT",
@@ -499,6 +498,12 @@ export const allData = [
     "FLOATING POINTS",
     "FOUR TET",
     "PHOTEK",
+    "MUDDY WATERS",
+    "ROBERT JOHNSON",
+    "BUDDY GUY",
+    "LUDWIG VAN BEETHOVEN",
+    "WOODY GUTHRIE",
+    "MILES DAVIS",
 ]
 
 export const problemData = [

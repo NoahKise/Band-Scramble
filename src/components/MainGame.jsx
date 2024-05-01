@@ -304,8 +304,15 @@ const MainGame = () => {
                         });
                         setUserHistory(historyList);
                         const difference = allData.filter(element => !historyList.includes(element));
-                        setAnswerPool(difference);
-                        console.log("answer pool set to", difference, "in fetchData");
+                        if (difference.length > 0) {
+                            setAnswerPool(difference);
+                            console.log("answer pool set to", difference, "in fetchData");
+                        } else {
+                            setAnswerPool(allData);
+                            console.log("answer pool set to", allData, "in fetchData");
+                        }
+
+
 
                         const rightAnswers = userData.map((data) => {
                             let counter = 0;
@@ -451,8 +458,11 @@ const MainGame = () => {
             }
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
+                console.log(remainder);
                 const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
+                console.log(index);
                 newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                console.log(newArtist);
                 // newArtist = "HOOTIE AND THE BLOWFISH";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
@@ -469,6 +479,7 @@ const MainGame = () => {
             if (musicPlaying) {
                 playMusic();
             }
+            console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             if (audio && audio.current) {
                 audio.current = null;
@@ -767,7 +778,12 @@ const MainGame = () => {
             if (index > -1) {
                 newAnswerPool.splice(index, 1);
             }
-            setAnswerPool(newAnswerPool);
+            if (newAnswerPool.length > 0) {
+                setAnswerPool(newAnswerPool);
+            } else {
+                setAnswerPool(allData);
+            }
+
             console.log("set answer pool to new answer pool", newAnswerPool, "in update guessed artists");
         }
     };
@@ -927,6 +943,7 @@ const MainGame = () => {
                             && artist !== "JUDAS PRIEST"
                             && artist !== "JAMES TAYLOR"
                             && artist !== "BUSTA RHYMES"
+                            && artist !== "MUDDY WATERS"
                             // && artist !== "ALICE COOPER"
                         ) {
                             tiles.pop();
@@ -1159,8 +1176,10 @@ const MainGame = () => {
         console.log(dupesRemovedGenreSelectedPool);
         const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
         console.log(difference);
-        if (difference.length === 0) {
+        if (difference.length === 0 && dupesRemovedGenreSelectedPool.length === 0) {
             setAnswerPool(allData);
+        } else if (difference.length === 0 && dupesRemovedGenreSelectedPool.length > 0) {
+            setAnswerPool(dupesRemovedGenreSelectedPool);
         } else {
             setAnswerPool(difference);
         }

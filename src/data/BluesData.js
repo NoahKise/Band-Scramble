@@ -1,3 +1,5 @@
 export const bluesData = [
-    "MUDDY WATERS"
+    "MUDDY WATERS",
+    "ROBERT JOHNSON",
+    "BUDDY GUY",
 ]

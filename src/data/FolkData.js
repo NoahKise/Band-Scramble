@@ -1,3 +1,3 @@
 export const folkData = [
-    "PETE SEGER"
+    "WOODY GUTHRIE",
 ]

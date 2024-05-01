@@ -18,7 +18,6 @@ export const electronicData = [
     "DEEP CHORD",
     "OLIVER LIEB",
     "BASIC CHANNEL",
-    "RICARDO VILLALOBOS",
     "PLASTIKMAN",
     "DREXCIYA",
     "LUKE VIBERT",

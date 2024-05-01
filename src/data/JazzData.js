@@ -1,3 +1,3 @@
 export const jazzData = [
-    "MILES DAVIS"
+    "MILES DAVIS",
 ]

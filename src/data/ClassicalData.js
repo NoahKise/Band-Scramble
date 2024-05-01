@@ -1,3 +1,3 @@
 export const classicalData = [
-    "MOZART"
+    "LUDWIG VAN BEETHOVEN",
 ];
