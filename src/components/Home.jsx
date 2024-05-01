@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Link, Grid, Box, Avatar, Typography, Container, FormControlLabel, Checkbox, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
+import { TextField, Button, Link, Grid, Box, Avatar, Typography, Container, FormControlLabel, Checkbox, createTheme, ThemeProvider, CssBaseline, formLabelClasses } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,9 @@ import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
+import eggLogo from '../assets/images/friedEgg.png'
+import textLogo from '../assets/images/textLogo.png'
+import logo from '../assets/images/logo.png'
 
 const defaultTheme = createTheme();
 
@@ -40,6 +43,7 @@ export default function Home() {
     const [leaderboard, setLeaderboard] = useState([]);
     const [userId, setUserId] = useState('');
     const [errorMessage, setErrorMessage] = useState("");
+    const [enterred, setEnterred] = useState(false);
     const navigate = useNavigate();
 
     const handleImageChange = (e) => {
@@ -196,6 +200,10 @@ export default function Home() {
         10: PLACEHOLDER,
     };
 
+    const enter = () => {
+        setEnterred(true);
+    }
+
     return (
         <>
             {userId ? (
@@ -234,11 +242,11 @@ export default function Home() {
                         </table>
                     </div>
                 </>
-            ) : (
+            ) : enterred ? (
                 <ThemeProvider theme={defaultTheme}>
                     <Container component="main" maxWidth="xs">
                         <CssBaseline />
-                        <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <Box id='signInBox' sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
                             <Typography id="signInH1" component="h1" variant="h5">
                                 {showSignUp ? "Sign Up" : "Sign In"}
                             </Typography>
@@ -287,6 +295,11 @@ export default function Home() {
                         </Box>
                     </Container>
                 </ThemeProvider>
+            ) : (
+                <>
+                    <img id="logo" src={logo} alt="band scramble logo" />
+                    <button id="enterButton" className="button-53" onClick={enter}>Enter</button>
+                </>
             )}
         </>
     );
