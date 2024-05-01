@@ -44,7 +44,8 @@
 }
 
 body {
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 #bg {
@@ -464,7 +465,8 @@ body {
   background-image: url(./assets/images/wood.jpg);
   padding: 10px;
   height: 87vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #leaderboard tbody {
@@ -926,7 +928,7 @@ input:checked+.slider:before {
   height: 60px;
   border-radius: 50%;
   padding: 10px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: bold;
   text-align: center;
   border: 3px solid black;
@@ -1057,6 +1059,7 @@ input:checked+.slider:before {
   border: none;
   padding: 8px;
   margin-top: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #artistSpotlightButton:hover {

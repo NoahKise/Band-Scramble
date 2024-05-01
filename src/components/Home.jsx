@@ -213,7 +213,7 @@ export default function Home() {
                 <>
                     <div id="leaderboard">
                         <h1>LEADERBOARD</h1>
-                        <table>
+                        <table id="scoreTable">
                             <thead>
                                 <tr>
                                     <th>Username</th>
