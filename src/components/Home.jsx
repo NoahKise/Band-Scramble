@@ -17,9 +17,12 @@ import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
 import PLACEHOLDER from '../assets/images/PLACEHOLDER.png'
-import eggLogo from '../assets/images/friedEgg.png'
-import textLogo from '../assets/images/textLogo.png'
 import logo from '../assets/images/logo.png'
+import S from '../assets/images/S.png'
+import I from '../assets/images/I.png'
+import G from '../assets/images/G.png'
+import N from '../assets/images/N.png'
+import SPACE from '../assets/images/SPACE.png'
 
 const defaultTheme = createTheme();
 
@@ -247,9 +250,18 @@ export default function Home() {
                     <Container component="main" maxWidth="xs">
                         <CssBaseline />
                         <Box id='signInBox' sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <Typography id="signInH1" component="h1" variant="h5">
+                            {/* <Typography id="signInH1" component="h1" variant="h5">
                                 {showSignUp ? "Sign Up" : "Sign In"}
-                            </Typography>
+                            </Typography> */}
+                            <div id='signInTiles'>
+                                <img className='downLetter' src={S} alt='S' />
+                                <img src={I} alt='I' />
+                                <img className='downLetter' src={G} alt='G' />
+                                <img src={N} alt='N' />
+                                <img style={{ display: 'inline-block', opacity: '0' }} src={SPACE} alt='SPACE' />
+                                <img src={I} alt='I' />
+                                <img className='downLetter' src={N} alt='N' />
+                            </div>
                             <Box component="form" onSubmit={showSignUp ? doSignUp : doSignIn} noValidate sx={{ mt: 1 }}>
                                 {showSignUp && (
                                     <>
@@ -301,6 +313,7 @@ export default function Home() {
                         <img className='animate_animated animate__heartBeat' id="logo" src={logo} alt="band scramble logo" />
                         <button id="enterButton" className="button-53" onClick={enter}>Enter</button>
                     </div>
+                    <a id="githubLink" href="https://github.com/NoahKise/Band-Scramble" target="_blank" rel="noopener noreferrer">Created by Noah Kise</a>
                 </>
             )}
         </>

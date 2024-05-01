@@ -1261,6 +1261,7 @@ const MainGame = () => {
                                     </div>
                                 </form>
                             </div>
+                            <h3>During gameplay, once all artists in your selected genre(s) have been exhausted, the pool of possible answers changes to all artists.</h3>
                         </div>
                     </>
                 )}

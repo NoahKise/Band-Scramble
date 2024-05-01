@@ -1139,3 +1139,18 @@ input:checked+.slider:before {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#githubLink {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#signInTiles {
+  margin-top: 10px;
+}
+
+#signInTiles img {
+  width: 40px;
+}
