@@ -338,6 +338,7 @@ const MainGame = () => {
                     setGuessedArtists(userData.artists);
                 } else {
                     console.log("history not found")
+                    toggleHelp();
                 }
             }
         };
