@@ -297,8 +297,10 @@ export default function Home() {
                 </ThemeProvider>
             ) : (
                 <>
-                    <img id="logo" src={logo} alt="band scramble logo" />
-                    <button id="enterButton" className="button-53" onClick={enter}>Enter</button>
+                    <div id="logoAndEnterButton">
+                        <img className='animate_animated animate__heartBeat' id="logo" src={logo} alt="band scramble logo" />
+                        <button id="enterButton" className="button-53" onClick={enter}>Enter</button>
+                    </div>
                 </>
             )}
         </>
