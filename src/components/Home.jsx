@@ -87,7 +87,7 @@ export default function Home() {
             }
             navigate('/MainGame');
         } catch (error) {
-            setErrorMessage("Error signing up. Perhaps you already have an account?");
+            setErrorMessage("Error signing up. Perhaps you already have an account? Passwords must be a minimum of 6 characters in length");
         }
     };
 
@@ -266,8 +266,8 @@ export default function Home() {
                                 {showSignUp && (
                                     <>
                                         <TextField type='text' name='email' placeholder='Email' fullWidth />
-                                        <TextField id="usernameInput" type="text" name="username" placeholder="Username" fullWidth />
-                                        <TextField minLength="6" type="password" name="password" placeholder="Password" fullWidth />
+                                        <TextField inputProps={{ maxLength: 20 }} id="usernameInput" type="text" name="username" placeholder="Username" fullWidth />
+                                        <TextField type="password" name="password" placeholder="Password" fullWidth />
                                     </>
                                 )}
                                 {!showSignUp && (

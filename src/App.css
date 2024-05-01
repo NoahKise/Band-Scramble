@@ -454,6 +454,11 @@ body {
   src: url(../src/assets/fonts/RedditMono-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: 'narrow';
+  src: url(../src/assets/fonts/steelfish\ rg.otf);
+}
+
 #leaderboard {
   padding-left: 20px;
   padding-right: 20px;
@@ -467,6 +472,8 @@ body {
   height: 87vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: 'narrow';
+  font-size: 30px;
 }
 
 #leaderboard tbody {
@@ -484,16 +491,21 @@ body {
 }
 
 .rank {
-  font-size: 26px;
+  font-size: 30px;
 }
 
 .leaderboardUsername {
-  font-size: 20px;
+  font-size: 30px;
   margin-bottom: -5px;
+  margin-right: 5px;
+}
+
+#scoreTable tr {
+  border-bottom: 3px solid black;
 }
 
 .leaderboardScore {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .graph {
@@ -1071,6 +1083,7 @@ input:checked+.slider:before {
   background-color: #fbfbfb;
   border-radius: 10px;
   width: fit-content;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #dailyModeStyling {

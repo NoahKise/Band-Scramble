@@ -181,7 +181,7 @@ export const Account = () => {
             </div>
             <div id='artistSpotlightDiv'>
                 <h2>Artist Spotlight</h2>
-                <input type='text' id='artistSpotlightInput' defaultValue={artistSpotlight}></input>
+                <input type='text' id='artistSpotlightInput' defaultValue={artistSpotlight} maxLength='30'></input>
                 <button id='artistSpotlightButton' onClick={handleArtistSpotlightChange}>Save Changes</button>
                 <p>{confirmationMessage}</p>
             </div>
