@@ -1176,3 +1176,7 @@ input:checked+.slider:before {
 #signInTiles img {
   width: 40px;
 }
+
+#signUp {
+  margin-right: 18px;
+}

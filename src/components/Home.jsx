@@ -281,7 +281,13 @@ export default function Home() {
                                     {showSignUp ? "Sign Up" : "Sign In"}
                                 </Button>
                                 <Grid container>
-                                    <Grid item xs>
+
+                                    <Grid item id='signUp'>
+                                        <Link href="#" variant="body2" onClick={() => setShowSignUp(!showSignUp)}>
+                                            {showSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
+                                        </Link>
+                                    </Grid>
+                                    <Grid item>
                                         {forgotPassword ? (
                                             <>
                                                 <TextField type="text" name="resetEmail" placeholder="Enter your email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} />
@@ -296,11 +302,6 @@ export default function Home() {
                                                 Forgot password?
                                             </Link>
                                         )}
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="#" variant="body2" onClick={() => setShowSignUp(!showSignUp)}>
-                                            {showSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
-                                        </Link>
                                     </Grid>
                                 </Grid>
                             </Box>
