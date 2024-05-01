@@ -40,3 +40,4 @@
 
 #### Tuesday 4/30
 * 11:45: working on tricky bug, when user has played every possible round, what should happen?
+* 1:20: still working on bug
