@@ -13,9 +13,19 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "animate.css": "^4.1.1",
+    "axios": "^1.6.8",
+    "chart.js": "^4.4.2",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "firebase": "^9.23.0",
+    "jsdom": "^24.0.0",
+    "path-browserify": "^1.0.1",
+    "puppeteer": "^22.7.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-router-dom": "^6.22.3",
@@ -47,6 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.7.4"
+    "@capacitor/cli": "^5.7.4",
+    "@craco/craco": "^7.1.0"
   }
 }

@@ -1,2 +1,4 @@
-# Band Scrambler (working title)
+# Band Scramble
+
+#### By Noah Kise
 
