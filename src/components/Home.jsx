@@ -97,10 +97,16 @@ export default function Home() {
         const password = e.target.signinPassword.value;
 
         try {
-            signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, email, password);
             navigate('/MainGame');
         } catch (error) {
-            console.log("error signing in")
+            if (error.code === 'auth/invalid-login-credentials') {
+                console.log("Invalid email or password. Please try again.");
+                setErrorMessage("Invalid email or password. Please try again.");
+            } else {
+                console.error("Error signing in:", error.message);
+                setErrorMessage(error.message);
+            }
         }
     };
 
