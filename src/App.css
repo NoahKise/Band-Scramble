@@ -194,6 +194,7 @@ body {
   right: 0;
   bottom: 0;
   margin-bottom: 0;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #help {
@@ -210,6 +211,7 @@ body {
   left: 0;
   bottom: 0;
   margin-bottom: 0;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #bioButton {
@@ -226,6 +228,7 @@ body {
   bottom: 0;
   z-index: 2;
   margin: 0;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #bioButton:hover {
@@ -254,6 +257,7 @@ body {
   margin-right: auto;
   margin-bottom: -10px;
   justify-content: space-between;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #topContainer {
@@ -564,6 +568,7 @@ body {
   right: 0;
   margin-top: 2px;
   z-index: 1;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #hintIcon {
@@ -601,6 +606,7 @@ body {
   right: 0;
   margin-top: 2px;
   z-index: 1;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #firstLetterIcon {
