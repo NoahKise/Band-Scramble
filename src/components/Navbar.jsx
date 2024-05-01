@@ -13,37 +13,19 @@ import '../App.css';
 
 export const Navbar = () => {
     const [value, setValue] = React.useState(0);
-    const [username, setUsername] = useState('');
+    const [isSignedIn, setIsSignedIn] = React.useState(false);
     const navigate = useNavigate();
 
+    React.useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setIsSignedIn(!!user);
+        });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                auth.onAuthStateChanged(async (user) => {
-                    if (user) {
-                        const userId = user.uid;
-                        const userRef = doc(db, 'users', userId);
-                        const userSnapshot = await getDoc(userRef);
-
-                        if (userSnapshot.exists()) {
-                            const userData = userSnapshot.data();
-                            setUsername(userData.username)
-                        } else {
-                            console.log("User not found!");
-                        }
-                    }
-                });
-            } catch (error) {
-                console.log('error fetching user data');
-            }
-        };
-        fetchData();
+        return () => unsubscribe();
     }, []);
 
     const handleNavigation = (index) => {
         setValue(index);
-
         switch (index) {
             case 0:
                 navigate('/');
@@ -62,8 +44,12 @@ export const Navbar = () => {
         }
     };
 
+    if (!isSignedIn) {
+        return null;
+    }
+
     return (
-        <div id='navbar' style={{ display: username ? '' : 'none' }}>
+        <div id='navbar'>
             <Box sx={{ width: 400 }} >
                 <BottomNavigation
                     showLabels
