@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
-import { Line, Pie, Doughnut } from "react-chartjs-2";
+import { Line, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-date-fns';
 import appleMusicIcon from '../assets/images/appleMusicIcon.png'
@@ -95,9 +95,8 @@ const Statistics = () => {
             const dataPoints = userData.map((data) => {
                 const timestamp = parseInt(data.mapValue.fields.timestamp.integerValue);
                 const score = parseInt(data.mapValue.fields.totalScore.integerValue);
-                return { x: new Date(timestamp), y: score }; // Using lowercase 'x' and 'y'
+                return { x: new Date(timestamp), y: score };
             });
-            // Sort dataPoints by timestamp
             dataPoints.sort((a, b) => a.x - b.x);
             setPropData({
                 datasets: [
@@ -126,9 +125,9 @@ const Statistics = () => {
             setUserLongestStreak(longestStreak)
 
             const rightAnswers = userData.map((data) => {
-                let counter = 0; // Initialize counter outside of map
+                let counter = 0;
                 if (data.mapValue.fields.correct.booleanValue === true) {
-                    counter++; // Increment counter for each correct answer
+                    counter++;
                 }
                 return counter;
             });
@@ -136,9 +135,9 @@ const Statistics = () => {
             setAmountCorrect(totalCorrect);
 
             const wrongAnswers = userData.map((data) => {
-                let counter = 0; // Initialize counter outside of map
+                let counter = 0;
                 if (data.mapValue.fields.correct.booleanValue === false) {
-                    counter++; // Increment counter for each correct answer
+                    counter++;
                 }
                 return counter;
             });
@@ -216,13 +215,13 @@ const Statistics = () => {
                         <h1 id='percentage'>{!isNaN(roundedSuccessPercentage) ? `${roundedSuccessPercentage}%` : ''}</h1>
                         <Doughnut className='graph'
                             data={{
-                                labels: ['Correct', 'Incorrect'], // Labels for the two categories
+                                labels: ['Correct', 'Incorrect'],
                                 datasets: [
                                     {
-                                        data: [amountCorrect, amountIncorrect], // Pass the actual values here
+                                        data: [amountCorrect, amountIncorrect],
                                         backgroundColor: [
-                                            '#23d866', // Color for success
-                                            '#f9435d' // Color for fail
+                                            '#23d866',
+                                            '#f9435d'
                                         ]
                                     }
                                 ]
