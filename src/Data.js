@@ -438,7 +438,6 @@ export const allData = [
     "FABOLOUS",
     "FLATBUSH ZOMBIES",
     "MAC MILLER",
-    "JID",
     "BLACK HIPPY",
     "AB SOUL",
     "DENZEL CURRY",

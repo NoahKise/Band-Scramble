@@ -1308,8 +1308,8 @@ const MainGame = () => {
                         <p>Given a set of scrambled letter tiles, your job is to unscramble them to determine the musical artist before the clock runs out.</p>
                         <h3>Controls:</h3>
                         <div className='instructionRow'>
-                            <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.</p>
-                            <img src={exampleGameplayGif} alt='gameplay example' />
+                            <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.<br></br><br></br>Clicking inside the solution area will recall the last letter to the tile bank. On desktop, you may alternatively press the backspace/delete key.</p>
+                            <img className='gameplayExample' src={exampleGameplayGif} alt='gameplay example' />
                         </div>
                         <div className='instructionRow'>
                             <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />

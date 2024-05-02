@@ -734,6 +734,10 @@ body {
   flex-direction: row;
 }
 
+.gameplayExample {
+  margin-left: 10px;
+}
+
 .instructionImg {
   margin-right: 10px;
   height: 50px;
