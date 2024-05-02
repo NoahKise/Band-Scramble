@@ -102,7 +102,7 @@ export const Account = () => {
             }
         };
         updateArtistSpotlight();
-    }, [artistSpotlight]);
+    }, [artistSpotlight, userId]);
 
     useEffect(() => {
         const updateAvatarId = async () => {
@@ -111,7 +111,7 @@ export const Account = () => {
             }
         };
         updateAvatarId();
-    }, [avatarId]);
+    }, [avatarId, userId]);
 
     useEffect(() => {
         const updateSoundSetting = async () => {
@@ -120,7 +120,7 @@ export const Account = () => {
             }
         };
         updateSoundSetting();
-    }, [soundSetting]);
+    }, [soundSetting, userId]);
 
     const handleArtistSpotlightChange = () => {
         const input = document.getElementById('artistSpotlightInput');
