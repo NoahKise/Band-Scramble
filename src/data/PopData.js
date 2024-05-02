@@ -6,7 +6,7 @@ export const popData = [
     "CELINE DION",
     "TAYLOR SWIFT",
     "NEIL DIAMOND",
-    "KENNY G", //ADD TO JAZZ
+    "KENNY G",
     "BRITNEY SPEARS",
     "BEYONCE",
     "BACKSTREET BOYS",
@@ -15,7 +15,7 @@ export const popData = [
     "ADELE",
     "BEE GEES",
     "NSYNC",
-    "FRANK SINATRA", // ADD TO JAZZ
+    "FRANK SINATRA",
     "ENYA",
     "JANET JACKSON",
     "RIHANNA",

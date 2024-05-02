@@ -1,4 +1,4 @@
-import { allData, problemData } from '../Data';
+import { allData } from '../Data';
 import { classicalData } from '../data/ClassicalData';
 import { bluesData } from '../data/BluesData';
 import { classicRockData } from '../data/ClassicRockData';
@@ -445,9 +445,6 @@ const MainGame = () => {
                 newArtist = remainder[index]; // to test with specific string set newArtist to test value
 
                 // newArtist = "HOOTIE AND THE BLOWFISH";
-
-                // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
-                // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
 
                 if (dailyModeBioButton) {
                     setDailyModeBioButton(false);
@@ -904,6 +901,10 @@ const MainGame = () => {
                             && artist !== "JAMES TAYLOR"
                             && artist !== "BUSTA RHYMES"
                             && artist !== "MUDDY WATERS"
+                            && artist !== "MOUNT KIMBIE"
+                            && artist !== "BOBBY WOMACK"
+                            && artist !== "CLAMS CASINO"
+                            && artist !== "BLOOD ORANGE"
                         ) {
                             tiles.pop();
                             tiles.pop();
