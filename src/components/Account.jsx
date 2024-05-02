@@ -196,64 +196,66 @@ export const Account = () => {
                     <span className="slider round"></span>
                 </label>
             </div>
-            <div
-                id='avatarSelect'
-                className={`animate__animated ${avatarSelectOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
-                style={{ display: avatarSelectClicked ? '' : 'none' }}>
-                <button id='avatarSelectCloseButton' onClick={toggleAvatarSelect}>X</button>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar1" name="avatar" value="1" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar1">
-                        <img className='avatarPreview' src={avatar1} alt='avatar1' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar2" name="avatar" value="2" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar2">
-                        <img className='avatarPreview' src={avatar2} alt='avatar2' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar3" name="avatar" value="3" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar3">
-                        <img className='avatarPreview' src={avatar3} alt='avatar3' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar4" name="avatar" value="4" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar4">
-                        <img className='avatarPreview' src={avatar4} alt='avatar4' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar5" name="avatar" value="5" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar5">
-                        <img className='avatarPreview' src={avatar5} alt='avatar5' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar6" name="avatar" value="6" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar6">
-                        <img className='avatarPreview' src={avatar6} alt='avatar6' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar7" name="avatar" value="7" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar7">
-                        <img className='avatarPreview' src={avatar7} alt='avatar7' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar8" name="avatar" value="8" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar8">
-                        <img className='avatarPreview' src={avatar8} alt='avatar8' />
-                    </label>
-                </div>
-                <div className='radioPair'>
-                    <input className='radio' type="radio" id="avatar9" name="avatar" value="9" onChange={handleAvatarChange} />
-                    <label htmlFor="avatar9">
-                        <img className='avatarPreview' src={avatar9} alt='avatar9' />
-                    </label>
+            <div className='menuContainer'>
+                <div
+                    id='avatarSelect'
+                    className={`animate__animated ${avatarSelectOpen ? 'animate__fadeInDown' : 'animate__fadeOutUp'}`}
+                    style={{ display: avatarSelectClicked ? '' : 'none' }}>
+                    <button id='avatarSelectCloseButton' onClick={toggleAvatarSelect}>X</button>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar1" name="avatar" value="1" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar1">
+                            <img className='avatarPreview' src={avatar1} alt='avatar1' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar2" name="avatar" value="2" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar2">
+                            <img className='avatarPreview' src={avatar2} alt='avatar2' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar3" name="avatar" value="3" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar3">
+                            <img className='avatarPreview' src={avatar3} alt='avatar3' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar4" name="avatar" value="4" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar4">
+                            <img className='avatarPreview' src={avatar4} alt='avatar4' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar5" name="avatar" value="5" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar5">
+                            <img className='avatarPreview' src={avatar5} alt='avatar5' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar6" name="avatar" value="6" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar6">
+                            <img className='avatarPreview' src={avatar6} alt='avatar6' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar7" name="avatar" value="7" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar7">
+                            <img className='avatarPreview' src={avatar7} alt='avatar7' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar8" name="avatar" value="8" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar8">
+                            <img className='avatarPreview' src={avatar8} alt='avatar8' />
+                        </label>
+                    </div>
+                    <div className='radioPair'>
+                        <input className='radio' type="radio" id="avatar9" name="avatar" value="9" onChange={handleAvatarChange} />
+                        <label htmlFor="avatar9">
+                            <img className='avatarPreview' src={avatar9} alt='avatar9' />
+                        </label>
+                    </div>
                 </div>
             </div>
         </>
