@@ -18,7 +18,7 @@ import editIcon from '../assets/images/editIcon.svg'
 export const Account = () => {
     const [username, setUsername] = useState('');
     const [userId, setUserId] = useState('');
-    const [soundSetting, setSoundSetting] = useState(false);
+    const [soundSetting, setSoundSetting] = useState(null);
     const [avatarId, setAvatarId] = useState(8);
     const [avatarSelectClicked, setAvatarSelectClicked] = useState(false);
     const [avatarSelectOpen, setAvatarSelectOpen] = useState(false);
@@ -101,8 +101,11 @@ export const Account = () => {
                 await setDoc(doc(db, "artistSpotlight", userId), { artistSpotlight });
             }
         };
-        updateArtistSpotlight();
-    }, [artistSpotlight]);
+
+        if (artistSpotlight !== '') {
+            updateArtistSpotlight();
+        }
+    }, [userId, artistSpotlight]); // Include userId and artistSpotlight in the dependency array
 
     useEffect(() => {
         const updateAvatarId = async () => {
@@ -110,8 +113,11 @@ export const Account = () => {
                 await setDoc(doc(db, "avatarId", userId), { avatarId });
             }
         };
-        updateAvatarId();
-    }, [avatarId]);
+
+        if (avatarId !== 0) {
+            updateAvatarId();
+        }
+    }, [userId, avatarId]); // Include userId and avatarId in the dependency array
 
     useEffect(() => {
         const updateSoundSetting = async () => {
@@ -119,8 +125,11 @@ export const Account = () => {
                 await setDoc(doc(db, "soundSetting", userId), { soundSetting });
             }
         };
-        updateSoundSetting();
-    }, [soundSetting]);
+
+        if (typeof soundSetting === 'boolean') {
+            updateSoundSetting();
+        }
+    }, [userId, soundSetting]);
 
     const handleArtistSpotlightChange = () => {
         const input = document.getElementById('artistSpotlightInput');
