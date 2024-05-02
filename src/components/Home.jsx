@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Link, Grid, Box, Avatar, Typography, Container, FormControlLabel, Checkbox, createTheme, ThemeProvider, CssBaseline, formLabelClasses } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { TextField, Button, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, doc, setDoc, getDocs, updateDoc, collection, query, where } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import avatar1 from '../assets/images/avatar1.png'
 import avatar2 from '../assets/images/avatar2.png'
@@ -26,20 +23,8 @@ import SPACE from '../assets/images/SPACE.png'
 
 const defaultTheme = createTheme();
 
-const CustomFileInput = ({ onChange }) => {
-    return (
-        <React.Fragment>
-            <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                Upload File
-                <input type="file" style={{ display: "none" }} onChange={onChange} />
-            </Button>
-        </React.Fragment>
-    );
-};
-
 export default function Home() {
     const [showSignUp, setShowSignUp] = useState(false);
-    const [profileImage, setProfileImage] = useState(null);
     const [resetEmail, setResetEmail] = useState("");
     const [resetSuccess, setResetSuccess] = useState(null);
     const [forgotPassword, setForgotPassword] = useState(false);
@@ -49,11 +34,6 @@ export default function Home() {
     const [enterred, setEnterred] = useState(false);
     const navigate = useNavigate();
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setProfileImage(file);
-    };
-
     const doSignUp = async (e) => {
         e.preventDefault();
 
@@ -62,29 +42,18 @@ export default function Home() {
         const username = e.target.username.value;
 
         try {
-            // Check if username already exists
             const db = getFirestore();
             const usersCollection = collection(db, 'users');
             const querySnapshot = await getDocs(query(usersCollection, where("username", "==", username)));
 
             if (!querySnapshot.empty) {
-                // Username already exists
                 setErrorMessage("Username already exists. Please choose a different username.");
-                return; // Exit function
+                return;
             }
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             const userDocRef = doc(db, 'users', user.uid);
-
-            if (profileImage) {
-                const storage = getStorage();
-                const storageRef = ref(storage, `profile_images/${user.uid}`);
-                await uploadBytes(storageRef, profileImage);
-                const imageUrl = await getDownloadURL(storageRef);
-                await setDoc(userDocRef, { username, profileImage: imageUrl });
-            } else {
-                await setDoc(userDocRef, { username });
-            }
+            await setDoc(userDocRef, { username });
             navigate('/MainGame');
         } catch (error) {
             setErrorMessage("Error signing up. Perhaps you already have an account? Passwords must be a minimum of 6 characters in length");
@@ -101,7 +70,6 @@ export default function Home() {
             navigate('/MainGame');
         } catch (error) {
             if (error.code === 'auth/invalid-login-credentials') {
-                console.log("Invalid email or password. Please try again.");
                 setErrorMessage("Invalid email or password. Please try again.");
             } else {
                 console.error("Error signing in:", error.message);
@@ -150,7 +118,6 @@ export default function Home() {
                 const artistSpotlightSnapshot = await getDocs(artistSpotlightsCollection);
                 const leaderboardData = [];
 
-                // Fetch usernames for each userId
                 const userIdToUsernameMap = {};
                 const usersCollection = collection(db, "users");
                 const usersSnapshot = await getDocs(usersCollection);
@@ -160,7 +127,6 @@ export default function Home() {
                     userIdToUsernameMap[userId] = username;
                 });
 
-                // Fetch avatarIds for each userId
                 const avatarIdMap = {};
                 avatarIdSnapshot.forEach(doc => {
                     const userId = doc.id;
@@ -175,18 +141,16 @@ export default function Home() {
                     artistSpotlightMap[userId] = artistSpotlight;
                 });
 
-                // Create leaderboard data
                 snapshot.forEach(doc => {
                     const userId = doc.id;
                     const scoreData = doc.data();
-                    const username = userIdToUsernameMap[userId] || "Unknown"; // Default to "Unknown" if username not found
-                    const avatarId = avatarIdMap[userId] || null; // Default to null if avatarId not found
-                    const artistSpotlight = artistSpotlightMap[userId] || null; // Default to null if artistSpotlight not found
+                    const username = userIdToUsernameMap[userId] || "Unknown";
+                    const avatarId = avatarIdMap[userId] || null;
+                    const artistSpotlight = artistSpotlightMap[userId] || null;
                     leaderboardData.push({ username, avatarId, artistSpotlight, ...scoreData });
                 });
 
                 leaderboardData.sort((a, b) => b.score - a.score);
-                console.log(leaderboardData);
                 setLeaderboard(leaderboardData);
             } catch (error) {
                 console.error("Error fetching leaderboard:", error);
@@ -256,9 +220,6 @@ export default function Home() {
                     <Container component="main" maxWidth="xs">
                         <CssBaseline />
                         <Box id='signInBox' sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            {/* <Typography id="signInH1" component="h1" variant="h5">
-                                {showSignUp ? "Sign Up" : "Sign In"}
-                            </Typography> */}
                             <div id='signInTiles'>
                                 <img className='downLetter' src={S} alt='S' />
                                 <img src={I} alt='I' />
