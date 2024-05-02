@@ -475,10 +475,10 @@ const MainGame = () => {
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
             setResetClicked(false);
-            if (newArtist.length > 6) {
-                setTimeLeft(newArtist.length * 3);
+            if (newArtist.length > 7) {
+                setTimeLeft(newArtist.length * 4);
             } else {
-                setTimeLeft(20);
+                setTimeLeft(30);
             }
             setOriginalLetters(artistArray);
             setNewLetters([]);
