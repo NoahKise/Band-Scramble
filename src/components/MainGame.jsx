@@ -1120,11 +1120,15 @@ const MainGame = () => {
         });
 
         const dupesRemovedGenreSelectedPool = genreSelectedPool.filter((value, index) => genreSelectedPool.indexOf(value) === index);
+        console.log(dupesRemovedGenreSelectedPool);
         const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
+        console.log(difference);
+
         if (difference.length === 0 && dupesRemovedGenreSelectedPool.length === 0) {
             setAnswerPool(allData);
         } else if (difference.length === 0 && dupesRemovedGenreSelectedPool.length > 0) {
             setAnswerPool(dupesRemovedGenreSelectedPool);
+            console.log("in there");
         } else {
             setAnswerPool(difference);
         }
