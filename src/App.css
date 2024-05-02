@@ -1,5 +1,4 @@
 .App {
-  /* margin-top: 60px; */
   text-align: center;
   margin-bottom: 600px;
 }
@@ -45,14 +44,12 @@
 }
 
 body {
-  /* font-family: 'Courier New', Courier, monospace; */
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 #bg {
   background: rgb(255, 255, 255);
   background: linear-gradient(0deg, rgba(255, 255, 255, 1) 12%, rgba(8, 142, 218, 1) 100%);
-  /* background: linear-gradient(0deg, rgba(8, 142, 218, 1) 12%, rgba(255, 255, 255, 1) 100%); */
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
@@ -61,17 +58,6 @@ body {
   left: 0;
   z-index: -2;
 }
-
-/* #bubbles {
-  background-image: url(https://img1.picmix.com/output/stamp/normal/6/7/1/2/1812176_0f81d.gif);
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 150px;
-  left: 0;
-  z-index: -1;
-  background-size: cover;
-} */
 
 #gameImage {
   max-width: 100%;
@@ -92,7 +78,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* overflow: hidden; */
 }
 
 #navbar {
@@ -516,7 +501,6 @@ body {
 .graph {
   max-height: 500px;
   max-width: 700px;
-  /* border: 3px solid black; */
   margin-bottom: 20px;
 }
 
@@ -737,7 +721,6 @@ body {
   padding: 10px;
   background-color: #E5E7EB;
   margin-bottom: 5px;
-  /* height: fit-content; */
   display: flex;
   flex-direction: row;
 }
@@ -747,7 +730,6 @@ body {
   padding: 10px;
   background-color: #fbfbfb;
   margin-bottom: 5px;
-  /* height: fit-content; */
   display: flex;
   flex-direction: row;
 }
@@ -897,7 +879,6 @@ input:checked+.slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
