@@ -6,9 +6,8 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from "react";
-import { auth, db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import React from "react";
+import { auth } from '../firebase';
 import '../App.css';
 
 export const Navbar = () => {
