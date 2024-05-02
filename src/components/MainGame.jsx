@@ -72,9 +72,6 @@ import buzzer from '../assets/sounds/buzzer.mp3'
 import sparkle from '../assets/sounds/sparkle.mp3'
 import levelUp from '../assets/sounds/levelUp.mp3'
 
-
-// import Draggable from 'react-draggable';
-
 const MainGame = () => {
     const [artist, setArtist] = useState("");
     const [revealed, setRevealed] = useState(false);
@@ -175,7 +172,6 @@ const MainGame = () => {
                 if (dailyModeStreakDoc.exists()) {
                     const userData = dailyModeStreakDoc.data();
                     setDailyModeStreak(userData.dailyModeStreak);
-                    console.log("daily mode streak set to", userData.dailyModeStreak, "at fetchDailyModeStreak");
                 } else {
                     console.log("daily mode streak not found")
                 }
@@ -306,10 +302,8 @@ const MainGame = () => {
                         const difference = allData.filter(element => !historyList.includes(element));
                         if (difference.length > 0) {
                             setAnswerPool(difference);
-                            console.log("answer pool set to", difference, "in fetchData");
                         } else {
                             setAnswerPool(allData);
-                            console.log("answer pool set to", allData, "in fetchData");
                         }
 
 
@@ -419,37 +413,26 @@ const MainGame = () => {
                     if (match) {
                         oldMonth = parseInt(match[1], 10);
                         oldDay = parseInt(match[2], 10);
-                        console.log("Day:", oldDay);
-                        console.log("Month:", oldMonth);
                     } else {
                         console.log("Invalid date string format");
                     }
-                    console.log(mostRecentDate);
                 } else {
                     mostRecentDate = new Date(1713221222714).toLocaleDateString('en-US');
-                    console.log(mostRecentDate);
                 }
                 let todaysDate = new Date(Date.now()).toLocaleDateString('en-us');
                 const todaysDateMatched = todaysDate.match(/(\d{1,2})\/(\d{1,2})\/\d{4}/);
                 const newDay = parseInt(todaysDateMatched[2], 10);
                 const newMonth = parseInt(todaysDateMatched[1], 10);
-                console.log("Day:", newDay);
-                console.log("Month:", newMonth);
-                console.log(todaysDate);
                 if (mostRecentDate !== todaysDate) {
                     newArtist = dailyPick;
                     if (oldMonth === newMonth && (newDay - oldDay) > 1) {
                         setDailyModeStreak(0);
-                        console.log("daily mode streak set to 0 at day skip logic level 1");
                     } else if (oldMonth !== newMonth && newDay !== 1) {
                         setDailyModeStreak(0);
-                        console.log("daily mode streak set to 0 at day skip logic level 2");
                     } else if (oldMonth !== newMonth && oldDay < 30 && oldMonth !== 2) {
                         setDailyModeStreak(0);
-                        console.log("daily mode streak set to 0 at day skip logic level 3");
                     } else if (oldMonth !== newMonth && oldMonth === 2 && oldDay < 28) {
                         setDailyModeStreak(0);
-                        console.log("daily mode streak set to 0 at day skip logic level 4");
                     }
                 } else {
                     setDailyMode(false);
@@ -458,15 +441,14 @@ const MainGame = () => {
             }
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
-                console.log(remainder);
-                const index = Math.floor(Math.random() * remainder.length); // change data variables for different data sets
-                console.log(index);
+                const index = Math.floor(Math.random() * remainder.length);
                 newArtist = remainder[index]; // to test with specific string set newArtist to test value
-                console.log(newArtist);
+
                 // newArtist = "HOOTIE AND THE BLOWFISH";
 
                 // const index = Math.floor(Math.random() * problemData.length); // PROBLEMATIC DATASET FOR TESTING
                 // newArtist = problemData[index]; // PROBLEMATIC DATASET FOR TESTING
+
                 if (dailyModeBioButton) {
                     setDailyModeBioButton(false);
                 }
@@ -479,7 +461,6 @@ const MainGame = () => {
             if (musicPlaying) {
                 playMusic();
             }
-            console.log(newArtist);
             const artistArray = ScrambledString(newArtist).split('');
             if (audio && audio.current) {
                 audio.current = null;
@@ -517,7 +498,6 @@ const MainGame = () => {
         if (timeLeft === 0) {
             if (gameStarted) {
                 revealArtist();
-                console.log("reveal artist triggered in timerInterval block");
             }
             setResetClicked(true);
             clearInterval(timerInterval);
@@ -564,7 +544,6 @@ const MainGame = () => {
             setDailyModeBioButton(true);
             toggleDailyBio();
             setDailyModeStreak(0);
-            console.log("daily mode streak set to 0 at revealArtist");
         }
         setDailyMode(false);
     }
@@ -590,7 +569,6 @@ const MainGame = () => {
             RandomArtist();
         } else {
             revealArtist();
-            console.log("reveal artist triggered in reveal or reset block");
         }
         setResetClicked(!resetClicked);
     }
@@ -639,7 +617,6 @@ const MainGame = () => {
                 setDailyModeBioButton(true);
                 let newStreak = dailyModeStreak + 1;
                 setDailyModeStreak(newStreak);
-                console.log("daily mode streak set to", newStreak, "at makeGuess");
             }
             setDailyMode(false);
             setResetClicked(true);
@@ -750,7 +727,6 @@ const MainGame = () => {
             }
         } catch (error) {
             console.log(error);
-            // throw new Error(error.message);
             setAudioUnavailable(true);
         }
     }
@@ -783,8 +759,6 @@ const MainGame = () => {
             } else {
                 setAnswerPool(allData);
             }
-
-            console.log("set answer pool to new answer pool", newAnswerPool, "in update guessed artists");
         }
     };
 
@@ -836,7 +810,6 @@ const MainGame = () => {
         if (key === 'DELETE' || key === 'BACKSPACE') {
             setBackspacePressed(true);
             if (newLetters.length > 0) {
-                // remove first '!' from original letters if it exists
                 setNewLetters(prevNewLetters => {
                     const lastLetter = prevNewLetters[prevNewLetters.length - 1];
                     if (lastLetter === ' ') {
@@ -900,7 +873,6 @@ const MainGame = () => {
     const renderTiles = (areaLetters, areaType) => {
         let tiles = [];
         let previousWasSpace = false;
-        let broken = false;
 
         const clickHandler = areaType === 'new' ? handleNewAreaTileClick : handleClickTile;
 
@@ -911,40 +883,27 @@ const MainGame = () => {
             if (areaType === 'new') {
                 if (((previousWasSpace && nextSpaceIndex > 10 && artist !== "NAUGHTY BY NATURE") && nextSpaceIndex < 14) || ((previousWasSpace && nextSpaceIndex > 9 && artist === "HOOTIE AND THE BLOWFISH") && nextSpaceIndex < 14) || (previousWasSpace && nextSpaceIndex === -1 && answerArray.length > 10)) {
                     tiles.push(<br key={`br-${nextSpaceIndex}`} />);
-                    // broken = true;
                     if ((answerArray[9] === ' ') || (answerArray[10] === ' ') || (answerArray[8] === ' ') || (answerArray[7] === ' ') || (i > 5 && ((answerArray.length - i) <= 6))) {
                         if (
                             artist !== "CAPTAIN BEEFHEART"
                             && artist !== "THE VELVET UNDERGROUND"
-                            // && artist !== "SUFJAN STEVENS"
-                            // && artist !== "ALANIS MORISSETTE"
                             && artist !== "SUNNY DAY REAL ESTATE"
                             && artist !== "JAPANESE BREAKFAST"
-                            // && artist !== "LUTHER VANDROSS"
-                            // && artist !== "PHOEBE BRIDGERS"
-                            // && artist !== "BROKEN SOCIAL SCENE"
                             && artist !== "HOOTIE AND THE BLOWFISH"
-                            // && artist !== "AFRIKA BAMBAATAA"
-                            // && artist !== "REGINA SPEKTOR"
                             && artist !== "THE TALLEST MAN ON EARTH"
-                            // && artist !== "JUSTIN TIMBERLAKE"
-                            // && artist !== "OLIVIA RODRIGO"
                             && artist !== "HARRY STYLES"
                             && artist !== "KENNY ROGERS"
-                            // && artist !== "NAUGHTY BY NATURE"
                             && artist !== "CARRIE UNDERWOOD"
                             && artist !== "JANET JACKSON"
                             && artist !== "GARTH BROOKS"
                             && artist !== "TUPAC SHAKUR"
                             && artist !== "NIPSY HUSTLE"
                             && artist !== "ALICE COOPER"
-                            // && artist !== "CHRIS STAPLETON"
                             && artist !== "AT THE DRIVE IN"
                             && artist !== "JUDAS PRIEST"
                             && artist !== "JAMES TAYLOR"
                             && artist !== "BUSTA RHYMES"
                             && artist !== "MUDDY WATERS"
-                            // && artist !== "ALICE COOPER"
                         ) {
                             tiles.pop();
                             tiles.pop();
@@ -1010,21 +969,9 @@ const MainGame = () => {
             if (!musicPlaying) {
                 if (hints > 0 && !audioUnavailable) {
                     playSparkle();
-                    // If music is not playing, start playing
                     audio.current.volume = 0;
                     audio.current.play();
                     setTimeLeft(30);
-                    // setTimeout(() => {
-                    //     const fadeOutInterval = setInterval(() => {
-                    //         if (audio.current) {
-                    //             if (audio.current.volume > 0.05) {
-                    //                 audio.current.volume -= 0.05;
-                    //             } else {
-                    //                 clearInterval(fadeOutInterval);
-                    //             }
-                    //         }
-                    //     }, 300);
-                    // }, 24500);
                     const fadeInInterval = setInterval(() => {
                         if (audio.current) {
                             if (audio.current.volume < 0.95) {
@@ -1171,11 +1118,8 @@ const MainGame = () => {
             }
         });
 
-        console.log(genreSelectedPool);
         const dupesRemovedGenreSelectedPool = genreSelectedPool.filter((value, index) => genreSelectedPool.indexOf(value) === index);
-        console.log(dupesRemovedGenreSelectedPool);
         const difference = dupesRemovedGenreSelectedPool.filter(element => !userHistory.includes(element));
-        console.log(difference);
         if (difference.length === 0 && dupesRemovedGenreSelectedPool.length === 0) {
             setAnswerPool(allData);
         } else if (difference.length === 0 && dupesRemovedGenreSelectedPool.length > 0) {
