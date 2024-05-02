@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Link, Grid, Box, Avatar, Typography, Container, FormControlLabel, Checkbox, createTheme, ThemeProvider, CssBaseline, formLabelClasses } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { TextField, Button, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getFirestore, doc, setDoc, getDocs, updateDoc, collection, query, where } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import avatar1 from '../assets/images/avatar1.png'
 import avatar2 from '../assets/images/avatar2.png'
@@ -26,17 +25,6 @@ import SPACE from '../assets/images/SPACE.png'
 
 const defaultTheme = createTheme();
 
-const CustomFileInput = ({ onChange }) => {
-    return (
-        <React.Fragment>
-            <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                Upload File
-                <input type="file" style={{ display: "none" }} onChange={onChange} />
-            </Button>
-        </React.Fragment>
-    );
-};
-
 export default function Home() {
     const [showSignUp, setShowSignUp] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
@@ -48,11 +36,6 @@ export default function Home() {
     const [errorMessage, setErrorMessage] = useState("");
     const [enterred, setEnterred] = useState(false);
     const navigate = useNavigate();
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setProfileImage(file);
-    };
 
     const doSignUp = async (e) => {
         e.preventDefault();

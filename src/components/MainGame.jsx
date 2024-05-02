@@ -104,8 +104,6 @@ const MainGame = () => {
     const [dailyYoutube, setDailyYoutube] = useState("");
     const [dailyBio, setDailyBio] = useState("");
     const [audioUnavailable, setAudioUnavailable] = useState(false);
-    const [discogsId, setDiscogsId] = useState("");
-    const [discogsUrl, setDiscogsUrl] = useState("");
     const [discogsBio, setDiscogsBio] = useState("");
     const [helpOpen, setHelpOpen] = useState(false);
     const [helpClicked, setHelpClicked] = useState(false);
@@ -359,7 +357,7 @@ const MainGame = () => {
             }
         };
         updateScore();
-    }, [score]);
+    }, [score, userId]);
 
     useEffect(() => {
         const updateDailyModeStreak = async () => {
@@ -368,7 +366,7 @@ const MainGame = () => {
             }
         };
         updateDailyModeStreak();
-    }, [dailyModeStreak]);
+    }, [dailyModeStreak, userId]);
 
     useEffect(() => {
         const updateHints = async () => {
@@ -377,7 +375,7 @@ const MainGame = () => {
             }
         };
         updateHints();
-    }, [hints]);
+    }, [hints, userId]);
 
     useEffect(() => {
         const updateFirstLetterHints = async () => {
@@ -386,7 +384,7 @@ const MainGame = () => {
             }
         };
         updateFirstLetterHints();
-    }, [firstLetterHints]);
+    }, [firstLetterHints, userId]);
 
     useEffect(() => {
         const handleKeyPress = (event) => {
@@ -707,8 +705,6 @@ const MainGame = () => {
             let artistId = jsonifiedresponse.results[0].id;
             let resourceUrl = jsonifiedresponse.results[0].resource_url;
             setBioArtistName(cleanedName);
-            setDiscogsId(artistId);
-            setDiscogsUrl(resourceUrl);
             setImageUrl(url);
             const bioResponse = await fetch(`https://api.discogs.com/artists/${artistId}`)
             if (!bioResponse.ok) {
@@ -900,7 +896,7 @@ const MainGame = () => {
     const renderTiles = (areaLetters, areaType) => {
         let tiles = [];
         let previousWasSpace = false;
-        let broken = false;
+        // let broken = false;
 
         const clickHandler = areaType === 'new' ? handleNewAreaTileClick : handleClickTile;
 

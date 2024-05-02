@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
-import { Line, Pie, Doughnut } from "react-chartjs-2";
+import { Line, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-date-fns';
 import appleMusicIcon from '../assets/images/appleMusicIcon.png'
