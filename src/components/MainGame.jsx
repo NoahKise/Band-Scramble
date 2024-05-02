@@ -1152,40 +1152,20 @@ const MainGame = () => {
                                         <input className='checkbox' type="checkbox" id="rock" name="rock" value="rock"></input>
                                     </div>
                                     <div className='genreSelectRow'>
-                                        <p>Hip-Hop</p>
-                                        <input className='checkbox' type="checkbox" id="hiphop" name="hiphop" value="hiphop"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
-                                        <p>Pop</p>
-                                        <input className='checkbox' type="checkbox" id="pop" name="pop" value="pop"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
-                                        <p>R&B</p>
-                                        <input className='checkbox' type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
                                         <p>Alt/Indie</p>
                                         <input className='checkbox' type="checkbox" id="indie" name="indie" value="indie"></input>
                                     </div>
                                     <div className='genreSelectRow'>
-                                        <p>Classical</p>
-                                        <input className='checkbox' type="checkbox" id="classical" name="classical" value="classical"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
-                                        <p>Folk</p>
-                                        <input className='checkbox' type="checkbox" id="folk" name="folk" value="folk"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
-                                        <p>Country</p>
-                                        <input className='checkbox' type="checkbox" id="country" name="country" value="country"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
-                                        <p>Metal</p>
-                                        <input className='checkbox' type="checkbox" id="metal" name="metal" value="metal"></input>
-                                    </div>
-                                    <div className='genreSelectRow'>
                                         <p>Electronic</p>
                                         <input className='checkbox' type="checkbox" id="electronic" name="electronic" value="electronic"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Classic Rock</p>
+                                        <input className='checkbox' type="checkbox" id="classicRock" name="classicRock" value="classicRock"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>R&B</p>
+                                        <input className='checkbox' type="checkbox" id="rAndB" name="rAndB" value="rAndB"></input>
                                     </div>
                                     <div className='genreSelectRow'>
                                         <p>Jazz</p>
@@ -1196,12 +1176,32 @@ const MainGame = () => {
                                         <input className='checkbox' type="checkbox" id="blues" name="blues" value="blues"></input>
                                     </div>
                                     <div className='genreSelectRow'>
+                                        <p>Hip-Hop</p>
+                                        <input className='checkbox' type="checkbox" id="hiphop" name="hiphop" value="hiphop"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Pop</p>
+                                        <input className='checkbox' type="checkbox" id="pop" name="pop" value="pop"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Metal</p>
+                                        <input className='checkbox' type="checkbox" id="metal" name="metal" value="metal"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Country</p>
+                                        <input className='checkbox' type="checkbox" id="country" name="country" value="country"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
                                         <p>Soul/Funk</p>
                                         <input className='checkbox' type="checkbox" id="soulFunk" name="soulFunk" value="soulFunk"></input>
                                     </div>
                                     <div className='genreSelectRow'>
-                                        <p>Classic Rock</p>
-                                        <input className='checkbox' type="checkbox" id="classicRock" name="classicRock" value="classicRock"></input>
+                                        <p>Classical</p>
+                                        <input className='checkbox' type="checkbox" id="classical" name="classical" value="classical"></input>
+                                    </div>
+                                    <div className='genreSelectRow'>
+                                        <p>Folk</p>
+                                        <input className='checkbox' type="checkbox" id="folk" name="folk" value="folk"></input>
                                     </div>
                                 </form>
                             </div>
