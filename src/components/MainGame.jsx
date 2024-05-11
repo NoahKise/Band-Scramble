@@ -83,7 +83,7 @@ const MainGame = () => {
     const [timeLeft, setTimeLeft] = useState(20);
     const [userId, setUserId] = useState('');
     const [gameStarted, setGameStarted] = useState(false);
-    const [imageURL, setImageUrl] = useState('');
+    const [imageURL, setImageUrl] = useState('https://f4.bcbits.com/img/a0543343405_5.jpg');
     const [guessedArtists, setGuessedArtists] = useState([]);
     const [originalLetters, setOriginalLetters] = useState([]);
     const [newLetters, setNewLetters] = useState([]);
@@ -683,7 +683,10 @@ const MainGame = () => {
             setBioArtistName(cleanedName);
             setDiscogsId(artistId);
             setDiscogsUrl(resourceUrl);
-            setImageUrl(url);
+            console.log(url);
+            if (url.length > 0) {
+                setImageUrl(url);
+            }
             const bioResponse = await fetch(`https://api.discogs.com/artists/${artistId}`)
             if (!bioResponse.ok) {
                 throw new Error(`${response.status}: ${response.statusText}`);
