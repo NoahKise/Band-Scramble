@@ -703,12 +703,14 @@ const MainGame = () => {
     const Deezer = async (bandName) => {
         let index = 1;
         let url = '';
+        console.log(bandName);
         try {
-            const response = await fetch(`https://corsproxy.io/?https://api.deezer.com/search/track?q=${bandName}`);
+            const response = await fetch(`https://corsproxy.io/?url=https://api.deezer.com/search/track?q=${bandName}`);
             if (!response.ok) {
                 throw new Error(`${response.status}: ${response.statusText}`);
             }
             const jsonifiedresponse = await response.json();
+            console.log(jsonifiedresponse);
             if (jsonifiedresponse) {
                 while (index < jsonifiedresponse.data.length) {
                     if (jsonifiedresponse.data[index].artist.name[0].toUpperCase() === newArtist[0]) {
