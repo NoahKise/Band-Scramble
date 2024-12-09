@@ -113,7 +113,7 @@ const MainGame = () => {
     const [bioArtistName, setBioArtistName] = useState("");
     const [audioHintUsed, setAudioHintUsed] = useState(false);
     const [dailyModeStreak, setDailyModeStreak] = useState(0);
-    const [genreChoicesConfirmed, setGenreChoicesConfirmed] = useState(false);
+    const [genreChoicesConfirmed, setGenreChoicesConfirmed] = useState(true);
     const [soundSetting, setSoundSetting] = useState(true);
     const [dailyModeBioButton, setDailyModeBioButton] = useState(false);
 
@@ -465,10 +465,14 @@ const MainGame = () => {
             setAudioHintUsed(false);
             setAudioUnavailable(false);
             setFirstLetterHintUsed(false);
-            Discogs(newArtist);
+            console.log(newArtist);
+            // Discogs(newArtist);
+            setBioArtistName(formatBioName(newArtist));
+            setDiscogsBio("TESTING BIO TESTING");
+            setImageUrl('https://deafdogsrock.com/wp-content/uploads/2011/07/cute-puppy-dog-wallpapers.jpg')
             setArtist(newArtist);
             playShuffle();
-            Deezer(newArtist);
+            // Deezer(newArtist);
             setRevealed(false);
             setMixedString(ScrambledString(newArtist));
             setResetClicked(false);
@@ -482,6 +486,12 @@ const MainGame = () => {
             setScoreFluctuation(0);
         }
     }, [answerPool]);
+
+    const formatBioName = (str) => {
+        return str.toLowerCase().split(' ')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ');
+    }
 
     useEffect(() => {
         let timerInterval;
@@ -593,11 +603,13 @@ const MainGame = () => {
                 if (hints < 9) {
                     let newHintsTotal = hints + 1;
                     setHints(newHintsTotal);
+                    let newFirstLetterHintsTotal = firstLetterHints + 1;
+                    setFirstLetterHints(newFirstLetterHintsTotal);
                     playLevelUp();
                 } else {
                     playTwinkle();
                 }
-            } else if (newTotalCorrect % 5 === 0 && newTotalCorrect % 10 !== 0) {
+            } else if (newTotalCorrect % 5 === 0) {
                 if (firstLetterHints < 9) {
                     let newFirstLetterHintsTotal = firstLetterHints + 1;
                     setFirstLetterHints(newFirstLetterHintsTotal);
@@ -666,72 +678,72 @@ const MainGame = () => {
         }
     };
 
-    const Discogs = async (bandName) => {
-        const key = process.env.REACT_APP_KEY;
-        const secret = process.env.REACT_APP_SECRET;
-        try {
-            const response = await fetch(`https://api.discogs.com/database/search?q=${bandName}&type=artist&key=${key}&secret=${secret}`);
-            if (!response.ok) {
-                throw new Error(`${response.status}: ${response.statusText}`);
-            }
-            const jsonifiedresponse = await response.json();
-            let url = jsonifiedresponse.results[0].cover_image;
-            let name = jsonifiedresponse.results[0].title;
-            let cleanedName = name.replace(/\([^()]*\)/g, '');
-            let artistId = jsonifiedresponse.results[0].id;
-            let resourceUrl = jsonifiedresponse.results[0].resource_url;
-            setBioArtistName(cleanedName);
-            setDiscogsId(artistId);
-            setDiscogsUrl(resourceUrl);
-            console.log(url);
-            if (url.length > 0) {
-                setImageUrl(url);
-            }
-            const bioResponse = await fetch(`https://api.discogs.com/artists/${artistId}`)
-            if (!bioResponse.ok) {
-                throw new Error(`${response.status}: ${response.statusText}`);
-            }
-            const jsonifiedBioResponse = await bioResponse.json();
-            let artistBio = jsonifiedBioResponse.profile;
-            const cleanText = artistBio.replace(/\[(\/?[^\/\]]+?)\]|"a=/g, '');
-            setDiscogsBio(cleanText);
-        } catch (error) {
-            throw new Error(error.message);
-        }
-    };
+    // const Discogs = async (bandName) => {
+    //     const key = process.env.REACT_APP_KEY;
+    //     const secret = process.env.REACT_APP_SECRET;
+    //     try {
+    //         const response = await fetch(`https://api.discogs.com/database/search?q=${bandName}&type=artist&key=${key}&secret=${secret}`);
+    //         if (!response.ok) {
+    //             throw new Error(`${response.status}: ${response.statusText}`);
+    //         }
+    //         const jsonifiedresponse = await response.json();
+    //         let url = jsonifiedresponse.results[0].cover_image;
+    //         let name = jsonifiedresponse.results[0].title;
+    //         let cleanedName = name.replace(/\([^()]*\)/g, '');
+    //         let artistId = jsonifiedresponse.results[0].id;
+    //         let resourceUrl = jsonifiedresponse.results[0].resource_url;
+    //         setBioArtistName(cleanedName);
+    //         setDiscogsId(artistId);
+    //         setDiscogsUrl(resourceUrl);
+    //         console.log(url);
+    //         if (url.length > 0) {
+    //             setImageUrl(url);
+    //         }
+    //         const bioResponse = await fetch(`https://api.discogs.com/artists/${artistId}`)
+    //         if (!bioResponse.ok) {
+    //             throw new Error(`${response.status}: ${response.statusText}`);
+    //         }
+    //         const jsonifiedBioResponse = await bioResponse.json();
+    //         let artistBio = jsonifiedBioResponse.profile;
+    //         const cleanText = artistBio.replace(/\[(\/?[^\/\]]+?)\]|"a=/g, '');
+    //         setDiscogsBio(cleanText);
+    //     } catch (error) {
+    //         throw new Error(error.message);
+    //     }
+    // };
 
-    const Deezer = async (bandName) => {
-        let index = 1;
-        let url = '';
-        console.log(bandName);
-        try {
-            const response = await fetch(`https://corsproxy.io/?url=https://api.deezer.com/search/track?q=${bandName}`);
-            if (!response.ok) {
-                throw new Error(`${response.status}: ${response.statusText}`);
-            }
-            const jsonifiedresponse = await response.json();
-            console.log(jsonifiedresponse);
-            if (jsonifiedresponse) {
-                while (index < jsonifiedresponse.data.length) {
-                    if (jsonifiedresponse.data[index].artist.name[0].toUpperCase() === newArtist[0]) {
-                        url = jsonifiedresponse.data[index].preview;
-                        setAudioPreviewUrl(url);
-                        break;
-                    }
-                    index++;
-                }
-                if (!url && jsonifiedresponse.data.length > 0) {
-                    url = jsonifiedresponse.data[0].preview;
-                    setAudioPreviewUrl(url);
-                }
-            } else {
-                console.log('no api response')
-            }
-        } catch (error) {
-            console.log(error);
-            setAudioUnavailable(true);
-        }
-    }
+    // const Deezer = async (bandName) => {
+    //     let index = 1;
+    //     let url = '';
+    //     console.log(bandName);
+    //     try {
+    //         const response = await fetch(`https://corsproxy.io/?url=https://api.deezer.com/search/track?q=${bandName}`);
+    //         if (!response.ok) {
+    //             throw new Error(`${response.status}: ${response.statusText}`);
+    //         }
+    //         const jsonifiedresponse = await response.json();
+    //         console.log(jsonifiedresponse);
+    //         if (jsonifiedresponse) {
+    //             while (index < jsonifiedresponse.data.length) {
+    //                 if (jsonifiedresponse.data[index].artist.name[0].toUpperCase() === newArtist[0]) {
+    //                     url = jsonifiedresponse.data[index].preview;
+    //                     setAudioPreviewUrl(url);
+    //                     break;
+    //                 }
+    //                 index++;
+    //             }
+    //             if (!url && jsonifiedresponse.data.length > 0) {
+    //                 url = jsonifiedresponse.data[0].preview;
+    //                 setAudioPreviewUrl(url);
+    //             }
+    //         } else {
+    //             console.log('no api response')
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         setAudioUnavailable(true);
+    //     }
+    // }
 
     const updateGuessedArtists = async (boolean) => {
         if (userId && artist !== "") {
@@ -1288,10 +1300,6 @@ const MainGame = () => {
                                 GIVE UP
                             </button>
                             <div id='timerAndScore'>
-                                <div id='musicHints'>
-                                    <img id='hintIcon' src={playPauseIcon} alt='audio hint icon' onClick={!helpOpen ? playMusic : undefined} />
-                                    <p id='musicHintsNumber' style={{ display: hints > 0 ? '' : 'none' }} >{hints}</p>
-                                </div>
                                 <div id='firstLetterHints'>
                                     <img id='firstLetterIcon' src={firstTile} alt='first letter hint icon' onClick={!helpOpen ? applyFirstLetterHint : undefined} />
                                     <p id='firstLetterHintsNumber' style={{ display: firstLetterHints > 0 ? '' : 'none' }} >{firstLetterHints}</p>
@@ -1355,10 +1363,6 @@ const MainGame = () => {
                         <h3>Hints:</h3>
                         <p>As you rack up points, you will periodically earn hints, which can be used when you are stuck on a puzzle to help determine the solution. The number available of a given hint will appear in a red circle atop its icon. Keep in mind you can't bank more than 9 of any given hint.</p>
                         <div className='hintInstructionRow'>
-                            <img className='instructionImg' src={audioHintIconScreenshot} alt='audio hint icon' />
-                            <p className='instructionText'>Clicking the play/pause icon will play a 30 second sample of one of the artist's songs (and set the timer to 30 seconds remaining). Click again to pause.</p>
-                        </div>
-                        <div className='hintInstructionRow'>
                             <img className='instructionImg' src={firstTileHintIconScreenshot} alt='first tile hint icon' />
                             <p className='instructionText'>Clicking the 1st tile icon will reveal the correct first letter of the artist's name (and set the timer to 30 seconds remaining).</p>
                         </div>
@@ -1374,7 +1378,6 @@ const MainGame = () => {
                         <h1>{bioArtistName}</h1>
                     </div>
                     <p id='artistBio'>{discogsBio}</p>
-                    <audio id='bioAudio' controls src={audioPreviewUrl} controlsList='nodownload noplaybackrate'></audio>
                 </div>
             </div>
             <div className='menuContainer'>
