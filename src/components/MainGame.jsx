@@ -16,6 +16,7 @@ import { soulFunkData } from '../data/SoulFunkData';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
+import { allDataObject } from '../Data';
 
 import 'animate.css';
 import '../App.css';
@@ -468,8 +469,8 @@ const MainGame = () => {
             console.log(newArtist);
             // Discogs(newArtist);
             setBioArtistName(formatBioName(newArtist));
-            setDiscogsBio("TESTING BIO TESTING");
-            setImageUrl('https://deafdogsrock.com/wp-content/uploads/2011/07/cute-puppy-dog-wallpapers.jpg')
+            setDiscogsBio(allDataObject[newArtist].bio);
+            setImageUrl(allDataObject[newArtist].image);
             setArtist(newArtist);
             playShuffle();
             // Deezer(newArtist);
