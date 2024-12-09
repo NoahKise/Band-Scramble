@@ -20,7 +20,7 @@ A web app game where users are presented with scrambled letter tiles, and must f
     * New place for setDiscogsBio (line 471)
     * Clean name function  -->
 * Hard code artist images
-* Hard code artist bios
+<!-- * Hard code artist bios -->
 <!-- * Remove Deezer API 
     * Remove references to setAudioPreviewUrl
     * Remove references to setAudioUnavailable -->
