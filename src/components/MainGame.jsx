@@ -489,8 +489,8 @@ const MainGame = () => {
             console.log(newArtist);
             // Discogs(newArtist);
             setBioArtistName(formatBioName(newArtist));
-            setDiscogsBio(dailyMode ? dailyBio : allDataObject[newArtist].bio);
-            setImageUrl(dailyMode ? dailyImage : allDataObject[newArtist].image);
+            setDiscogsBio(dailyModeTracker != false ? dailyBio : allDataObject[newArtist].bio);
+            setImageUrl(dailyModeTracker != false ? dailyImage : allDataObject[newArtist].image);
             setArtist(newArtist);
             playShuffle();
             // Deezer(newArtist);
