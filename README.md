@@ -8,7 +8,7 @@ A web app game where users are presented with scrambled letter tiles, and must f
 ## To Do
 <!-- * Remove genre selection page 
     * MainGame.jsx line 116 changing default state to true accomplishes this while leaving option for future implementation -->
-* Add daily mode imageURL
+<!-- * Add daily mode imageURL -->
 <!-- * Remove audio hint button 
     * References to "hints" are audio hints -->
 <!-- * Remove audio snippet from band bio  -->
@@ -19,7 +19,7 @@ A web app game where users are presented with scrambled letter tiles, and must f
     * New place for setImageUrl (line 472)
     * New place for setDiscogsBio (line 471)
     * Clean name function  -->
-* Hard code artist images
+<!-- * Hard code artist images -->
 <!-- * Hard code artist bios -->
 <!-- * Remove Deezer API 
     * Remove references to setAudioPreviewUrl
