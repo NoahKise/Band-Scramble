@@ -464,9 +464,9 @@ const MainGame = () => {
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length);
-                // newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                newArtist = remainder[index]; // to test with specific string set newArtist to test value
 
-                newArtist = "JIMI HENDRIX";
+                // newArtist = "JIMI HENDRIX";
 
                 if (dailyModeBioButton) {
                     setDailyModeBioButton(false);
