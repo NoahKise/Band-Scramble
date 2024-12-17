@@ -99,6 +99,7 @@ const MainGame = () => {
     const [dailyMode, setDailyMode] = useState(true);
     const [dailyPick, setDailyPick] = useState("");
     const [dailyInstagram, setDailyInstagram] = useState("");
+    const [dailyImage, setDailyImage] = useState("");
     const [dailyYoutube, setDailyYoutube] = useState("");
     const [dailyBio, setDailyBio] = useState("");
     const [audioUnavailable, setAudioUnavailable] = useState(false);
@@ -255,6 +256,25 @@ const MainGame = () => {
             }
         };
         fetchDailyInstagram();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchDailyImage = async () => {
+            try {
+                const dailyImageDoc = await getDoc(doc(db, "dailyImage", '1'));
+                if (dailyImageDoc.exists()) {
+                    const dailyImageData = dailyImageDoc.data();
+                    const dailyImageArray = dailyImageData.url;
+                    const dailyImage = dailyImageArray[dailyImageArray.length - 1];
+                    setDailyImage(dailyImage);
+                } else {
+                    console.log("Daily image document does not exist");
+                }
+            } catch (error) {
+                console.error("Error fetching daily image:", error);
+            }
+        };
+        fetchDailyImage();
     }, [userId]);
 
     useEffect(() => {
@@ -469,8 +489,8 @@ const MainGame = () => {
             console.log(newArtist);
             // Discogs(newArtist);
             setBioArtistName(formatBioName(newArtist));
-            setDiscogsBio(allDataObject[newArtist].bio);
-            setImageUrl(allDataObject[newArtist].image);
+            setDiscogsBio(dailyMode ? dailyBio : allDataObject[newArtist].bio);
+            setImageUrl(dailyMode ? dailyImage : allDataObject[newArtist].image);
             setArtist(newArtist);
             playShuffle();
             // Deezer(newArtist);
@@ -1255,7 +1275,7 @@ const MainGame = () => {
                                 <p id='bioButton'
                                     onClick={dailyModeBioButton ? toggleDailyBio : toggleBio} style={{ display: revealed ? '' : 'none' }}
                                     className={'animate__animated animate__heartBeat'}>i</p>
-                                <img src={imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
+                                <img src={dailyMode ? dailyImage : imageURL} alt='quizzed artist' style={{ filter: revealed ? "none" : `blur(${blurAmount}px)` }} id='gameImage' />
                                 <input
                                     type='text'
                                     id='guess'
