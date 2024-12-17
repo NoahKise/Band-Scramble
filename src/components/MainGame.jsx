@@ -63,6 +63,7 @@ import instagramIcon from '../assets/images/instagramIcon.png'
 import coinGif from '../assets/images/coin.gif'
 import exampleGameplayGif from '../assets/images/exampleGameplay.gif'
 import clues from '../assets/images/clues.gif'
+import helpGif from '../assets/images/helpGif.gif'
 
 import whoosh from '../assets/sounds/whoosh.mp3'
 import twinkle from '../assets/sounds/twinkle.mp3'
@@ -463,9 +464,9 @@ const MainGame = () => {
             if (dailyModeTracker === false) {
                 const remainder = allData.filter((element) => answerPool.includes(element));
                 const index = Math.floor(Math.random() * remainder.length);
-                newArtist = remainder[index]; // to test with specific string set newArtist to test value
+                // newArtist = remainder[index]; // to test with specific string set newArtist to test value
 
-                // newArtist = "HOOTIE AND THE BLOWFISH";
+                newArtist = "JIMI HENDRIX";
 
                 if (dailyModeBioButton) {
                     setDailyModeBioButton(false);
@@ -1348,7 +1349,7 @@ const MainGame = () => {
                         <h3>Controls:</h3>
                         <div className='instructionRow'>
                             <p>Clicking a tile will move it to the solution area. On desktop, you may alternatively type letters on the keyboard to move tiles. Spaces are inserted automatically.<br></br><br></br>Clicking inside the solution area will recall the last letter to the tile bank. On desktop, you may alternatively press the backspace/delete key.</p>
-                            <img className='gameplayExample' src={exampleGameplayGif} alt='gameplay example' />
+                            <img className='gameplayExample' src={helpGif} alt='gameplay example' />
                         </div>
                         <div className='instructionRow'>
                             <img className='instructionImg' src={recallTilesScreenshot} alt='recall tiles icon' />
@@ -1373,8 +1374,8 @@ const MainGame = () => {
                         <p></p>
                         <h3>Clues:</h3>
                         <div className='instructionRow'>
-                            <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 7 letter word followed by a 4 letter word. Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
-                            <img id='clues' src={clues} alt='gameplay example' />
+                            <p>Look to the structure of the dashes to determine where spaces go. In this example, the artist name is a 4 letter word followed by a 7 letter word. Try looking at the blurred image of the artist. It will gradually reveal itself as the timer ticks closer to zero.</p>
+                            <img id='clues' src={helpGif} alt='gameplay example' />
                         </div>
                         <h3>Scoring:</h3>
                         <p>When you successfully complete a round by guessing the correct artist name, you will receive points based on the difficulty of the puzzle and the speed at which you solved it.</p>
